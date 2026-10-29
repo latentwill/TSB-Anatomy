@@ -181,6 +181,17 @@ def build(height=1.7):
             vertices *= final_scale
             mesh = trimesh.Trimesh(vertices=vertices, faces=faces[name], process=False)
             if not np.isfinite(mesh.area_faces).all() or np.any(mesh.area_faces < 1e-16):
+                bad = np.flatnonzero(mesh.area_faces < 1e-16)
+                evidence = {'mean': mesh.area_faces[bad].tolist(), 'faces': bad.tolist(), 'sourceAreas': {}}
+                with h5py.File(RAW / 'NM_combined.mat', 'r') as source:
+                    for subject_id in sorted(source['NM_combined']):
+                        if metadata[subject_id]['sex_code'].lower() != sex:
+                            continue
+                        points = source['NM_combined'][subject_id][name]['Registered'][()].T
+                        triangles = points[faces[name][bad]]
+                        areas = np.linalg.norm(np.cross(triangles[:, 1] - triangles[:, 0], triangles[:, 2] - triangles[:, 0]), axis=1) / 2
+                        evidence['sourceAreas'][subject_id] = areas.tolist()
+                print('[DEBUG-degeneracy] ' + json.dumps(evidence), flush=True)
                 raise ValueError(f'{sex}/{name}: degenerate mean surface')
             mesh.visual = trimesh.visual.TextureVisuals(material=material)
             scene.add_geometry(mesh, node_name=name, geom_name=name, metadata={'sourceStructure': name, 'license': 'CC-BY-SA-4.0'})
