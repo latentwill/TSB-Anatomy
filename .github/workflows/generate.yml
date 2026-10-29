@@ -1,4 +1,4 @@
-name: Source inspection
+name: Generate atlas
 on:
   workflow_dispatch:
 permissions:
@@ -17,9 +17,13 @@ jobs:
           key: openskeleton-22833546-verified-v1
       - run: uv run python scripts/fetch_source.py
       - run: uv run python scripts/fetch_source.py --geometry
+      - run: uv run python scripts/build_atlas.py
       - run: uv run python scripts/inspect_source.py
       - uses: actions/upload-artifact@v4
         with:
-          name: source-inventory
-          path: reports/source-inventory.json
+          name: skeletal-atlas
+          path: |
+            reports/
+            public/models/
+            data/derived/
           if-no-files-found: error

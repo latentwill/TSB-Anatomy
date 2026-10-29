@@ -1,0 +1,2595 @@
+{
+  "cohort": {
+    "Male": 51,
+    "Female": 51
+  },
+  "faces": {
+    "Faces": {
+      "FHead": {
+        "shape": [
+          192145,
+          3
+        ],
+        "min": 1,
+        "max": 96028
+      },
+      "FJaw": {
+        "shape": [
+          27688,
+          3
+        ],
+        "min": 1,
+        "max": 13846
+      },
+      "FC1": {
+        "shape": [
+          10754,
+          3
+        ],
+        "min": 1,
+        "max": 5373
+      },
+      "FC2": {
+        "shape": [
+          10904,
+          3
+        ],
+        "min": 1,
+        "max": 5448
+      },
+      "FC3": {
+        "shape": [
+          9318,
+          3
+        ],
+        "min": 1,
+        "max": 4655
+      },
+      "FC4": {
+        "shape": [
+          9318,
+          3
+        ],
+        "min": 1,
+        "max": 4655
+      },
+      "FC5": {
+        "shape": [
+          9318,
+          3
+        ],
+        "min": 1,
+        "max": 4655
+      },
+      "FC6": {
+        "shape": [
+          9318,
+          3
+        ],
+        "min": 1,
+        "max": 4655
+      },
+      "FC7": {
+        "shape": [
+          9318,
+          3
+        ],
+        "min": 1,
+        "max": 4655
+      },
+      "FClavicula_R": {
+        "shape": [
+          10386,
+          3
+        ],
+        "min": 1,
+        "max": 5195
+      },
+      "FScapula_R": {
+        "shape": [
+          40472,
+          3
+        ],
+        "min": 1,
+        "max": 20238
+      },
+      "FHumerus_R": {
+        "shape": [
+          26272,
+          3
+        ],
+        "min": 1,
+        "max": 13138
+      },
+      "FRadius_R": {
+        "shape": [
+          17098,
+          3
+        ],
+        "min": 1,
+        "max": 8551
+      },
+      "FUlna_R": {
+        "shape": [
+          17136,
+          3
+        ],
+        "min": 1,
+        "max": 8570
+      },
+      "FHandLuna_R": {
+        "shape": [
+          696,
+          3
+        ],
+        "min": 1,
+        "max": 350
+      },
+      "FHandScaphoid_R": {
+        "shape": [
+          1416,
+          3
+        ],
+        "min": 1,
+        "max": 710
+      },
+      "FHandPisiform_R": {
+        "shape": [
+          2176,
+          3
+        ],
+        "min": 1,
+        "max": 1090
+      },
+      "FHandHamata_R": {
+        "shape": [
+          1186,
+          3
+        ],
+        "min": 1,
+        "max": 595
+      },
+      "FHandCapitatum_R": {
+        "shape": [
+          1226,
+          3
+        ],
+        "min": 1,
+        "max": 615
+      },
+      "FHandTrapezoideum_R": {
+        "shape": [
+          896,
+          3
+        ],
+        "min": 1,
+        "max": 450
+      },
+      "FHandMeta1_R": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FHandMeta2_R": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FHandMeta3_R": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FHandMeta4_R": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FHandMeta5_R": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FHandProxP1_R": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FHandProxP2_R": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FHandProxP3_R": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FHandProxP4_R": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FHandProxP5_R": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FHandMidP2_R": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FHandMidP3_R": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FHandMidP4_R": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FHandMidP5_R": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FHandDistP1_R": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FHandDistP2_R": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FHandDistP3_R": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FHandDistP4_R": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FHandDistP5_R": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FClavicula_L": {
+        "shape": [
+          10386,
+          3
+        ],
+        "min": 1,
+        "max": 5195
+      },
+      "FScapula_L": {
+        "shape": [
+          40472,
+          3
+        ],
+        "min": 1,
+        "max": 20238
+      },
+      "FHumerus_L": {
+        "shape": [
+          26272,
+          3
+        ],
+        "min": 1,
+        "max": 13138
+      },
+      "FRadius_L": {
+        "shape": [
+          17098,
+          3
+        ],
+        "min": 1,
+        "max": 8551
+      },
+      "FUlna_L": {
+        "shape": [
+          17136,
+          3
+        ],
+        "min": 1,
+        "max": 8570
+      },
+      "FHandLuna_L": {
+        "shape": [
+          696,
+          3
+        ],
+        "min": 1,
+        "max": 350
+      },
+      "FHandScaphoid_L": {
+        "shape": [
+          1416,
+          3
+        ],
+        "min": 1,
+        "max": 710
+      },
+      "FHandPisiform_L": {
+        "shape": [
+          2176,
+          3
+        ],
+        "min": 1,
+        "max": 1090
+      },
+      "FHandHamata_L": {
+        "shape": [
+          1186,
+          3
+        ],
+        "min": 1,
+        "max": 595
+      },
+      "FHandCapitatum_L": {
+        "shape": [
+          1226,
+          3
+        ],
+        "min": 1,
+        "max": 615
+      },
+      "FHandTrapezoideum_L": {
+        "shape": [
+          896,
+          3
+        ],
+        "min": 1,
+        "max": 450
+      },
+      "FHandMeta1_L": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FHandMeta2_L": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FHandMeta3_L": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FHandMeta4_L": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FHandMeta5_L": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FHandProxP1_L": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FHandProxP2_L": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FHandProxP3_L": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FHandProxP4_L": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FHandProxP5_L": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FHandMidP2_L": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FHandMidP3_L": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FHandMidP4_L": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FHandMidP5_L": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FHandDistP1_L": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FHandDistP2_L": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FHandDistP3_L": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FHandDistP4_L": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FHandDistP5_L": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FRib1_R": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib2_R": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib3_R": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib4_R": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib5_R": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib6_R": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib7_R": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib8_R": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib9_R": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib10_R": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib11_R": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib12_R": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib1_L": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib2_L": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib3_L": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib4_L": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib5_L": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib6_L": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib7_L": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib8_L": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib9_L": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib10_L": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib11_L": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FRib12_L": {
+        "shape": [
+          3740,
+          3
+        ],
+        "min": 1,
+        "max": 1872
+      },
+      "FSternum": {
+        "shape": [
+          18695,
+          3
+        ],
+        "min": 1,
+        "max": 9352
+      },
+      "FT1": {
+        "shape": [
+          10664,
+          3
+        ],
+        "min": 1,
+        "max": 5332
+      },
+      "FT2": {
+        "shape": [
+          10664,
+          3
+        ],
+        "min": 1,
+        "max": 5332
+      },
+      "FT3": {
+        "shape": [
+          10664,
+          3
+        ],
+        "min": 1,
+        "max": 5332
+      },
+      "FT4": {
+        "shape": [
+          10664,
+          3
+        ],
+        "min": 1,
+        "max": 5332
+      },
+      "FT5": {
+        "shape": [
+          10664,
+          3
+        ],
+        "min": 1,
+        "max": 5332
+      },
+      "FT6": {
+        "shape": [
+          10664,
+          3
+        ],
+        "min": 1,
+        "max": 5332
+      },
+      "FT7": {
+        "shape": [
+          10664,
+          3
+        ],
+        "min": 1,
+        "max": 5332
+      },
+      "FT8": {
+        "shape": [
+          10664,
+          3
+        ],
+        "min": 1,
+        "max": 5332
+      },
+      "FT9": {
+        "shape": [
+          10664,
+          3
+        ],
+        "min": 1,
+        "max": 5332
+      },
+      "FT10": {
+        "shape": [
+          10664,
+          3
+        ],
+        "min": 1,
+        "max": 5332
+      },
+      "FT11": {
+        "shape": [
+          10664,
+          3
+        ],
+        "min": 1,
+        "max": 5332
+      },
+      "FT12": {
+        "shape": [
+          10664,
+          3
+        ],
+        "min": 1,
+        "max": 5332
+      },
+      "FL1": {
+        "shape": [
+          12564,
+          3
+        ],
+        "min": 1,
+        "max": 6282
+      },
+      "FL2": {
+        "shape": [
+          12564,
+          3
+        ],
+        "min": 1,
+        "max": 6282
+      },
+      "FL3": {
+        "shape": [
+          12564,
+          3
+        ],
+        "min": 1,
+        "max": 6282
+      },
+      "FL4": {
+        "shape": [
+          12564,
+          3
+        ],
+        "min": 1,
+        "max": 6282
+      },
+      "FL5": {
+        "shape": [
+          12564,
+          3
+        ],
+        "min": 1,
+        "max": 6282
+      },
+      "FSacrum": {
+        "shape": [
+          42061,
+          3
+        ],
+        "min": 1,
+        "max": 20999
+      },
+      "FPelvis_R": {
+        "shape": [
+          51934,
+          3
+        ],
+        "min": 1,
+        "max": 25967
+      },
+      "FFemur_R": {
+        "shape": [
+          42188,
+          3
+        ],
+        "min": 1,
+        "max": 21096
+      },
+      "FPatella_R": {
+        "shape": [
+          7646,
+          3
+        ],
+        "min": 1,
+        "max": 3825
+      },
+      "FTibia_R": {
+        "shape": [
+          43978,
+          3
+        ],
+        "min": 1,
+        "max": 21991
+      },
+      "FFibula_R": {
+        "shape": [
+          34408,
+          3
+        ],
+        "min": 1,
+        "max": 17206
+      },
+      "FTal_R": {
+        "shape": [
+          8092,
+          3
+        ],
+        "min": 1,
+        "max": 4048
+      },
+      "FCal_R": {
+        "shape": [
+          11544,
+          3
+        ],
+        "min": 1,
+        "max": 5774
+      },
+      "FNav_R": {
+        "shape": [
+          2636,
+          3
+        ],
+        "min": 1,
+        "max": 1320
+      },
+      "FMedCun_R": {
+        "shape": [
+          2116,
+          3
+        ],
+        "min": 1,
+        "max": 1060
+      },
+      "FInterCun_R": {
+        "shape": [
+          2186,
+          3
+        ],
+        "min": 1,
+        "max": 1095
+      },
+      "FLatCun_R": {
+        "shape": [
+          1576,
+          3
+        ],
+        "min": 1,
+        "max": 790
+      },
+      "FCub_R": {
+        "shape": [
+          2616,
+          3
+        ],
+        "min": 1,
+        "max": 1310
+      },
+      "FFootMeta1_R": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FFootMeta2_R": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FFootMeta3_R": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FFootMeta4_R": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FFootMeta5_R": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FFootProxP1_R": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FFootProxP2_R": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FFootProxP3_R": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FFootProxP4_R": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FFootProxP5_R": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FFootMidP2_R": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FFootMidP3_R": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FFootMidP4_R": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FFootMidP5_R": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FFootDistP1_R": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FFootDistP2_R": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FFootDistP3_R": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FFootDistP4_R": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FFootDistP5_R": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FFootSesaMed_R": {
+        "shape": [
+          496,
+          3
+        ],
+        "min": 1,
+        "max": 250
+      },
+      "FFootSesaLat_R": {
+        "shape": [
+          496,
+          3
+        ],
+        "min": 1,
+        "max": 250
+      },
+      "FPelvis_L": {
+        "shape": [
+          51934,
+          3
+        ],
+        "min": 1,
+        "max": 25967
+      },
+      "FFemur_L": {
+        "shape": [
+          42188,
+          3
+        ],
+        "min": 1,
+        "max": 21096
+      },
+      "FPatella_L": {
+        "shape": [
+          7646,
+          3
+        ],
+        "min": 1,
+        "max": 3825
+      },
+      "FTibia_L": {
+        "shape": [
+          43978,
+          3
+        ],
+        "min": 1,
+        "max": 21991
+      },
+      "FFibula_L": {
+        "shape": [
+          34408,
+          3
+        ],
+        "min": 1,
+        "max": 17206
+      },
+      "FTal_L": {
+        "shape": [
+          8092,
+          3
+        ],
+        "min": 1,
+        "max": 4048
+      },
+      "FCal_L": {
+        "shape": [
+          11544,
+          3
+        ],
+        "min": 1,
+        "max": 5774
+      },
+      "FNav_L": {
+        "shape": [
+          2636,
+          3
+        ],
+        "min": 1,
+        "max": 1320
+      },
+      "FMedCun_L": {
+        "shape": [
+          2116,
+          3
+        ],
+        "min": 1,
+        "max": 1060
+      },
+      "FInterCun_L": {
+        "shape": [
+          2186,
+          3
+        ],
+        "min": 1,
+        "max": 1095
+      },
+      "FLatCun_L": {
+        "shape": [
+          1576,
+          3
+        ],
+        "min": 1,
+        "max": 790
+      },
+      "FCub_L": {
+        "shape": [
+          2616,
+          3
+        ],
+        "min": 1,
+        "max": 1310
+      },
+      "FFootMeta1_L": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FFootMeta2_L": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FFootMeta3_L": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FFootMeta4_L": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FFootMeta5_L": {
+        "shape": [
+          3356,
+          3
+        ],
+        "min": 1,
+        "max": 1680
+      },
+      "FFootProxP1_L": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FFootProxP2_L": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FFootProxP3_L": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FFootProxP4_L": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FFootProxP5_L": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FFootMidP2_L": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FFootMidP3_L": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FFootMidP4_L": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FFootMidP5_L": {
+        "shape": [
+          1766,
+          3
+        ],
+        "min": 1,
+        "max": 885
+      },
+      "FFootDistP1_L": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FFootDistP2_L": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FFootDistP3_L": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FFootDistP4_L": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FFootDistP5_L": {
+        "shape": [
+          836,
+          3
+        ],
+        "min": 1,
+        "max": 420
+      },
+      "FFootSesaMed_L": {
+        "shape": [
+          496,
+          3
+        ],
+        "min": 1,
+        "max": 250
+      },
+      "FFootSesaLat_L": {
+        "shape": [
+          496,
+          3
+        ],
+        "min": 1,
+        "max": 250
+      },
+      "FHandTrapezium_R": {
+        "shape": [
+          796,
+          3
+        ],
+        "min": 1,
+        "max": 400
+      },
+      "FHandTrapezium_L": {
+        "shape": [
+          796,
+          3
+        ],
+        "min": 1,
+        "max": 400
+      },
+      "FHandTriquetrum_R": {
+        "shape": [
+          616,
+          3
+        ],
+        "min": 1,
+        "max": 310
+      },
+      "FHandTriquetrum_L": {
+        "shape": [
+          616,
+          3
+        ],
+        "min": 1,
+        "max": 310
+      }
+    }
+  },
+  "root_keys": [
+    "#refs#",
+    "#subsystem#",
+    "NM_combined",
+    "cases_nm",
+    "namesstructures"
+  ],
+  "geometry": {
+    "keys": [
+      "N101065",
+      "N101083",
+      "N101106",
+      "N101356",
+      "N101440",
+      "N101510",
+      "N101595",
+      "N102041",
+      "N102321",
+      "N102519",
+      "N102924",
+      "N102929",
+      "N103063",
+      "N103201",
+      "N103250",
+      "N103466",
+      "N103714",
+      "N103905",
+      "N104004",
+      "N181069",
+      "N181464",
+      "N181562",
+      "N182020",
+      "N182129",
+      "N182231",
+      "N182392",
+      "N182513",
+      "N182569",
+      "N182630",
+      "N182653",
+      "N182863",
+      "N184363",
+      "N184652",
+      "N184782",
+      "N184898",
+      "N185981",
+      "N186205",
+      "N186268",
+      "N186416",
+      "N186602",
+      "N187374",
+      "N187697",
+      "N187928",
+      "N188451",
+      "N188465",
+      "N188784",
+      "N189150",
+      "N190069",
+      "N190087",
+      "N190518",
+      "N191022",
+      "N191831",
+      "N191979",
+      "N192005",
+      "N192037",
+      "N193524",
+      "N194686",
+      "N194815",
+      "N195712",
+      "N195746",
+      "N195803",
+      "N195820",
+      "N195877",
+      "N195907",
+      "N195916",
+      "N195918",
+      "N195941",
+      "N195989",
+      "N196053",
+      "N196065",
+      "N196442",
+      "N196448",
+      "N196532",
+      "N196732",
+      "N196969",
+      "N197064",
+      "N197197",
+      "N197219",
+      "N197519",
+      "N197760",
+      "N197802",
+      "N197925",
+      "N198088",
+      "N198158",
+      "N198470",
+      "N198501",
+      "N198548",
+      "N198632",
+      "N198732",
+      "N198764",
+      "N198861",
+      "N199063",
+      "N199103",
+      "N199111",
+      "N199148",
+      "N199198",
+      "N199375",
+      "N199491",
+      "N199537",
+      "N199731",
+      "N199761",
+      "N199938"
+    ],
+    "sample": {
+      "N101065": {
+        "keys": [
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "Cal_L",
+          "Cal_R",
+          "Clavicula_L",
+          "Clavicula_R",
+          "Cub_L",
+          "Cub_R",
+          "Femur_L",
+          "Femur_R",
+          "Fibula_L",
+          "Fibula_R",
+          "FootDistP1_L",
+          "FootDistP1_R",
+          "FootDistP2_L",
+          "FootDistP2_R",
+          "FootDistP3_L",
+          "FootDistP3_R",
+          "FootDistP4_L",
+          "FootDistP4_R",
+          "FootDistP5_L",
+          "FootDistP5_R",
+          "FootMeta1_L",
+          "FootMeta1_R",
+          "FootMeta2_L",
+          "FootMeta2_R",
+          "FootMeta3_L",
+          "FootMeta3_R",
+          "FootMeta4_L",
+          "FootMeta4_R",
+          "FootMeta5_L",
+          "FootMeta5_R",
+          "FootMidP2_L",
+          "FootMidP2_R",
+          "FootMidP3_L",
+          "FootMidP3_R",
+          "FootMidP4_L",
+          "FootMidP4_R",
+          "FootMidP5_L",
+          "FootMidP5_R",
+          "FootProxP1_L",
+          "FootProxP1_R",
+          "FootProxP2_L",
+          "FootProxP2_R",
+          "FootProxP3_L",
+          "FootProxP3_R",
+          "FootProxP4_L",
+          "FootProxP4_R",
+          "FootProxP5_L",
+          "FootProxP5_R",
+          "FootSesaLat_L",
+          "FootSesaLat_R",
+          "FootSesaMed_L",
+          "FootSesaMed_R",
+          "HandCapitatum_L",
+          "HandCapitatum_R",
+          "HandDistP1_L",
+          "HandDistP1_R",
+          "HandDistP2_L",
+          "HandDistP2_R",
+          "HandDistP3_L",
+          "HandDistP3_R",
+          "HandDistP4_L",
+          "HandDistP4_R",
+          "HandDistP5_L",
+          "HandDistP5_R",
+          "HandHamata_L",
+          "HandHamata_R",
+          "HandLuna_L",
+          "HandLuna_R",
+          "HandMeta1_L",
+          "HandMeta1_R",
+          "HandMeta2_L",
+          "HandMeta2_R",
+          "HandMeta3_L",
+          "HandMeta3_R",
+          "HandMeta4_L",
+          "HandMeta4_R",
+          "HandMeta5_L",
+          "HandMeta5_R",
+          "HandMidP2_L",
+          "HandMidP2_R",
+          "HandMidP3_L",
+          "HandMidP3_R",
+          "HandMidP4_L",
+          "HandMidP4_R",
+          "HandMidP5_L",
+          "HandMidP5_R",
+          "HandPisiform_L",
+          "HandPisiform_R",
+          "HandProxP1_L",
+          "HandProxP1_R",
+          "HandProxP2_L",
+          "HandProxP2_R",
+          "HandProxP3_L",
+          "HandProxP3_R",
+          "HandProxP4_L",
+          "HandProxP4_R",
+          "HandProxP5_L",
+          "HandProxP5_R",
+          "HandScaphoid_L",
+          "HandScaphoid_R",
+          "HandTrapezium_L",
+          "HandTrapezium_R",
+          "HandTrapezoideum_L",
+          "HandTrapezoideum_R",
+          "HandTriquetrum_L",
+          "HandTriquetrum_R",
+          "Head",
+          "Humerus_L",
+          "Humerus_R",
+          "InterCun_L",
+          "InterCun_R",
+          "Jaw",
+          "L1",
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "LatCun_L",
+          "LatCun_R",
+          "MedCun_L",
+          "MedCun_R",
+          "Nav_L",
+          "Nav_R",
+          "Patella_L",
+          "Patella_R",
+          "Pelvis_L",
+          "Pelvis_R",
+          "Radius_L",
+          "Radius_R",
+          "Rib10_L",
+          "Rib10_R",
+          "Rib11_L",
+          "Rib11_R",
+          "Rib12_L",
+          "Rib12_R",
+          "Rib1_L",
+          "Rib1_R",
+          "Rib2_L",
+          "Rib2_R",
+          "Rib3_L",
+          "Rib3_R",
+          "Rib4_L",
+          "Rib4_R",
+          "Rib5_L",
+          "Rib5_R",
+          "Rib6_L",
+          "Rib6_R",
+          "Rib7_L",
+          "Rib7_R",
+          "Rib8_L",
+          "Rib8_R",
+          "Rib9_L",
+          "Rib9_R",
+          "Sacrum",
+          "Scapula_L",
+          "Scapula_R",
+          "Sternum",
+          "T1",
+          "T10",
+          "T11",
+          "T12",
+          "T2",
+          "T3",
+          "T4",
+          "T5",
+          "T6",
+          "T7",
+          "T8",
+          "T9",
+          "Tal_L",
+          "Tal_R",
+          "Tibia_L",
+          "Tibia_R",
+          "Ulna_L",
+          "Ulna_R"
+        ],
+        "sample": {
+          "C1": {
+            "keys": [
+              "FRegistered",
+              "Registered"
+            ],
+            "sample": {
+              "FRegistered": {
+                "shape": [
+                  3,
+                  10754
+                ],
+                "dtype": "float64",
+                "min": 1.0,
+                "max": 5373.0,
+                "bounds": [
+                  [
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  [
+                    5373.0,
+                    5373.0,
+                    5373.0
+                  ]
+                ]
+              },
+              "Registered": {
+                "shape": [
+                  3,
+                  5373
+                ],
+                "dtype": "float64",
+                "min": -59.853511233402415,
+                "max": 129.70212905568755,
+                "bounds": [
+                  [
+                    -59.853511233402415,
+                    85.21050130477758,
+                    69.59470623625907
+                  ],
+                  [
+                    17.93051679106074,
+                    129.70212905568755,
+                    95.20124780760511
+                  ]
+                ]
+              }
+            }
+          },
+          "C2": {
+            "keys": [
+              "FRegistered",
+              "Registered"
+            ],
+            "sample": {
+              "FRegistered": {
+                "shape": [
+                  3,
+                  10904
+                ],
+                "dtype": "float64",
+                "min": 1.0,
+                "max": 5448.0,
+                "bounds": [
+                  [
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  [
+                    5448.0,
+                    5448.0,
+                    5448.0
+                  ]
+                ]
+              },
+              "Registered": {
+                "shape": [
+                  3,
+                  5448
+                ],
+                "dtype": "float64",
+                "min": -44.1599671689401,
+                "max": 137.63087918488503,
+                "bounds": [
+                  [
+                    -44.1599671689401,
+                    90.52020063281299,
+                    51.89098275175158
+                  ],
+                  [
+                    10.6490037696015,
+                    137.63087918488503,
+                    96.03721210990201
+                  ]
+                ]
+              }
+            }
+          },
+          "C3": {
+            "keys": [
+              "FRegistered",
+              "Registered"
+            ],
+            "sample": {
+              "FRegistered": {
+                "shape": [
+                  3,
+                  9318
+                ],
+                "dtype": "float64",
+                "min": 1.0,
+                "max": 4655.0,
+                "bounds": [
+                  [
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  [
+                    4655.0,
+                    4655.0,
+                    4655.0
+                  ]
+                ]
+              },
+              "Registered": {
+                "shape": [
+                  3,
+                  4655
+                ],
+                "dtype": "float64",
+                "min": -42.05994198394851,
+                "max": 132.59953393795166,
+                "bounds": [
+                  [
+                    -42.05994198394851,
+                    91.93396568795805,
+                    36.79685217482313
+                  ],
+                  [
+                    8.582672745501519,
+                    132.59953393795166,
+                    59.86749714751494
+                  ]
+                ]
+              }
+            }
+          }
+        }
+      },
+      "N101083": {
+        "keys": [
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "Cal_L",
+          "Cal_R",
+          "Clavicula_L",
+          "Clavicula_R",
+          "Cub_L",
+          "Cub_R",
+          "Femur_L",
+          "Femur_R",
+          "Fibula_L",
+          "Fibula_R",
+          "FootDistP1_L",
+          "FootDistP1_R",
+          "FootDistP2_L",
+          "FootDistP2_R",
+          "FootDistP3_L",
+          "FootDistP3_R",
+          "FootDistP4_L",
+          "FootDistP4_R",
+          "FootDistP5_L",
+          "FootDistP5_R",
+          "FootMeta1_L",
+          "FootMeta1_R",
+          "FootMeta2_L",
+          "FootMeta2_R",
+          "FootMeta3_L",
+          "FootMeta3_R",
+          "FootMeta4_L",
+          "FootMeta4_R",
+          "FootMeta5_L",
+          "FootMeta5_R",
+          "FootMidP2_L",
+          "FootMidP2_R",
+          "FootMidP3_L",
+          "FootMidP3_R",
+          "FootMidP4_L",
+          "FootMidP4_R",
+          "FootMidP5_L",
+          "FootMidP5_R",
+          "FootProxP1_L",
+          "FootProxP1_R",
+          "FootProxP2_L",
+          "FootProxP2_R",
+          "FootProxP3_L",
+          "FootProxP3_R",
+          "FootProxP4_L",
+          "FootProxP4_R",
+          "FootProxP5_L",
+          "FootProxP5_R",
+          "FootSesaLat_L",
+          "FootSesaLat_R",
+          "FootSesaMed_L",
+          "FootSesaMed_R",
+          "HandCapitatum_L",
+          "HandCapitatum_R",
+          "HandDistP1_L",
+          "HandDistP1_R",
+          "HandDistP2_L",
+          "HandDistP2_R",
+          "HandDistP3_L",
+          "HandDistP3_R",
+          "HandDistP4_L",
+          "HandDistP4_R",
+          "HandDistP5_L",
+          "HandDistP5_R",
+          "HandHamata_L",
+          "HandHamata_R",
+          "HandLuna_L",
+          "HandLuna_R",
+          "HandMeta1_L",
+          "HandMeta1_R",
+          "HandMeta2_L",
+          "HandMeta2_R",
+          "HandMeta3_L",
+          "HandMeta3_R",
+          "HandMeta4_L",
+          "HandMeta4_R",
+          "HandMeta5_L",
+          "HandMeta5_R",
+          "HandMidP2_L",
+          "HandMidP2_R",
+          "HandMidP3_L",
+          "HandMidP3_R",
+          "HandMidP4_L",
+          "HandMidP4_R",
+          "HandMidP5_L",
+          "HandMidP5_R",
+          "HandPisiform_L",
+          "HandPisiform_R",
+          "HandProxP1_L",
+          "HandProxP1_R",
+          "HandProxP2_L",
+          "HandProxP2_R",
+          "HandProxP3_L",
+          "HandProxP3_R",
+          "HandProxP4_L",
+          "HandProxP4_R",
+          "HandProxP5_L",
+          "HandProxP5_R",
+          "HandScaphoid_L",
+          "HandScaphoid_R",
+          "HandTrapezium_L",
+          "HandTrapezium_R",
+          "HandTrapezoideum_L",
+          "HandTrapezoideum_R",
+          "HandTriquetrum_L",
+          "HandTriquetrum_R",
+          "Head",
+          "Humerus_L",
+          "Humerus_R",
+          "InterCun_L",
+          "InterCun_R",
+          "Jaw",
+          "L1",
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "LatCun_L",
+          "LatCun_R",
+          "MedCun_L",
+          "MedCun_R",
+          "Nav_L",
+          "Nav_R",
+          "Patella_L",
+          "Patella_R",
+          "Pelvis_L",
+          "Pelvis_R",
+          "Radius_L",
+          "Radius_R",
+          "Rib10_L",
+          "Rib10_R",
+          "Rib11_L",
+          "Rib11_R",
+          "Rib12_L",
+          "Rib12_R",
+          "Rib1_L",
+          "Rib1_R",
+          "Rib2_L",
+          "Rib2_R",
+          "Rib3_L",
+          "Rib3_R",
+          "Rib4_L",
+          "Rib4_R",
+          "Rib5_L",
+          "Rib5_R",
+          "Rib6_L",
+          "Rib6_R",
+          "Rib7_L",
+          "Rib7_R",
+          "Rib8_L",
+          "Rib8_R",
+          "Rib9_L",
+          "Rib9_R",
+          "Sacrum",
+          "Scapula_L",
+          "Scapula_R",
+          "Sternum",
+          "T1",
+          "T10",
+          "T11",
+          "T12",
+          "T2",
+          "T3",
+          "T4",
+          "T5",
+          "T6",
+          "T7",
+          "T8",
+          "T9",
+          "Tal_L",
+          "Tal_R",
+          "Tibia_L",
+          "Tibia_R",
+          "Ulna_L",
+          "Ulna_R"
+        ],
+        "sample": {
+          "C1": {
+            "keys": [
+              "FRegistered",
+              "Registered"
+            ],
+            "sample": {
+              "FRegistered": {
+                "shape": [
+                  3,
+                  10754
+                ],
+                "dtype": "float64",
+                "min": 1.0,
+                "max": 5373.0,
+                "bounds": [
+                  [
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  [
+                    5373.0,
+                    5373.0,
+                    5373.0
+                  ]
+                ]
+              },
+              "Registered": {
+                "shape": [
+                  3,
+                  5373
+                ],
+                "dtype": "float64",
+                "min": -48.51042464860391,
+                "max": 138.22861380845137,
+                "bounds": [
+                  [
+                    -48.51042464860391,
+                    98.6834468638758,
+                    62.89340322317415
+                  ],
+                  [
+                    26.8293105530517,
+                    138.22861380845137,
+                    95.03993003648264
+                  ]
+                ]
+              }
+            }
+          },
+          "C2": {
+            "keys": [
+              "FRegistered",
+              "Registered"
+            ],
+            "sample": {
+              "FRegistered": {
+                "shape": [
+                  3,
+                  10904
+                ],
+                "dtype": "float64",
+                "min": 1.0,
+                "max": 5448.0,
+                "bounds": [
+                  [
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  [
+                    5448.0,
+                    5448.0,
+                    5448.0
+                  ]
+                ]
+              },
+              "Registered": {
+                "shape": [
+                  3,
+                  5448
+                ],
+                "dtype": "float64",
+                "min": -41.93453650777674,
+                "max": 141.43969003106594,
+                "bounds": [
+                  [
+                    -41.93453650777674,
+                    94.69169881379462,
+                    47.733930896418
+                  ],
+                  [
+                    5.604385199406844,
+                    141.43969003106594,
+                    89.9686250431387
+                  ]
+                ]
+              }
+            }
+          },
+          "C3": {
+            "keys": [
+              "FRegistered",
+              "Registered"
+            ],
+            "sample": {
+              "FRegistered": {
+                "shape": [
+                  3,
+                  9318
+                ],
+                "dtype": "float64",
+                "min": 1.0,
+                "max": 4655.0,
+                "bounds": [
+                  [
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  [
+                    4655.0,
+                    4655.0,
+                    4655.0
+                  ]
+                ]
+              },
+              "Registered": {
+                "shape": [
+                  3,
+                  4655
+                ],
+                "dtype": "float64",
+                "min": -45.88575615737028,
+                "max": 129.22242439007775,
+                "bounds": [
+                  [
+                    -45.88575615737028,
+                    92.56333416819994,
+                    33.91077873894923
+                  ],
+                  [
+                    2.0866314156575934,
+                    129.22242439007775,
+                    62.28305441605215
+                  ]
+                ]
+              }
+            }
+          }
+        }
+      },
+      "N101106": {
+        "keys": [
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "Cal_L",
+          "Cal_R",
+          "Clavicula_L",
+          "Clavicula_R",
+          "Cub_L",
+          "Cub_R",
+          "Femur_L",
+          "Femur_R",
+          "Fibula_L",
+          "Fibula_R",
+          "FootDistP1_L",
+          "FootDistP1_R",
+          "FootDistP2_L",
+          "FootDistP2_R",
+          "FootDistP3_L",
+          "FootDistP3_R",
+          "FootDistP4_L",
+          "FootDistP4_R",
+          "FootDistP5_L",
+          "FootDistP5_R",
+          "FootMeta1_L",
+          "FootMeta1_R",
+          "FootMeta2_L",
+          "FootMeta2_R",
+          "FootMeta3_L",
+          "FootMeta3_R",
+          "FootMeta4_L",
+          "FootMeta4_R",
+          "FootMeta5_L",
+          "FootMeta5_R",
+          "FootMidP2_L",
+          "FootMidP2_R",
+          "FootMidP3_L",
+          "FootMidP3_R",
+          "FootMidP4_L",
+          "FootMidP4_R",
+          "FootMidP5_L",
+          "FootMidP5_R",
+          "FootProxP1_L",
+          "FootProxP1_R",
+          "FootProxP2_L",
+          "FootProxP2_R",
+          "FootProxP3_L",
+          "FootProxP3_R",
+          "FootProxP4_L",
+          "FootProxP4_R",
+          "FootProxP5_L",
+          "FootProxP5_R",
+          "FootSesaLat_L",
+          "FootSesaLat_R",
+          "FootSesaMed_L",
+          "FootSesaMed_R",
+          "HandCapitatum_L",
+          "HandCapitatum_R",
+          "HandDistP1_L",
+          "HandDistP1_R",
+          "HandDistP2_L",
+          "HandDistP2_R",
+          "HandDistP3_L",
+          "HandDistP3_R",
+          "HandDistP4_L",
+          "HandDistP4_R",
+          "HandDistP5_L",
+          "HandDistP5_R",
+          "HandHamata_L",
+          "HandHamata_R",
+          "HandLuna_L",
+          "HandLuna_R",
+          "HandMeta1_L",
+          "HandMeta1_R",
+          "HandMeta2_L",
+          "HandMeta2_R",
+          "HandMeta3_L",
+          "HandMeta3_R",
+          "HandMeta4_L",
+          "HandMeta4_R",
+          "HandMeta5_L",
+          "HandMeta5_R",
+          "HandMidP2_L",
+          "HandMidP2_R",
+          "HandMidP3_L",
+          "HandMidP3_R",
+          "HandMidP4_L",
+          "HandMidP4_R",
+          "HandMidP5_L",
+          "HandMidP5_R",
+          "HandPisiform_L",
+          "HandPisiform_R",
+          "HandProxP1_L",
+          "HandProxP1_R",
+          "HandProxP2_L",
+          "HandProxP2_R",
+          "HandProxP3_L",
+          "HandProxP3_R",
+          "HandProxP4_L",
+          "HandProxP4_R",
+          "HandProxP5_L",
+          "HandProxP5_R",
+          "HandScaphoid_L",
+          "HandScaphoid_R",
+          "HandTrapezium_L",
+          "HandTrapezium_R",
+          "HandTrapezoideum_L",
+          "HandTrapezoideum_R",
+          "HandTriquetrum_L",
+          "HandTriquetrum_R",
+          "Head",
+          "Humerus_L",
+          "Humerus_R",
+          "InterCun_L",
+          "InterCun_R",
+          "Jaw",
+          "L1",
+          "L2",
+          "L3",
+          "L4",
+          "L5",
+          "LatCun_L",
+          "LatCun_R",
+          "MedCun_L",
+          "MedCun_R",
+          "Nav_L",
+          "Nav_R",
+          "Patella_L",
+          "Patella_R",
+          "Pelvis_L",
+          "Pelvis_R",
+          "Radius_L",
+          "Radius_R",
+          "Rib10_L",
+          "Rib10_R",
+          "Rib11_L",
+          "Rib11_R",
+          "Rib12_L",
+          "Rib12_R",
+          "Rib1_L",
+          "Rib1_R",
+          "Rib2_L",
+          "Rib2_R",
+          "Rib3_L",
+          "Rib3_R",
+          "Rib4_L",
+          "Rib4_R",
+          "Rib5_L",
+          "Rib5_R",
+          "Rib6_L",
+          "Rib6_R",
+          "Rib7_L",
+          "Rib7_R",
+          "Rib8_L",
+          "Rib8_R",
+          "Rib9_L",
+          "Rib9_R",
+          "Sacrum",
+          "Scapula_L",
+          "Scapula_R",
+          "Sternum",
+          "T1",
+          "T10",
+          "T11",
+          "T12",
+          "T2",
+          "T3",
+          "T4",
+          "T5",
+          "T6",
+          "T7",
+          "T8",
+          "T9",
+          "Tal_L",
+          "Tal_R",
+          "Tibia_L",
+          "Tibia_R",
+          "Ulna_L",
+          "Ulna_R"
+        ],
+        "sample": {
+          "C1": {
+            "keys": [
+              "FRegistered",
+              "Registered"
+            ],
+            "sample": {
+              "FRegistered": {
+                "shape": [
+                  3,
+                  10754
+                ],
+                "dtype": "float64",
+                "min": 1.0,
+                "max": 5373.0,
+                "bounds": [
+                  [
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  [
+                    5373.0,
+                    5373.0,
+                    5373.0
+                  ]
+                ]
+              },
+              "Registered": {
+                "shape": [
+                  3,
+                  5373
+                ],
+                "dtype": "float64",
+                "min": -8.462975273037074,
+                "max": 166.32280127169503,
+                "bounds": [
+                  [
+                    -8.462975273037074,
+                    118.81620732531326,
+                    111.81333656831382
+                  ],
+                  [
+                    69.82405443824699,
+                    166.32280127169503,
+                    131.82827405972202
+                  ]
+                ]
+              }
+            }
+          },
+          "C2": {
+            "keys": [
+              "FRegistered",
+              "Registered"
+            ],
+            "sample": {
+              "FRegistered": {
+                "shape": [
+                  3,
+                  10904
+                ],
+                "dtype": "float64",
+                "min": 1.0,
+                "max": 5448.0,
+                "bounds": [
+                  [
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  [
+                    5448.0,
+                    5448.0,
+                    5448.0
+                  ]
+                ]
+              },
+              "Registered": {
+                "shape": [
+                  3,
+                  5448
+                ],
+                "dtype": "float64",
+                "min": 2.7737986887503254,
+                "max": 174.38300771125682,
+                "bounds": [
+                  [
+                    2.7737986887503254,
+                    123.6452885553368,
+                    91.60514199554021
+                  ],
+                  [
+                    58.521399639203274,
+                    174.38300771125682,
+                    129.57863652295356
+                  ]
+                ]
+              }
+            }
+          },
+          "C3": {
+            "keys": [
+              "FRegistered",
+              "Registered"
+            ],
+            "sample": {
+              "FRegistered": {
+                "shape": [
+                  3,
+                  9318
+                ],
+                "dtype": "float64",
+                "min": 1.0,
+                "max": 4655.0,
+                "bounds": [
+                  [
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  [
+                    4655.0,
+                    4655.0,
+                    4655.0
+                  ]
+                ]
+              },
+              "Registered": {
+                "shape": [
+                  3,
+                  4655
+                ],
+                "dtype": "float64",
+                "min": 6.409378048267257,
+                "max": 177.6863661037919,
+                "bounds": [
+                  [
+                    6.409378048267257,
+                    131.81832200744878,
+                    76.42473069243738
+                  ],
+                  [
+                    60.17666777838489,
+                    177.6863661037919,
+                    98.9765774803935
+                  ]
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
