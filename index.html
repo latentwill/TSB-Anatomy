@@ -10,18 +10,25 @@
   <body>
     <a class="skip-link" href="#structure-search">Skip to structure search</a>
     <header class="app-header">
-      <div class="identity"><h1>TSB Anatomy</h1><span>Skeleton atlas</span></div>
+      <div class="identity">
+        <svg class="atlas-mark" viewBox="0 0 24 28" width="24" height="28" fill="none" aria-hidden="true"><path d="M8 3v22M16 3v22M5 3h6M13 3h6M5 25h6M13 25h6M8 14h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <h1>TSB Anatomy</h1><span>Skeleton atlas</span>
+      </div>
       <a href="#about">Sources &amp; limitations</a>
     </header>
     <main class="atlas">
       <section class="workspace" aria-label="Skeleton viewer">
         <div class="viewer-toolbar">
           <div class="segmented" role="group" aria-label="Displayed examples">
-            <button type="button" data-mode="female" aria-pressed="true" disabled>Female</button>
+            <button type="button" data-mode="female" aria-pressed="false" disabled>Female</button>
             <button type="button" data-mode="male" aria-pressed="false" disabled>Male</button>
-            <button type="button" data-mode="compare" aria-pressed="false" disabled>Compare</button>
+            <button type="button" data-mode="compare" aria-pressed="true" disabled>Compare</button>
           </div>
           <span id="height-note" class="height-note">Source-derived geometry</span>
+        </div>
+        <div class="evidence-strip">
+          <p id="cohort-note">Source-derived skeletons. Model evidence is loading.</p>
+          <a href="#about">Method &amp; limitations</a>
         </div>
         <div id="viewport" class="viewport" aria-busy="true">
           <div id="canvas-host" class="canvas-host"></div>
@@ -31,17 +38,22 @@
             <p id="load-message">Reading model information…</p>
             <button id="retry-load" type="button" hidden>Reload atlas</button>
           </div>
+        </div>
+        <div class="camera-toolbar">
           <div class="view-controls" role="group" aria-label="Camera views">
             <button type="button" data-view="front" disabled>Front</button>
             <button type="button" data-view="back" disabled>Back</button>
             <button type="button" data-view="side" disabled>Side</button>
             <button type="button" data-view="reset" disabled>Reset view</button>
           </div>
+          <p class="viewer-caption" id="camera-help">Drag to orbit. Scroll or pinch to zoom.<br /> Select a bone in the view or structure index.</p>
         </div>
-        <div class="viewer-caption"><span>Drag to orbit · Scroll or pinch to zoom</span><span>Click a bone to inspect</span></div>
-        <p id="viewer-status" class="viewer-status" role="status" aria-live="polite">Models have not loaded yet.</p>
+        <div class="status-strip"><p id="viewer-status" class="viewer-status" role="status" aria-live="polite">Models have not loaded yet.</p><button id="retry-models" class="text-button" type="button" hidden>Reload models</button></div>
       </section>
       <aside class="sidebar" aria-labelledby="structures-heading">
+        <details id="inspector" open>
+          <summary class="inspector-toggle"><span>Structures &amp; selection</span><span id="inspector-selection">Find a bone</span></summary>
+          <div class="inspector-content">
         <div class="structure-browser">
           <h2 id="structures-heading">Structures</h2>
           <label for="structure-search">Find a bone</label>
@@ -49,7 +61,7 @@
           <p id="structure-count" class="structure-count" aria-live="polite">Waiting for model information</p>
           <label class="sr-only" for="structure-list">Select a structure to inspect</label>
           <select id="structure-list" size="10" disabled aria-describedby="structure-count"></select>
-          <p id="no-results" class="no-results" hidden>No matching structures. Try another name or region.</p>
+          <div id="no-results" class="no-results" hidden><p>No matching structures. Try another name or region.</p><button id="clear-search" class="text-button" type="button">Clear search</button></div>
         </div>
         <section class="selection" aria-labelledby="selected-name">
           <h2 id="selected-name">Inspect a structure</h2>
@@ -61,7 +73,11 @@
           </div>
           <button id="reset-visibility" class="text-button" type="button" disabled>Show all structures</button>
           <p id="visibility-status" class="visibility-status">All structures visible</p>
+          <button id="view-selection" class="view-selection" type="button" disabled>View selected bone</button>
         </section>
+        <p class="inspector-note">Names follow the source. Not for diagnosis or clinical measurement. <a href="#about">Read the evidence</a></p>
+          </div>
+        </details>
       </aside>
     </main>
     <section id="about" class="about" aria-labelledby="about-heading">
@@ -69,7 +85,7 @@
         <h2 id="about-heading">Open geometry. Visible limitations.</h2>
         <p>These are source-derived skeletal examples, not clinically validated anatomy. Matching skeletal height does not establish equal living stature.</p>
       </div>
-      <details>
+      <details id="provenance">
         <summary>Model provenance, method &amp; reuse</summary>
         <div class="provenance-content">
           <p id="source-note">Source and model details appear when the manifest loads.</p>

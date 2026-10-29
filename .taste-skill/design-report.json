@@ -1,0 +1,38 @@
+{
+  "skill": "https://github.com/leonxlnx/taste-skill",
+  "skillRevision": "12af471f627f866411b4bd785b19646d3672784c",
+  "workflow": "app-screens.md (read in full)",
+  "surface": "anatomy inspection editor",
+  "style": "framed-sheet",
+  "seed": 27220256,
+  "offeredStyles": ["achromatic-ledger", "framed-sheet"],
+  "redraws": [],
+  "kept": ["palette", "type"],
+  "selectionReason": "The real geometry needs a generous work sheet with a quiet searchable palette, not the ledger's emphasis on figures. The cool frame and slate 3D well preserve the brief while the inset white sheet makes controls legible.",
+  "question": "How do the female and male source-derived skeletons compare at matched skeletal height?",
+  "finding": "Matched skeletal extent is not living stature, and the geometry is not clinically validated.",
+  "face": "Cool anatomical inspection frame, locally bundled Public Sans, ivory source-derived meshes with teal selection.",
+  "signature": "Two real skeleton means at a common manifest-defined extent in independent viewports with one synchronized camera and linked structure selection.",
+  "adaptations": [
+    "The builder palette/canvas relationship is used without graph nodes: the actual working objects are anatomical structures.",
+    "The detail pattern supplies neutral underlined mode controls and provenance rather than unrelated KPI tiles or charts.",
+    "The white sheet holds a slate WebGL well required by the existing brief; the frame remains a light low-chroma tint.",
+    "The mobile inspector is a native inline disclosure, not a modal or a sidebar competing with skeleton width.",
+    "Double-sided mesh materials prevent known source winding defects from culling faces; no geometry repair or medical validation is claimed."
+  ],
+  "dataProvenance": "public/models/manifest.json and its real GLB URLs; no hardcoded population counts, fabricated geometry, stock anatomy, remote images or charts.",
+  "sampleData": [],
+  "commandsExecuted": [
+    "node .scratch/taste-skill/skills/taste-skill/scripts/draw.mjs --app --list kinds",
+    "node .scratch/taste-skill/skills/taste-skill/scripts/draw.mjs --app --kind builder --brief \"TSB Anatomy: inspect real source-derived female and male skeleton means at matched skeletal height, with linked bone selection and transparent provenance\" --screens builder,detail --theme light --keep palette,type --options 3",
+    "node .scratch/taste-skill/skills/taste-skill/scripts/draw.mjs --app --kind builder --brief \"TSB Anatomy: inspect real source-derived female and male skeleton means at matched skeletal height, with linked bone selection and transparent provenance\" --screens builder,detail --theme light --keep palette,type --style framed-sheet"
+  ],
+  "verification": {
+    "status": "Production build and real-model browser smoke completed; final taste inspector reported zero failures and zero warnings.",
+    "inspectCommand": "node .scratch/taste-skill/skills/taste-skill/scripts/inspect.mjs --app http://127.0.0.1:5183/",
+    "viewports": [1440, 768, 390],
+    "report": ".taste-skill/inspect/report.json",
+    "critique": "DESIGN.md#verification-and-critique",
+    "acceptedWarnings": ["Vite Three.js bundle-size advisory; no threshold suppression.", "Additional static detector assumed all text roles were 16px; measured browser title is 20px and body is 14px."]
+  }
+}

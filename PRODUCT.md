@@ -21,7 +21,7 @@ The confirmed job is practical anatomy inspection and reuse of open geometry. A 
 ## Capabilities and Constraints
 
 - Consume the generated manifest and real GLB geometry in public/models; do not invent anatomy or substitute illustrative assets.
-- Female, male, and side-by-side comparison share a camera and structure selection.
+- Female, male, and side-by-side comparison share a camera and structure selection. Comparison is the initial view when both real models load; a single successful model remains usable if the other fails.
 - Models use meters, Y-up, ground at Y=0, and anterior +Z. The manifest, rather than interface copy, supplies population counts, review status, height, and methodological limitations.
 - Matching skeletal height is not a measurement of living stature.
 - Tooling is MIT; derived model assets are CC BY-SA 4.0 with attribution to the upstream CC BY 4.0 OpenSkeleton source.
@@ -29,7 +29,7 @@ The confirmed job is practical anatomy inspection and reuse of open geometry. A 
 
 ## Brand Commitments
 
-A practical, viewer-led inspection surface rather than a promotional landing page. The brief specifies cool slate canvas, warm ivory actual bone geometry, muted teal selection, readable sans typography, a narrow structure sidebar, and responsive controls.
+A practical, viewer-led inspection surface rather than a promotional landing page. The brief specifies cool slate canvas, warm ivory actual bone geometry, muted teal selection, readable sans typography, a narrow structure sidebar, and responsive controls. The user-requested `leonxlnx/taste-skill` app workflow supplies the Framed sheet direction: quiet tinted frame, white inset work sheet, neutral navigation, and real anatomical geometry as the dominant content. Palette and locally bundled Public Sans are preserved explicitly by the draw's keep flags.
 
 ## Evidence on Hand
 
@@ -44,4 +44,4 @@ The parent generation workflow supplies public/models/manifest.json, female.glb,
 
 ## Accessibility & Inclusion
 
-Search and a native named-structure selector provide keyboard access to selection. Camera presets and canvas keyboard controls supplement pointer orbit. Visible focus, mobile sizing, load/error states, readable contrast, and on-demand rendering are required.
+Search and a native named-structure selector provide keyboard access to selection. Camera presets and canvas keyboard controls supplement pointer orbit. The inspector folds into a native disclosure on tablets and phones; an explicit return-to-view action keeps selection and visibility available without a modal. Visible focus, mobile sizing, honest load/error states, readable contrast, and on-demand rendering are required. No remote font requests or invented loading percentages.

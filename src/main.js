@@ -12,7 +12,7 @@ const ui = {
   resetVisibility: $('reset-visibility'),
 };
 const state = {
-  manifest: null, structures: new Map(), models: new Map(), mode: 'female',
+  manifest: null, structures: new Map(), models: new Map(), mode: 'compare',
   selected: null, hidden: new Set(), isolated: null, failures: [], ready: false,
 };
 let renderer;
@@ -23,9 +23,10 @@ let framePending = false;
 let framingBox;
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
-const projected = new THREE.Vector3();
-const boneMaterial = new THREE.MeshStandardMaterial({ color: '#e4dbc9', roughness: .77, metalness: 0 });
-const selectedMaterial = new THREE.MeshStandardMaterial({ color: '#5caaa0', roughness: .72, metalness: 0 });
+const MODEL_IDS = ['female', 'male'];
+// Render both sides of source faces; this does not repair source winding defects.
+const boneMaterial = new THREE.MeshStandardMaterial({ color: '#e4dbc9', roughness: .77, metalness: 0, side: THREE.DoubleSide });
+const selectedMaterial = new THREE.MeshStandardMaterial({ color: '#5caaa0', roughness: .72, metalness: 0, side: THREE.DoubleSide });
 const number = new Intl.NumberFormat(undefined, { maximumFractionDigits: 3 });
 const assetURL = (path) => new URL(path, new URL(import.meta.env.BASE_URL, document.baseURI)).href;
 
@@ -34,11 +35,25 @@ function requestRender() {
   framePending = true;
   requestAnimationFrame(() => {
     framePending = false;
-    renderer.render(scene, camera);
-    for (const model of state.models.values()) {
-      if (!model.root.visible) continue;
-      projected.set(model.root.position.x + model.centerX, model.height, 0).project(camera);
-      model.label.style.left = `${(projected.x + 1) * 50}%`;
+    const width = ui.viewport.clientWidth;
+    const height = ui.viewport.clientHeight;
+    if (state.ready && state.mode === 'compare') {
+      // Independent viewports share one camera: side views must not occlude each other.
+      renderer.setScissorTest(true);
+      for (const model of state.models.values()) model.root.visible = false;
+      MODEL_IDS.forEach((id, index) => {
+        const model = state.models.get(id);
+        model.root.visible = true;
+        renderer.setViewport(index * width / 2, 0, width / 2, height);
+        renderer.setScissor(index * width / 2, 0, width / 2, height);
+        renderer.render(scene, camera);
+        model.root.visible = false;
+      });
+      for (const model of state.models.values()) model.root.visible = true;
+    } else {
+      renderer.setScissorTest(false);
+      renderer.setViewport(0, 0, width, height);
+      renderer.render(scene, camera);
     }
   });
 }
@@ -55,6 +70,11 @@ function showFailure(title, message) {
   ui.message.textContent = message;
   $('retry-load').hidden = false;
   ui.viewport.setAttribute('aria-busy', 'false');
+  if (!state.manifest) {
+    $('cohort-note').textContent = 'Source information is unavailable. No substitute geometry is shown.';
+    $('source-note').textContent = 'The source manifest could not load. Reload the atlas or consult the repository below.';
+    ui.count.textContent = 'Structure index unavailable until the manifest loads';
+  }
   setStatus(message, true);
 }
 
@@ -67,7 +87,7 @@ function createRenderer() {
   renderer.toneMappingExposure = 1.1;
   renderer.domElement.tabIndex = 0;
   renderer.domElement.setAttribute('aria-label', 'Interactive skeleton. Arrow keys orbit; plus and minus zoom. Use the structure list to select bones without a pointer.');
-  renderer.domElement.setAttribute('aria-describedby', 'viewer-status');
+  renderer.domElement.setAttribute('aria-describedby', 'camera-help viewer-status');
   ui.host.append(renderer.domElement);
   scene = new THREE.Scene();
   camera = new THREE.OrthographicCamera(-1, 1, 1, -1, .01, 100);
@@ -137,7 +157,8 @@ function resize() {
   if (!renderer || !width || !height) return;
   renderer.setSize(width, height);
   const size = framingBox?.getSize(new THREE.Vector3()) || new THREE.Vector3(1, 1.7, .5);
-  const aspect = width / height;
+  const columns = state.mode === 'compare' && state.models.size === 2 ? 2 : 1;
+  const aspect = width / columns / height;
   const halfHeight = Math.max(size.y / 2, Math.max(size.x, size.z) / (2 * aspect)) * 1.25;
   camera.top = halfHeight;
   camera.bottom = -halfHeight;
@@ -163,16 +184,11 @@ function setMode(mode) {
   if (mode === 'compare' && state.models.size !== 2) return;
   if (mode !== 'compare' && !state.models.has(mode)) return;
   state.mode = mode;
-  const female = state.models.get('female');
-  const male = state.models.get('male');
-  const gap = .2;
   for (const [id, model] of state.models) {
     model.root.visible = mode === 'compare' || mode === id;
     model.label.hidden = !model.root.visible;
     model.root.position.x = -model.centerX;
-    if (mode === 'compare') {
-      model.root.position.x += id === 'female' ? -(male.width + gap) / 2 : (female.width + gap) / 2;
-    }
+    model.label.style.left = mode === 'compare' ? (id === 'female' ? '25%' : '75%') : '50%';
   }
   framingBox = new THREE.Box3();
   for (const model of state.models.values()) {
@@ -198,10 +214,13 @@ function structureId(object) {
 function pickBone(event) {
   if (!state.ready) return;
   const rect = renderer.domElement.getBoundingClientRect();
-  pointer.set(((event.clientX - rect.left) / rect.width) * 2 - 1, -((event.clientY - rect.top) / rect.height) * 2 + 1);
+  const columnWidth = state.mode === 'compare' ? rect.width / 2 : rect.width;
+  const column = state.mode === 'compare' && event.clientX - rect.left >= columnWidth ? 1 : 0;
+  pointer.set(((event.clientX - rect.left - column * columnWidth) / columnWidth) * 2 - 1, -((event.clientY - rect.top) / rect.height) * 2 + 1);
   raycaster.setFromCamera(pointer, camera);
   const meshes = [];
-  for (const model of state.models.values()) {
+  for (const [id, model] of state.models) {
+    if (state.mode === 'compare' && id !== MODEL_IDS[column]) continue;
     if (model.root.visible) for (const mesh of model.meshes) if (mesh.visible) meshes.push(mesh);
   }
   const hit = raycaster.intersectObjects(meshes, false)[0];
@@ -243,8 +262,10 @@ function updateSelection() {
   const structure = state.structures.get(state.selected);
   ui.hide.disabled = !structure || !state.ready;
   ui.isolate.disabled = !structure || !state.ready;
+  $('view-selection').disabled = !structure || !state.ready;
   if (!structure) return;
   $('selected-name').textContent = structure.label;
+  $('inspector-selection').textContent = structure.label;
   $('selected-region').textContent = structure.region || 'Source-defined structure';
   const present = [...state.models.values()].filter((model) => model.ids.has(structure.id)).map((model) => model.meta.label);
   $('selected-detail').textContent = `${present.length ? `Present in: ${present.join(', ')}.` : 'Not present in the loaded geometry.'} ${isVisible(structure.id) ? 'Visible' : 'Hidden'} in the current visibility settings. Names follow the source; this is not a diagnostic label.`;
@@ -266,6 +287,7 @@ function renderStructureList() {
   ui.list.value = state.selected || '';
   ui.count.textContent = `${structures.length} of ${state.structures.size} structures`;
   $('no-results').hidden = structures.length > 0;
+  ui.list.hidden = structures.length === 0;
 }
 
 function populateProvenance(manifest) {
@@ -281,6 +303,7 @@ function populateProvenance(manifest) {
   $('method-note').textContent = `Method: ${manifest.method}`;
   $('normalization-note').textContent = manifest.normalization.note;
   $('height-note').textContent = `${number.format(manifest.normalization.targetHeightM)} m target skeletal height · not living stature`;
+  $('cohort-note').textContent = `${manifest.models.map((model) => `${model.label}: ${number.format(model.subjects)} subjects`).join('; ')}. Source: ${manifest.source.title}.`;
   for (const model of manifest.models) {
     const row = document.createElement('tr');
     for (const value of [model.label, model.subjects, model.structures, `${number.format(model.heightM)} m`, model.reviewStatus]) {
@@ -316,7 +339,6 @@ async function loadModel(meta) {
   if (!meshes.length) throw new Error(`${meta.label} contains no bone meshes.`);
   oldMaterials.forEach((material) => material.dispose());
   const bounds = new THREE.Box3().setFromObject(root);
-  const size = bounds.getSize(new THREE.Vector3());
   const center = bounds.getCenter(new THREE.Vector3());
   const label = document.createElement('span');
   label.className = 'model-label';
@@ -325,7 +347,7 @@ async function loadModel(meta) {
   ui.labels.append(label);
   root.visible = false;
   scene.add(root);
-  state.models.set(meta.id, { root, meshes, ids, meta, width: size.x, height: bounds.max.y, centerX: center.x, label });
+  state.models.set(meta.id, { root, meshes, ids, meta, centerX: center.x, label });
 }
 
 async function initialize() {
@@ -352,7 +374,15 @@ async function initialize() {
     return;
   }
   ui.message.textContent = 'Loading source-derived bone geometry. Large models may take a moment.';
-  const outcomes = await Promise.allSettled(manifest.models.map(loadModel));
+  let settledModels = 0;
+  const outcomes = await Promise.allSettled(manifest.models.map(async (meta) => {
+    try {
+      await loadModel(meta);
+    } finally {
+      settledModels += 1;
+      ui.message.textContent = `${settledModels} of ${manifest.models.length} model requests finished. Preparing source-derived geometry…`;
+    }
+  }));
   outcomes.forEach((outcome, index) => {
     if (outcome.status === 'rejected') {
       state.failures.push(manifest.models[index].label);
@@ -370,10 +400,12 @@ async function initialize() {
   ui.list.disabled = false;
   document.querySelectorAll('[data-mode]').forEach((button) => {
     button.disabled = button.dataset.mode === 'compare' ? state.models.size !== 2 : !state.models.has(button.dataset.mode);
+    button.title = button.disabled ? 'This view requires model geometry that could not load. Reload models to retry.' : '';
   });
   document.querySelectorAll('[data-view]').forEach((button) => { button.disabled = false; });
   updateVisibility();
-  setMode(state.models.has('female') ? 'female' : 'male');
+  $('retry-models').hidden = state.failures.length === 0;
+  setMode(state.models.size === 2 ? 'compare' : state.models.has('female') ? 'female' : 'male');
 }
 
 ui.search.addEventListener('input', renderStructureList);
@@ -401,6 +433,31 @@ ui.resetVisibility.addEventListener('click', () => {
 document.querySelectorAll('[data-mode]').forEach((button) => button.addEventListener('click', () => setMode(button.dataset.mode)));
 document.querySelectorAll('[data-view]').forEach((button) => button.addEventListener('click', () => setView(button.dataset.view)));
 $('retry-load').addEventListener('click', () => window.location.reload());
+$('retry-models').addEventListener('click', () => window.location.reload());
+$('clear-search').addEventListener('click', () => {
+  ui.search.value = '';
+  renderStructureList();
+  ui.search.focus();
+});
+const compactInspector = window.matchMedia('(max-width: 900px)');
+const syncInspector = () => { $('inspector').open = !compactInspector.matches; };
+syncInspector();
+compactInspector.addEventListener('change', syncInspector);
+$('view-selection').addEventListener('click', () => {
+  if (!state.ready) return;
+  if (compactInspector.matches) $('inspector').open = false;
+  renderer.domElement.focus({ preventScroll: true });
+  ui.viewport.scrollIntoView({ block: 'center' });
+});
+document.querySelector('.skip-link').addEventListener('click', (event) => {
+  event.preventDefault();
+  $('inspector').open = true;
+  if (ui.search.disabled) $('structures-heading').scrollIntoView({ block: 'start' });
+  else ui.search.focus();
+});
+document.querySelectorAll('a[href="#about"]').forEach((link) => link.addEventListener('click', () => {
+  $('provenance').open = true;
+}));
 Object.defineProperty(window, '__atlas', {
   get: () => ({
     ready: state.ready, mode: state.mode, selected: state.selected,

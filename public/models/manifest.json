@@ -1,0 +1,969 @@
+{
+  "title": "TSB-Anatomy skeletal atlas",
+  "license": "CC-BY-SA-4.0",
+  "source": {
+    "title": "OpenSkeleton: Open, Sex-Specific Full-Body Skeletal dataset for Statistical Shape Modeling",
+    "url": "https://doi.org/10.5281/zenodo.22833546",
+    "license": "CC-BY-4.0"
+  },
+  "method": "Equal-weight arithmetic mean of corresponding vertices from 51 subjects per source-recorded sex. Each skeleton is rigidly oriented and uniformly height-normalized before averaging; a final uniform scale restores the common extent. No smoothing or decimation.",
+  "normalization": {
+    "targetHeightM": 1.7,
+    "kind": "Skull-to-foot skeletal extent",
+    "note": "Both means have 1.70 m skull-to-foot skeletal extent. This is a display normalization, not living stature."
+  },
+  "coordinates": {
+    "units": "meters",
+    "x": "anatomical left",
+    "y": "superior",
+    "z": "anterior"
+  },
+  "models": [
+    {
+      "id": "female",
+      "label": "Female cohort mean",
+      "url": "models/female.glb",
+      "subjects": 51,
+      "structures": 182,
+      "heightM": 1.7,
+      "reviewStatus": "Unreviewed cohort mean",
+      "sha256": "44162303b8f5cde737104ed16e65f99e3e9e68f61c14ecf983d703bf1748f77f"
+    },
+    {
+      "id": "male",
+      "label": "Male cohort mean",
+      "url": "models/male.glb",
+      "subjects": 51,
+      "structures": 182,
+      "heightM": 1.7,
+      "reviewStatus": "Unreviewed cohort mean",
+      "sha256": "f2d6e590c88c156536037b98e6f8fe3e700e9eec8412ceb674af5b7c924e9e7e"
+    }
+  ],
+  "structures": [
+    {
+      "id": "C1",
+      "label": "Cervical vertebra C1",
+      "region": "Spine"
+    },
+    {
+      "id": "C2",
+      "label": "Cervical vertebra C2",
+      "region": "Spine"
+    },
+    {
+      "id": "C3",
+      "label": "Cervical vertebra C3",
+      "region": "Spine"
+    },
+    {
+      "id": "C4",
+      "label": "Cervical vertebra C4",
+      "region": "Spine"
+    },
+    {
+      "id": "C5",
+      "label": "Cervical vertebra C5",
+      "region": "Spine"
+    },
+    {
+      "id": "C6",
+      "label": "Cervical vertebra C6",
+      "region": "Spine"
+    },
+    {
+      "id": "C7",
+      "label": "Cervical vertebra C7",
+      "region": "Spine"
+    },
+    {
+      "id": "Cal_L",
+      "label": "Left calcaneus",
+      "region": "Foot"
+    },
+    {
+      "id": "Cal_R",
+      "label": "Right calcaneus",
+      "region": "Foot"
+    },
+    {
+      "id": "Clavicula_L",
+      "label": "Left clavicle",
+      "region": "Shoulder"
+    },
+    {
+      "id": "Clavicula_R",
+      "label": "Right clavicle",
+      "region": "Shoulder"
+    },
+    {
+      "id": "Cub_L",
+      "label": "Left cuboid",
+      "region": "Foot"
+    },
+    {
+      "id": "Cub_R",
+      "label": "Right cuboid",
+      "region": "Foot"
+    },
+    {
+      "id": "Femur_L",
+      "label": "Left femur",
+      "region": "Lower limb"
+    },
+    {
+      "id": "Femur_R",
+      "label": "Right femur",
+      "region": "Lower limb"
+    },
+    {
+      "id": "Fibula_L",
+      "label": "Left fibula",
+      "region": "Lower limb"
+    },
+    {
+      "id": "Fibula_R",
+      "label": "Right fibula",
+      "region": "Lower limb"
+    },
+    {
+      "id": "FootDistP1_L",
+      "label": "Left distal phalanx 1 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootDistP1_R",
+      "label": "Right distal phalanx 1 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootDistP2_L",
+      "label": "Left distal phalanx 2 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootDistP2_R",
+      "label": "Right distal phalanx 2 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootDistP3_L",
+      "label": "Left distal phalanx 3 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootDistP3_R",
+      "label": "Right distal phalanx 3 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootDistP4_L",
+      "label": "Left distal phalanx 4 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootDistP4_R",
+      "label": "Right distal phalanx 4 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootDistP5_L",
+      "label": "Left distal phalanx 5 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootDistP5_R",
+      "label": "Right distal phalanx 5 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootMeta1_L",
+      "label": "Left metatarsal 1 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootMeta1_R",
+      "label": "Right metatarsal 1 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootMeta2_L",
+      "label": "Left metatarsal 2 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootMeta2_R",
+      "label": "Right metatarsal 2 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootMeta3_L",
+      "label": "Left metatarsal 3 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootMeta3_R",
+      "label": "Right metatarsal 3 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootMeta4_L",
+      "label": "Left metatarsal 4 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootMeta4_R",
+      "label": "Right metatarsal 4 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootMeta5_L",
+      "label": "Left metatarsal 5 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootMeta5_R",
+      "label": "Right metatarsal 5 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootMidP2_L",
+      "label": "Left middle phalanx 2 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootMidP2_R",
+      "label": "Right middle phalanx 2 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootMidP3_L",
+      "label": "Left middle phalanx 3 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootMidP3_R",
+      "label": "Right middle phalanx 3 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootMidP4_L",
+      "label": "Left middle phalanx 4 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootMidP4_R",
+      "label": "Right middle phalanx 4 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootMidP5_L",
+      "label": "Left middle phalanx 5 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootMidP5_R",
+      "label": "Right middle phalanx 5 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootProxP1_L",
+      "label": "Left proximal phalanx 1 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootProxP1_R",
+      "label": "Right proximal phalanx 1 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootProxP2_L",
+      "label": "Left proximal phalanx 2 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootProxP2_R",
+      "label": "Right proximal phalanx 2 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootProxP3_L",
+      "label": "Left proximal phalanx 3 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootProxP3_R",
+      "label": "Right proximal phalanx 3 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootProxP4_L",
+      "label": "Left proximal phalanx 4 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootProxP4_R",
+      "label": "Right proximal phalanx 4 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootProxP5_L",
+      "label": "Left proximal phalanx 5 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootProxP5_R",
+      "label": "Right proximal phalanx 5 (foot)",
+      "region": "Foot"
+    },
+    {
+      "id": "FootSesaLat_L",
+      "label": "Left lateral hallux sesamoid",
+      "region": "Foot"
+    },
+    {
+      "id": "FootSesaLat_R",
+      "label": "Right lateral hallux sesamoid",
+      "region": "Foot"
+    },
+    {
+      "id": "FootSesaMed_L",
+      "label": "Left medial hallux sesamoid",
+      "region": "Foot"
+    },
+    {
+      "id": "FootSesaMed_R",
+      "label": "Right medial hallux sesamoid",
+      "region": "Foot"
+    },
+    {
+      "id": "HandCapitatum_L",
+      "label": "Left capitate",
+      "region": "Hand"
+    },
+    {
+      "id": "HandCapitatum_R",
+      "label": "Right capitate",
+      "region": "Hand"
+    },
+    {
+      "id": "HandDistP1_L",
+      "label": "Left distal phalanx 1 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandDistP1_R",
+      "label": "Right distal phalanx 1 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandDistP2_L",
+      "label": "Left distal phalanx 2 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandDistP2_R",
+      "label": "Right distal phalanx 2 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandDistP3_L",
+      "label": "Left distal phalanx 3 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandDistP3_R",
+      "label": "Right distal phalanx 3 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandDistP4_L",
+      "label": "Left distal phalanx 4 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandDistP4_R",
+      "label": "Right distal phalanx 4 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandDistP5_L",
+      "label": "Left distal phalanx 5 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandDistP5_R",
+      "label": "Right distal phalanx 5 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandHamata_L",
+      "label": "Left hamate",
+      "region": "Hand"
+    },
+    {
+      "id": "HandHamata_R",
+      "label": "Right hamate",
+      "region": "Hand"
+    },
+    {
+      "id": "HandLuna_L",
+      "label": "Left lunate",
+      "region": "Hand"
+    },
+    {
+      "id": "HandLuna_R",
+      "label": "Right lunate",
+      "region": "Hand"
+    },
+    {
+      "id": "HandMeta1_L",
+      "label": "Left metacarpal 1 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandMeta1_R",
+      "label": "Right metacarpal 1 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandMeta2_L",
+      "label": "Left metacarpal 2 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandMeta2_R",
+      "label": "Right metacarpal 2 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandMeta3_L",
+      "label": "Left metacarpal 3 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandMeta3_R",
+      "label": "Right metacarpal 3 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandMeta4_L",
+      "label": "Left metacarpal 4 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandMeta4_R",
+      "label": "Right metacarpal 4 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandMeta5_L",
+      "label": "Left metacarpal 5 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandMeta5_R",
+      "label": "Right metacarpal 5 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandMidP2_L",
+      "label": "Left middle phalanx 2 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandMidP2_R",
+      "label": "Right middle phalanx 2 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandMidP3_L",
+      "label": "Left middle phalanx 3 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandMidP3_R",
+      "label": "Right middle phalanx 3 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandMidP4_L",
+      "label": "Left middle phalanx 4 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandMidP4_R",
+      "label": "Right middle phalanx 4 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandMidP5_L",
+      "label": "Left middle phalanx 5 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandMidP5_R",
+      "label": "Right middle phalanx 5 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandPisiform_L",
+      "label": "Left pisiform",
+      "region": "Hand"
+    },
+    {
+      "id": "HandPisiform_R",
+      "label": "Right pisiform",
+      "region": "Hand"
+    },
+    {
+      "id": "HandProxP1_L",
+      "label": "Left proximal phalanx 1 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandProxP1_R",
+      "label": "Right proximal phalanx 1 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandProxP2_L",
+      "label": "Left proximal phalanx 2 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandProxP2_R",
+      "label": "Right proximal phalanx 2 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandProxP3_L",
+      "label": "Left proximal phalanx 3 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandProxP3_R",
+      "label": "Right proximal phalanx 3 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandProxP4_L",
+      "label": "Left proximal phalanx 4 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandProxP4_R",
+      "label": "Right proximal phalanx 4 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandProxP5_L",
+      "label": "Left proximal phalanx 5 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandProxP5_R",
+      "label": "Right proximal phalanx 5 (hand)",
+      "region": "Hand"
+    },
+    {
+      "id": "HandScaphoid_L",
+      "label": "Left scaphoid",
+      "region": "Hand"
+    },
+    {
+      "id": "HandScaphoid_R",
+      "label": "Right scaphoid",
+      "region": "Hand"
+    },
+    {
+      "id": "HandTrapezium_L",
+      "label": "Left trapezium",
+      "region": "Hand"
+    },
+    {
+      "id": "HandTrapezium_R",
+      "label": "Right trapezium",
+      "region": "Hand"
+    },
+    {
+      "id": "HandTrapezoideum_L",
+      "label": "Left trapezoid",
+      "region": "Hand"
+    },
+    {
+      "id": "HandTrapezoideum_R",
+      "label": "Right trapezoid",
+      "region": "Hand"
+    },
+    {
+      "id": "HandTriquetrum_L",
+      "label": "Left triquetrum",
+      "region": "Hand"
+    },
+    {
+      "id": "HandTriquetrum_R",
+      "label": "Right triquetrum",
+      "region": "Hand"
+    },
+    {
+      "id": "Head",
+      "label": "Skull (combined)",
+      "region": "Head"
+    },
+    {
+      "id": "Humerus_L",
+      "label": "Left humerus",
+      "region": "Upper limb"
+    },
+    {
+      "id": "Humerus_R",
+      "label": "Right humerus",
+      "region": "Upper limb"
+    },
+    {
+      "id": "InterCun_L",
+      "label": "Left intermediate cuneiform",
+      "region": "Foot"
+    },
+    {
+      "id": "InterCun_R",
+      "label": "Right intermediate cuneiform",
+      "region": "Foot"
+    },
+    {
+      "id": "Jaw",
+      "label": "Mandible",
+      "region": "Head"
+    },
+    {
+      "id": "L1",
+      "label": "Lumbar vertebra L1",
+      "region": "Spine"
+    },
+    {
+      "id": "L2",
+      "label": "Lumbar vertebra L2",
+      "region": "Spine"
+    },
+    {
+      "id": "L3",
+      "label": "Lumbar vertebra L3",
+      "region": "Spine"
+    },
+    {
+      "id": "L4",
+      "label": "Lumbar vertebra L4",
+      "region": "Spine"
+    },
+    {
+      "id": "L5",
+      "label": "Lumbar vertebra L5",
+      "region": "Spine"
+    },
+    {
+      "id": "LatCun_L",
+      "label": "Left lateral cuneiform",
+      "region": "Foot"
+    },
+    {
+      "id": "LatCun_R",
+      "label": "Right lateral cuneiform",
+      "region": "Foot"
+    },
+    {
+      "id": "MedCun_L",
+      "label": "Left medial cuneiform",
+      "region": "Foot"
+    },
+    {
+      "id": "MedCun_R",
+      "label": "Right medial cuneiform",
+      "region": "Foot"
+    },
+    {
+      "id": "Nav_L",
+      "label": "Left navicular",
+      "region": "Foot"
+    },
+    {
+      "id": "Nav_R",
+      "label": "Right navicular",
+      "region": "Foot"
+    },
+    {
+      "id": "Patella_L",
+      "label": "Left patella",
+      "region": "Lower limb"
+    },
+    {
+      "id": "Patella_R",
+      "label": "Right patella",
+      "region": "Lower limb"
+    },
+    {
+      "id": "Pelvis_L",
+      "label": "Left hip bone",
+      "region": "Pelvis"
+    },
+    {
+      "id": "Pelvis_R",
+      "label": "Right hip bone",
+      "region": "Pelvis"
+    },
+    {
+      "id": "Radius_L",
+      "label": "Left radius",
+      "region": "Upper limb"
+    },
+    {
+      "id": "Radius_R",
+      "label": "Right radius",
+      "region": "Upper limb"
+    },
+    {
+      "id": "Rib10_L",
+      "label": "Left rib 10",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib10_R",
+      "label": "Right rib 10",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib11_L",
+      "label": "Left rib 11",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib11_R",
+      "label": "Right rib 11",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib12_L",
+      "label": "Left rib 12",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib12_R",
+      "label": "Right rib 12",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib1_L",
+      "label": "Left rib 1",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib1_R",
+      "label": "Right rib 1",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib2_L",
+      "label": "Left rib 2",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib2_R",
+      "label": "Right rib 2",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib3_L",
+      "label": "Left rib 3",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib3_R",
+      "label": "Right rib 3",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib4_L",
+      "label": "Left rib 4",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib4_R",
+      "label": "Right rib 4",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib5_L",
+      "label": "Left rib 5",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib5_R",
+      "label": "Right rib 5",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib6_L",
+      "label": "Left rib 6",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib6_R",
+      "label": "Right rib 6",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib7_L",
+      "label": "Left rib 7",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib7_R",
+      "label": "Right rib 7",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib8_L",
+      "label": "Left rib 8",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib8_R",
+      "label": "Right rib 8",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib9_L",
+      "label": "Left rib 9",
+      "region": "Thorax"
+    },
+    {
+      "id": "Rib9_R",
+      "label": "Right rib 9",
+      "region": "Thorax"
+    },
+    {
+      "id": "Sacrum",
+      "label": "Sacrum",
+      "region": "Pelvis"
+    },
+    {
+      "id": "Scapula_L",
+      "label": "Left scapula",
+      "region": "Shoulder"
+    },
+    {
+      "id": "Scapula_R",
+      "label": "Right scapula",
+      "region": "Shoulder"
+    },
+    {
+      "id": "Sternum",
+      "label": "Sternum",
+      "region": "Thorax"
+    },
+    {
+      "id": "T1",
+      "label": "Thoracic vertebra T1",
+      "region": "Spine"
+    },
+    {
+      "id": "T10",
+      "label": "Thoracic vertebra T10",
+      "region": "Spine"
+    },
+    {
+      "id": "T11",
+      "label": "Thoracic vertebra T11",
+      "region": "Spine"
+    },
+    {
+      "id": "T12",
+      "label": "Thoracic vertebra T12",
+      "region": "Spine"
+    },
+    {
+      "id": "T2",
+      "label": "Thoracic vertebra T2",
+      "region": "Spine"
+    },
+    {
+      "id": "T3",
+      "label": "Thoracic vertebra T3",
+      "region": "Spine"
+    },
+    {
+      "id": "T4",
+      "label": "Thoracic vertebra T4",
+      "region": "Spine"
+    },
+    {
+      "id": "T5",
+      "label": "Thoracic vertebra T5",
+      "region": "Spine"
+    },
+    {
+      "id": "T6",
+      "label": "Thoracic vertebra T6",
+      "region": "Spine"
+    },
+    {
+      "id": "T7",
+      "label": "Thoracic vertebra T7",
+      "region": "Spine"
+    },
+    {
+      "id": "T8",
+      "label": "Thoracic vertebra T8",
+      "region": "Spine"
+    },
+    {
+      "id": "T9",
+      "label": "Thoracic vertebra T9",
+      "region": "Spine"
+    },
+    {
+      "id": "Tal_L",
+      "label": "Left talus",
+      "region": "Foot"
+    },
+    {
+      "id": "Tal_R",
+      "label": "Right talus",
+      "region": "Foot"
+    },
+    {
+      "id": "Tibia_L",
+      "label": "Left tibia",
+      "region": "Lower limb"
+    },
+    {
+      "id": "Tibia_R",
+      "label": "Right tibia",
+      "region": "Lower limb"
+    },
+    {
+      "id": "Ulna_L",
+      "label": "Left ulna",
+      "region": "Upper limb"
+    },
+    {
+      "id": "Ulna_R",
+      "label": "Right ulna",
+      "region": "Upper limb"
+    }
+  ],
+  "limitations": [
+    "Unreviewed cohort means, not clinically validated or population-representative reference anatomy.",
+    "Source-recorded sex groups; not an inference of gender identity.",
+    "A common skull-to-foot skeletal extent is not measured living stature. No soft-tissue height is modeled.",
+    "Whole-body rigid orientation and uniform scaling only. Joint posture differences remain and can blur or distort cohort means.",
+    "Vertex counts and connectivity are checked; anatomical correspondence is supplied by OpenSkeleton, not independently validated here.",
+    "Skull is a combined source structure. No separately selectable skull bones, teeth, auditory ossicles, hyoid or coccyx are identified in the inventory.",
+    "Exactly zero-area faces are removed only if zero in every contributing source mesh; their source indices are recorded. Other defects, inter-bone intersections and joint congruence require review.",
+    "No organs, muscles, cartilage, ligaments or clinical measurements are included.",
+    "Female mesh audit: not watertight \u2014 HandScaphoid_L, HandScaphoid_R, Head, Sacrum.",
+    "Female mesh audit: inconsistent face winding \u2014 Femur_L, Femur_R. Double-sided viewing does not repair these defects.",
+    "Male mesh audit: not watertight \u2014 HandScaphoid_L, HandScaphoid_R, Head, Sacrum.",
+    "Male mesh audit: inconsistent face winding \u2014 Femur_L, Femur_R. Double-sided viewing does not repair these defects."
+  ]
+}

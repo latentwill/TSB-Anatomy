@@ -29,7 +29,7 @@ jobs:
       - run: npm run build
 
   python:
-    name: Python dependency lock
+    name: Geometry invariants and shipped assets
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -40,3 +40,5 @@ jobs:
         with:
           enable-cache: true
       - run: uv sync --locked --python 3.12
+      - run: uv run python -m unittest discover -s tests -v
+      - run: uv run python scripts/verify_atlas.py

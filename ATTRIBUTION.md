@@ -54,3 +54,7 @@ Retain applicable source attribution, license links, warranty notices, and indic
 
 - `LICENSE`: complete SPDX `CC-BY-SA-4.0` text from [spdx/license-list-data](https://github.com/spdx/license-list-data/blob/main/text/CC-BY-SA-4.0.txt); [official Creative Commons legal code](https://creativecommons.org/licenses/by-sa/4.0/legalcode.en).
 - `LICENSE-CODE`: complete SPDX `MIT` text from [spdx/license-list-data](https://github.com/spdx/license-list-data/blob/main/text/MIT.txt), with its copyright placeholder filled for this project.
+
+## Design workflow
+
+The viewer was developed with [Taste Skill](https://github.com/leonxlnx/taste-skill), revision `12af471f627f866411b4bd785b19646d3672784c`, copyright © 2026 Leonxlnx, MIT licensed. Library-derived direction material in `.taste-skill/direction.json` retains that MIT notice; see [LICENSES/taste-skill-MIT.txt](LICENSES/taste-skill-MIT.txt). The development skill is not bundled into the viewer. Its use does not change the anatomical assets' licenses.

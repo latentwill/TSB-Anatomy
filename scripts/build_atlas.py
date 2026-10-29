@@ -116,6 +116,18 @@ def verify_source():
     return record
 
 
+def mesh_limitations(model_reports):
+    notes = []
+    for model in model_reports:
+        open_meshes = [m['id'] for m in model['meshAudit'] if not m['watertight']]
+        winding = [m['id'] for m in model['meshAudit'] if not m['windingConsistent']]
+        if open_meshes:
+            notes.append(f"{model['id'].capitalize()} mesh audit: not watertight — {', '.join(open_meshes)}.")
+        if winding:
+            notes.append(f"{model['id'].capitalize()} mesh audit: inconsistent face winding — {', '.join(winding)}. Double-sided viewing does not repair these defects.")
+    return notes
+
+
 def build(height=1.7):
     record = verify_source()
     metadata = loadmat(RAW / 'Metadata.mat', simplify_cells=True)['Metadata']
@@ -229,6 +241,7 @@ def build(height=1.7):
         'Exactly zero-area faces are removed only if zero in every contributing source mesh; their source indices are recorded. Other defects, inter-bone intersections and joint congruence require review.',
         'No organs, muscles, cartilage, ligaments or clinical measurements are included.',
     ]
+    limitations.extend(mesh_limitations(report['models']))
     manifest = {'title': 'TSB-Anatomy skeletal atlas', 'license': 'CC-BY-SA-4.0',
                 'source': {'title': record['title'], 'url': record['doi_url'], 'license': 'CC-BY-4.0'},
                 'method': 'Equal-weight arithmetic mean of corresponding vertices from 51 subjects per source-recorded sex. Each skeleton is rigidly oriented and uniformly height-normalized before averaging; a final uniform scale restores the common extent. No smoothing or decimation.',
