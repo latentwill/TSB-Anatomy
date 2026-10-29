@@ -1,0 +1,6 @@
+[project]
+name = "tsb-anatomy"
+version = "0.1.0"
+description = "Reproducible, open skeletal reference anatomy"
+requires-python = ">=3.12"
+dependencies = ["numpy>=2.0,<3", "scipy>=1.14,<2", "h5py>=3.12,<4", "trimesh>=4.5,<5"]

@@ -1,0 +1,235 @@
+{
+  "created": "2026-09-24T14:20:26.006945+00:00",
+  "modified": "2026-10-01T15:15:26.440937+00:00",
+  "id": 22833546,
+  "conceptrecid": "22833545",
+  "doi": "10.5281/zenodo.22833546",
+  "conceptdoi": "10.5281/zenodo.22833545",
+  "doi_url": "https://doi.org/10.5281/zenodo.22833546",
+  "metadata": {
+    "title": "OpenSkeleton: Open, Sex-Specific Full-Body Skeletal dataset for Statistical Shape Modeling",
+    "doi": "10.5281/zenodo.22833546",
+    "publication_date": "2026-09-18",
+    "description": "<p>This dataset provides anatomically corresponding three-dimensional skeletal meshes of the human body. This dataset can be used for, but is not limited to, the development, evaluation, and benchmarking of statistical shape models (SSMs) and subject-specific anatomical models.</p>\n<p>The dataset was created from computed tomography (CT) data of 102 subjects (51 females and 51 males) from the New Mexico Decedent Image Database (NMDID). The skeletal anatomy was segmented and processed to obtain anatomically corresponding meshes across 182 skeletal structures, covering the complete human skeleton. The individual structures were registered to establish correspondence between subjects while preserving the anatomical geometry of each structure.</p>\n<h3>Dataset contents</h3>\n<ul>\n<li><code><strong>NM_LEXT</strong></code>: MATLAB struct containing the data from the lower extremities (LEXT) and torso (TORSO) for all subjects.</li>\n<li><code><strong>NM_UEXT</strong></code>: MATLAB struct containing the data from the upper extremities (UEXT) for all subjects.</li>\n<li><code><strong>NM_combined</strong></code>: MATLAB struct containing the data from the lower extremities, torso, and upper extremities. The upper-extremity structures have been repositioned into the same coordinate frame as the lower extremities and torso, providing a common coordinate system for the complete skeleton.</li>\n<li><code><strong>Faces</strong></code>: MATLAB struct containing the faces of the registered structures.</li>\n<li><code><strong>Metadata</strong></code>: MATLAB struct containing metadata for the subjects included in the NMDID dataset.</li>\n<li><code><strong>EXAMPLE_CreateSSM.m</strong></code>: Example MATLAB script demonstrating how to create a linear statistical shape model from the provided data. This code depends on: https://nl.mathworks.com/matlabcentral/fileexchange/49940-shape-model-builder&nbsp;</li>\n<li><code><strong>EXAMPLE_GetData.m</strong></code>: Example MATLAB script demonstrating how to retrieve a specific skeletal structure from an individual subject.</li>\n<li><code><strong>PCAData.m</strong></code> en <code><strong>plotshapemode.m</strong></code>: MATLAB scripts to create a linear statistical shape model and plot the resulting principal components.</li>\n</ul>",
+    "access_right": "open",
+    "creators": [
+      {
+        "name": "Duquesne, Kate",
+        "affiliation": "Univerisity of Ghent",
+        "orcid": "0000-0003-4951-9738"
+      },
+      {
+        "name": "BioCAT",
+        "affiliation": "University of Ghent"
+      },
+      {
+        "name": "Destryker, Thibau",
+        "affiliation": "Ghent University"
+      },
+      {
+        "name": "Segers, Veerle",
+        "affiliation": "Ghent University",
+        "orcid": "0000-0002-0740-3297"
+      },
+      {
+        "name": "Audenaert, Emmanuel",
+        "affiliation": "Ghent University",
+        "orcid": "0000-0001-5508-6743"
+      }
+    ],
+    "keywords": [
+      "Skeleton",
+      "3D anatomy",
+      "Triangulated mesh",
+      "Full-body",
+      "Statistical Shape Model",
+      "Sex-specific morphology"
+    ],
+    "language": "eng",
+    "custom": {
+      "code:programmingLanguage": [
+        {
+          "id": "matlab",
+          "title": {
+            "en": "MATLAB"
+          }
+        }
+      ]
+    },
+    "resource_type": {
+      "title": "Dataset",
+      "type": "dataset"
+    },
+    "license": {
+      "id": "cc-by-4.0"
+    },
+    "grants": [
+      {
+        "code": "#1137723N",
+        "internal_id": "03qtxy027::#1137723N",
+        "funder": {
+          "name": "Research Foundation - Flanders"
+        },
+        "title": "Aspirant Grant"
+      },
+      {
+        "code": "#1842619N",
+        "internal_id": "03qtxy027::#1842619N",
+        "funder": {
+          "name": "Research Foundation - Flanders"
+        },
+        "title": "Senior Clinical Investigator Fellowship Grant"
+      }
+    ],
+    "relations": {
+      "version": [
+        {
+          "index": 0,
+          "is_last": false,
+          "parent": {
+            "pid_type": "recid",
+            "pid_value": "22833545"
+          }
+        }
+      ]
+    }
+  },
+  "title": "OpenSkeleton: Open, Sex-Specific Full-Body Skeletal dataset for Statistical Shape Modeling",
+  "links": {
+    "self": "https://zenodo.org/api/records/22833546",
+    "self_html": "https://zenodo.org/records/22833546",
+    "preview_html": "https://zenodo.org/records/22833546?preview=1",
+    "doi": "https://doi.org/10.5281/zenodo.22833546",
+    "self_doi": "https://doi.org/10.5281/zenodo.22833546",
+    "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.22833546",
+    "reserve_doi": "https://zenodo.org/api/records/22833546/draft/pids/doi",
+    "parent": "https://zenodo.org/api/records/22833545",
+    "parent_html": "https://zenodo.org/records/22833545",
+    "parent_doi": "https://doi.org/10.5281/zenodo.22833545",
+    "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.22833545",
+    "self_iiif_manifest": "https://zenodo.org/api/iiif/record:22833546/manifest",
+    "self_iiif_sequence": "https://zenodo.org/api/iiif/record:22833546/sequence/default",
+    "files": "https://zenodo.org/api/records/22833546/files",
+    "media_files": "https://zenodo.org/api/records/22833546/media-files",
+    "latest": "https://zenodo.org/api/records/22833546/versions/latest",
+    "latest_html": "https://zenodo.org/records/22833546/latest",
+    "versions": "https://zenodo.org/api/records/22833546/versions",
+    "draft": "https://zenodo.org/api/records/22833546/draft",
+    "access_links": "https://zenodo.org/api/records/22833546/access/links",
+    "access_grants": "https://zenodo.org/api/records/22833546/access/grants",
+    "access_users": "https://zenodo.org/api/records/22833546/access/users",
+    "access_request": "https://zenodo.org/api/records/22833546/access/request",
+    "access": "https://zenodo.org/api/records/22833546/access",
+    "communities": "https://zenodo.org/api/records/22833546/communities",
+    "communities-suggestions": "https://zenodo.org/api/records/22833546/communities-suggestions",
+    "request_deletion": "https://zenodo.org/api/records/22833546/request-deletion",
+    "file_modification": "https://zenodo.org/api/records/22833546/file-modification",
+    "quota_increase": "https://zenodo.org/api/records/22833546/quota-increase",
+    "requests": "https://zenodo.org/api/records/22833546/requests"
+  },
+  "updated": "2026-10-01T15:15:26.440937+00:00",
+  "recid": "22833546",
+  "revision": 6,
+  "files": [
+    {
+      "id": "df2a6e26-81e4-462a-a5fb-70f0ca9bc0f1",
+      "key": "EXAMPLE_GetData.m",
+      "size": 914,
+      "checksum": "md5:9c034c1639304863c65d45c926546203",
+      "links": {
+        "self": "https://zenodo.org/api/records/22833546/files/EXAMPLE_GetData.m/content"
+      }
+    },
+    {
+      "id": "6e0f6284-d4dc-47c4-9d89-4cb028d05087",
+      "key": "NM_combined.mat",
+      "size": 2464286975,
+      "checksum": "md5:0769259cb6ca6e1cf94eac9d62f64514",
+      "links": {
+        "self": "https://zenodo.org/api/records/22833546/files/NM_combined.mat/content"
+      }
+    },
+    {
+      "id": "b0fb2b83-652e-40de-859c-79ce4f8b131b",
+      "key": "NM_LEXT.mat",
+      "size": 519201673,
+      "checksum": "md5:4e6786008d423ea797e1af4987dd2cdf",
+      "links": {
+        "self": "https://zenodo.org/api/records/22833546/files/NM_LEXT.mat/content"
+      }
+    },
+    {
+      "id": "73269faa-7e4a-42e3-9ce1-ed0c926b87a5",
+      "key": "PCAData.m",
+      "size": 829,
+      "checksum": "md5:0ee6df2289518656e5796dcefb9c2ddb",
+      "links": {
+        "self": "https://zenodo.org/api/records/22833546/files/PCAData.m/content"
+      }
+    },
+    {
+      "id": "5f2c5ef0-f7e1-4191-9728-8ee31d9ff7f1",
+      "key": "NM_UEXT.mat",
+      "size": 620789074,
+      "checksum": "md5:ed42d243eb7135fbb3930dbb57537c7a",
+      "links": {
+        "self": "https://zenodo.org/api/records/22833546/files/NM_UEXT.mat/content"
+      }
+    },
+    {
+      "id": "14e26e19-d33e-45b9-a008-f5e139dd3d1d",
+      "key": "Faces.mat",
+      "size": 7348863,
+      "checksum": "md5:2dd92c125004b59f7c0ae1e8fc5d4344",
+      "links": {
+        "self": "https://zenodo.org/api/records/22833546/files/Faces.mat/content"
+      }
+    },
+    {
+      "id": "3a473977-2d20-4928-8db9-bcffe288b272",
+      "key": "Metadata.mat",
+      "size": 76879,
+      "checksum": "md5:204bac57b635aed7e01447cb804f29c7",
+      "links": {
+        "self": "https://zenodo.org/api/records/22833546/files/Metadata.mat/content"
+      }
+    },
+    {
+      "id": "30334b3a-4bf7-42be-ac9a-32cc3c4d0724",
+      "key": "README.txt",
+      "size": 1940,
+      "checksum": "md5:384bdbb78f8e3af4b28dccee09645f31",
+      "links": {
+        "self": "https://zenodo.org/api/records/22833546/files/README.txt/content"
+      }
+    },
+    {
+      "id": "9adbb1dd-cebe-41c5-a708-de1e826ff80f",
+      "key": "plotshapemode.m",
+      "size": 1337,
+      "checksum": "md5:7c1e6e220ec87ab9f153559aeadfb05c",
+      "links": {
+        "self": "https://zenodo.org/api/records/22833546/files/plotshapemode.m/content"
+      }
+    }
+  ],
+  "swh": {},
+  "owners": [
+    {
+      "id": "1115397"
+    }
+  ],
+  "status": "published",
+  "stats": {
+    "downloads": 368,
+    "unique_downloads": 188,
+    "views": 254,
+    "unique_views": 241,
+    "version_downloads": 333,
+    "version_unique_downloads": 179,
+    "version_unique_views": 218,
+    "version_views": 229
+  },
+  "state": "done",
+  "submitted": true
+}

@@ -1,0 +1,25 @@
+name: Source inspection
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --locked --python 3.12
+      - uses: actions/cache@v4
+        with:
+          path: data/raw/22833546
+          key: openskeleton-22833546-verified-v1
+      - run: uv run python scripts/fetch_source.py
+      - run: uv run python scripts/fetch_source.py --geometry
+      - run: uv run python scripts/inspect_source.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: source-inventory
+          path: reports/source-inventory.json
+          if-no-files-found: error

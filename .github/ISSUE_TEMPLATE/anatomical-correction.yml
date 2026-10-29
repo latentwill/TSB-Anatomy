@@ -1,0 +1,52 @@
+name: Anatomical correction
+description: Report an evidenced geometry, labeling, or methodology concern.
+title: "[Anatomy] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Read CONTRIBUTING.md before proposing changes. A report or accepted correction does not automatically confer reviewed status or clinical validation. Do not upload identifiable medical data or restricted source material.
+  - type: input
+    id: artifact
+    attributes:
+      label: Artifact and structures
+      description: Commit/release, female or male model, and exact manifest/mesh structure IDs. For global issues say all; for a missing structure give its name and neighboring IDs.
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Before and after
+      description: What is observed, what should change, and how can it be reproduced? Include comparable views, orientation, landmarks, units, and measurements where relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Anatomical evidence
+      description: Source URL/DOI with page/figure or precise locator, why it supports the change, and uncertainty or conflicting evidence. Links alone are insufficient.
+    validations:
+      required: true
+  - type: textarea
+    id: variation
+    attributes:
+      label: Specimen variation or error?
+      description: Explain why this is an error rather than plausible variation, asymmetry, pathology, or an averaging effect. State if unresolved.
+    validations:
+      required: true
+  - type: textarea
+    id: provenance
+    attributes:
+      label: License provenance
+      description: For every proposed asset, give creator, source/version, license URL, and modifications. Identify original work and its inputs. If proposing no new material, state that explicitly.
+    validations:
+      required: true
+  - type: checkboxes
+    id: acknowledgement
+    attributes:
+      label: Review and rights
+      options:
+        - label: I understand review status requires an explicit documented decision and does not imply clinical validation.
+          required: true
+        - label: I have identified third-party material and have not uploaded restricted or identifiable medical data.
+          required: true

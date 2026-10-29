@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#e5ebef" />
+    <meta name="description" content="Inspect and compare open-source female and male skeletal examples. Source-derived geometry, searchable structures, and transparent limitations." />
+    <title>TSB Anatomy — Skeleton atlas</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#structure-search">Skip to structure search</a>
+    <header class="app-header">
+      <div class="identity"><h1>TSB Anatomy</h1><span>Skeleton atlas</span></div>
+      <a href="#about">Sources &amp; limitations</a>
+    </header>
+    <main class="atlas">
+      <section class="workspace" aria-label="Skeleton viewer">
+        <div class="viewer-toolbar">
+          <div class="segmented" role="group" aria-label="Displayed examples">
+            <button type="button" data-mode="female" aria-pressed="true" disabled>Female</button>
+            <button type="button" data-mode="male" aria-pressed="false" disabled>Male</button>
+            <button type="button" data-mode="compare" aria-pressed="false" disabled>Compare</button>
+          </div>
+          <span id="height-note" class="height-note">Source-derived geometry</span>
+        </div>
+        <div id="viewport" class="viewport" aria-busy="true">
+          <div id="canvas-host" class="canvas-host"></div>
+          <div id="model-labels" class="model-labels" aria-hidden="true"></div>
+          <div id="load-panel" class="load-panel" role="status" aria-live="polite">
+            <strong id="load-title">Loading skeleton atlas</strong>
+            <p id="load-message">Reading model information…</p>
+            <button id="retry-load" type="button" hidden>Reload atlas</button>
+          </div>
+          <div class="view-controls" role="group" aria-label="Camera views">
+            <button type="button" data-view="front" disabled>Front</button>
+            <button type="button" data-view="back" disabled>Back</button>
+            <button type="button" data-view="side" disabled>Side</button>
+            <button type="button" data-view="reset" disabled>Reset view</button>
+          </div>
+        </div>
+        <div class="viewer-caption"><span>Drag to orbit · Scroll or pinch to zoom</span><span>Click a bone to inspect</span></div>
+        <p id="viewer-status" class="viewer-status" role="status" aria-live="polite">Models have not loaded yet.</p>
+      </section>
+      <aside class="sidebar" aria-labelledby="structures-heading">
+        <div class="structure-browser">
+          <h2 id="structures-heading">Structures</h2>
+          <label for="structure-search">Find a bone</label>
+          <input id="structure-search" type="search" placeholder="Search name or region" autocomplete="off" disabled aria-controls="structure-list" />
+          <p id="structure-count" class="structure-count" aria-live="polite">Waiting for model information</p>
+          <label class="sr-only" for="structure-list">Select a structure to inspect</label>
+          <select id="structure-list" size="10" disabled aria-describedby="structure-count"></select>
+          <p id="no-results" class="no-results" hidden>No matching structures. Try another name or region.</p>
+        </div>
+        <section class="selection" aria-labelledby="selected-name">
+          <h2 id="selected-name">Inspect a structure</h2>
+          <p id="selected-region">Choose a name above or click a bone in the viewer.</p>
+          <p id="selected-detail" class="selected-detail">The same structure is selected in both examples when comparing.</p>
+          <div class="selection-actions">
+            <button id="toggle-visibility" type="button" disabled>Hide bone</button>
+            <button id="isolate" type="button" disabled>Isolate bone</button>
+          </div>
+          <button id="reset-visibility" class="text-button" type="button" disabled>Show all structures</button>
+          <p id="visibility-status" class="visibility-status">All structures visible</p>
+        </section>
+      </aside>
+    </main>
+    <section id="about" class="about" aria-labelledby="about-heading">
+      <div class="about-intro">
+        <h2 id="about-heading">Open geometry. Visible limitations.</h2>
+        <p>These are source-derived skeletal examples, not clinically validated anatomy. Matching skeletal height does not establish equal living stature.</p>
+      </div>
+      <details>
+        <summary>Model provenance, method &amp; reuse</summary>
+        <div class="provenance-content">
+          <p id="source-note">Source and model details appear when the manifest loads.</p>
+          <p id="method-note"></p>
+          <p id="normalization-note"></p>
+          <div class="table-scroll"><table><caption>Example metadata</caption><thead><tr><th scope="col">Example</th><th scope="col">Subjects</th><th scope="col">Structures</th><th scope="col">Skeletal height</th><th scope="col">Review</th></tr></thead><tbody id="model-metadata"></tbody></table></div>
+          <h3>Limitations</h3>
+          <ul id="limitations"><li>Not for diagnosis, treatment planning, or clinical measurement.</li></ul>
+          <p>Derived model license: <a id="model-license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA 4.0</a>. Viewer tooling: MIT. Preserve attribution and the applicable share-alike terms when reusing the models.</p>
+          <a href="https://github.com/latentwill/TSB-Anatomy" target="_blank" rel="noreferrer">Repository &amp; generation workflow</a>
+        </div>
+      </details>
+    </section>
+    <noscript><p class="noscript">This interactive atlas needs JavaScript. Model files and provenance are available in the <a href="https://github.com/latentwill/TSB-Anatomy">repository</a>.</p></noscript>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
