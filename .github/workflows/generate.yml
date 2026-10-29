@@ -18,6 +18,7 @@ jobs:
       - run: uv run python scripts/fetch_source.py
       - run: uv run python scripts/fetch_source.py --geometry
       - run: uv run python scripts/build_atlas.py
+      - run: uv run python scripts/verify_atlas.py
       - run: uv run python scripts/inspect_source.py
       - uses: actions/upload-artifact@v4
         with:

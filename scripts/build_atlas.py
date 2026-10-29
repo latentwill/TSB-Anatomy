@@ -180,9 +180,14 @@ def build(height=1.7):
             vertices[:, 1] -= low
             vertices *= final_scale
             mesh = trimesh.Trimesh(vertices=vertices, faces=faces[name], process=False)
-            if not np.isfinite(mesh.area_faces).all() or np.any(mesh.area_faces < 1e-16):
-                bad = np.flatnonzero(mesh.area_faces < 1e-16)
-                evidence = {'mean': mesh.area_faces[bad].tolist(), 'faces': bad.tolist(), 'sourceAreas': {}}
+            if not np.isfinite(mesh.area_faces).all():
+                raise ValueError(f'{sex}/{name}: nonfinite mean surface')
+            bad = np.flatnonzero(mesh.area_faces < 1e-16)
+            if len(bad):
+                if np.any(mesh.area_faces[bad] != 0):
+                    raise ValueError(f'{sex}/{name}: near-degenerate mean surface requires review')
+                # Only discard zero-area faces proven zero in EVERY contributing specimen.
+                # A new collapse caused by averaging is a generation error, never hidden.
                 with h5py.File(RAW / 'NM_combined.mat', 'r') as source:
                     for subject_id in sorted(source['NM_combined']):
                         if metadata[subject_id]['sex_code'].lower() != sex:
@@ -190,19 +195,21 @@ def build(height=1.7):
                         points = source['NM_combined'][subject_id][name]['Registered'][()].T
                         triangles = points[faces[name][bad]]
                         areas = np.linalg.norm(np.cross(triangles[:, 1] - triangles[:, 0], triangles[:, 2] - triangles[:, 0]), axis=1) / 2
-                        evidence['sourceAreas'][subject_id] = areas.tolist()
-                print('[DEBUG-degeneracy] ' + json.dumps(evidence), flush=True)
-                raise ValueError(f'{sex}/{name}: degenerate mean surface')
+                        if np.any(areas != 0):
+                            raise ValueError(f'{sex}/{name}: averaging introduced a collapsed face; review required')
+                mesh = trimesh.Trimesh(vertices=vertices, faces=np.delete(faces[name], bad, axis=0), process=False)
+                print(f'{sex}/{name}: removed inherited zero-area faces {bad.tolist()}', flush=True)
             mesh.visual = trimesh.visual.TextureVisuals(material=material)
             scene.add_geometry(mesh, node_name=name, geom_name=name, metadata={'sourceStructure': name, 'license': 'CC-BY-SA-4.0'})
             master[name + '_vertices'] = vertices
-            master[name + '_faces'] = faces[name].astype(np.int32)
-            mesh_audit.append({'id': name, 'vertices': len(vertices), 'triangles': len(faces[name]),
+            master[name + '_faces'] = mesh.faces.astype(np.int32)
+            mesh_audit.append({'id': name, 'vertices': len(vertices), 'triangles': len(mesh.faces),
+                               'removedInheritedZeroAreaFaces': bad.tolist(), 'sourceSubjectsCheckedForRemoval': counts[sex] if len(bad) else 0,
                                'watertight': bool(mesh.is_watertight), 'windingConsistent': bool(mesh.is_winding_consistent)})
         scene.metadata = {'license': 'CC-BY-SA-4.0', 'source': record['doi_url'], 'reviewStatus': 'Unreviewed cohort mean'}
         path = OUTPUT / f'{sex}.glb'
         scene.export(path, file_type='glb')
-        # Float64 reference means retain source topology; GLB is the float32 viewing copy.
+        # Float64 reference means retain vertices; any zero-area face removal is audited.
         master_dir = ROOT / 'data/derived'
         master_dir.mkdir(parents=True, exist_ok=True)
         np.savez_compressed(master_dir / f'{sex}.npz', **master)
@@ -219,7 +226,7 @@ def build(height=1.7):
         'Whole-body rigid orientation and uniform scaling only. Joint posture differences remain and can blur or distort cohort means.',
         'Vertex counts and connectivity are checked; anatomical correspondence is supplied by OpenSkeleton, not independently validated here.',
         'Skull is a combined source structure. No separately selectable skull bones, teeth, auditory ossicles, hyoid or coccyx are identified in the inventory.',
-        'Source mesh defects are reported, not silently repaired. Inter-bone intersections and joint congruence require anatomical review.',
+        'Exactly zero-area faces are removed only if zero in every contributing source mesh; their source indices are recorded. Other defects, inter-bone intersections and joint congruence require review.',
         'No organs, muscles, cartilage, ligaments or clinical measurements are included.',
     ]
     manifest = {'title': 'TSB-Anatomy skeletal atlas', 'license': 'CC-BY-SA-4.0',
