@@ -27,6 +27,8 @@ Data/job inventory: (1) two sex-specific model entries; (2) manifest subject cou
 | Error ink | `#873c2b` |
 | Bone material | `#e4dbc9` |
 | Selected bone material | `#5caaa0` |
+| Earth ground material | `#aa9c84` |
+| Ground-level outline | `#81745e` |
 
 The geometry uses physically lit Three.js standard materials. Its perceived colors vary with lighting, orientation, and tone mapping; CSS controls use the tokens directly.
 
@@ -53,6 +55,8 @@ Desktop grid arithmetic: 264px palette + flexible sheet + 8px outer inset = wind
 ## Interaction
 
 Selecting a name or mesh colors the corresponding structure in every loaded example. Comparison uses two independent scissored viewports with one orthographic camera: rotation and zoom are shared, but neither skeleton can occlude the other in side views. Labels remain over their own viewport, and picking is mapped into the clicked viewport. Front faces anterior +Z; back looks from −Z; side looks from +X. Changing displayed examples reframes them; hiding and isolating bones preserve the camera. Show all structures restores visibility without discarding selection.
+
+The default/reset camera is slightly elevated so the feet visibly sit on an earth-toned plane at the manifest's `pose.groundY` (Y=0). A single shadow-casting key light provides contact/depth cues; each comparison viewport renders only its own model and shadow. Exact front/back/side views remain orthographic, with an edge-on ground outline. Ground geometry is presentation-only: it is excluded from bone counts, selection and anatomical exports, and remains visible when bones are hidden or isolated.
 
 Pointer drag orbits; scroll or pinch zooms; OrbitControls supports pan. With canvas focus, arrow keys orbit, plus/minus zoom, and Home restores the front view. The searchable native selector is the equivalent non-pointer path to selecting geometry. Rendering is requested only for changes, loads, resize, or input; there is no continuous idle animation.
 
@@ -108,6 +112,6 @@ Top three observed problems and resolutions:
 2. Model labels crowded each other at tablet width. Separate viewport-centered labels now remain distinct in the final tablet screenshot.
 3. Hiding the mobile caption's line break joined adjacent words. Explicit whitespace now preserves the sentence boundary.
 
-Remaining tradeoff: both detailed GLBs load initially (about 42 MB total); no claim of performance on physical low-end mobile hardware is made. The default models now have an estimated rigid arms-at-sides pose. Original flexed-arm means are retained as references, and known mesh defects and unvalidated joint pivots remain explicit scientific limitations.
- 
-The production screenshots were refreshed after rigid arm articulation. Inspection still reports 0 FAIL / 0 WARN at 1440, 768 and 390 pixels. Front, side and back poses, close-up shoulder/elbow views, picking an articulated humerus, shared hide/isolate/restore, and the displayed pose provenance were checked in the browser without runtime errors. This verifies presentation and interaction, not anatomical joint congruence.
+Remaining tradeoff: both detailed GLBs load initially (about 42 MB total), and on-demand frames also render a shadow map; physical low-end mobile performance is not claimed. The default models now have an estimated grounded standing pose with shoulder-girdle and lower-limb articulation. Original source-pose means remain as references; known mesh defects, estimated pivots and unvalidated weight-bearing biomechanics are explicit limitations.
+
+Grounding inspection confirmed both heels/forefeet meet the plane, arches remain raised in side close-up, shoulders are relaxed without changing the torso/spine relationship, and the desktop/mobile surfaces show the models standing on earth rather than floating. The first oblique default produced a stepped horizon between comparison panes; removing default camera yaw aligns that horizon. Bone inventory remains 182 per model. The final source detector found no issues. These checks establish presentation and geometric invariants, not clinical correctness.

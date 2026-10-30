@@ -27,7 +27,7 @@
       "structures": 182,
       "heightM": 1.7,
       "reviewStatus": "Unreviewed cohort mean",
-      "sha256": "25dc8469abfe71f252d10126ed5678d8e3189603e304d86932b2775ee04a3f13"
+      "sha256": "3e5dd381ebeac8dbde82febe8202b7ea47732180e6cfc7c12318335001134839"
     },
     {
       "id": "male",
@@ -37,7 +37,7 @@
       "structures": 182,
       "heightM": 1.7,
       "reviewStatus": "Unreviewed cohort mean",
-      "sha256": "67bae76a4b5ccd2d4be5baddc75bcdfcea8caa36c602bb157593d0176e2126da"
+      "sha256": "ede52c013c24e24efd99785a67c1823d61980fa6047d7c33f39cc64d48c34c92"
     }
   ],
   "structures": [
@@ -956,7 +956,7 @@
     "Unreviewed cohort means, not clinically validated or population-representative reference anatomy.",
     "Source-recorded sex groups; not an inference of gender identity.",
     "A common skull-to-foot skeletal extent is not measured living stature. No soft-tissue height is modeled.",
-    "Cohort averaging uses whole-body orientation and uniform scale, not per-subject joint-pose normalization. Post-average arm articulation cannot undo pose-blurred means. Estimated pivots, joint congruence and intersections require anatomical review; the shoulder girdle and finger posture are unchanged.",
+    "Cohort averaging uses whole-body orientation and uniform scale, not per-subject joint-pose normalization. Post-average standing articulation cannot undo pose-blurred means. Shoulder-girdle motion, joint centers, knee tracking and bone-ground supports are estimates requiring anatomical review. Rigid arches are preserved, not flattened; bone contact is not a modeled soft-tissue sole or a validated weight-bearing posture.",
     "Vertex counts and connectivity are checked; anatomical correspondence is supplied by OpenSkeleton, not independently validated here.",
     "Skull is a combined source structure. No separately selectable skull bones, teeth, auditory ossicles, hyoid or coccyx are identified in the inventory.",
     "Exactly zero-area faces are removed only if zero in every contributing source mesh; their source indices are recorded. Other defects, inter-bone intersections and joint congruence require review.",
@@ -968,8 +968,9 @@
   ],
   "pose": {
     "id": "relaxed-standing",
-    "label": "Arms at sides",
-    "description": "Post-average rigid arm articulation: 8\u00b0 shoulder abduction and 5\u00b0 elbow flexion, with hands following the forearms. The source-pose float64 means are preserved unchanged. Joint centers are surface estimates, not validated anatomical landmarks.",
-    "rig": "Rigid shoulder \u2192 elbow \u2192 wrist nodes on each side; no skinning, IK, joint limits or animation clips. Other structures retain their source-derived posture."
+    "label": "Grounded standing",
+    "groundY": 0.0,
+    "description": "Post-average standing articulation: clavicle elevation set to 10\u00b0, arms at sides with 8\u00b0 abduction and 5\u00b0 elbow flexion, rigid feet leveled onto heel and medial/lateral forefoot supports. Hip/knee articulation closes both leg chains without stretching. One final whole-body uniform scale restores the reference skeletal height. Original float64 means remain unchanged; pivots and pose targets are display estimates, not validated anatomical landmarks or clinical norms.",
+    "rig": "Rigid sternoclavicular \u2192 shoulder \u2192 elbow \u2192 wrist and hip \u2192 knee \u2192 ankle chains, under one height-normalization node. No skinning, biomechanical joint limits or animation clips. Spine, finger and internal foot shape are preserved; no cartilage or plantar soft tissue is modeled."
   }
 }

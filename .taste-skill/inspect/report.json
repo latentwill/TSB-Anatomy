@@ -1,6 +1,6 @@
 {
  "url": "http://127.0.0.1:5183/",
- "at": "2026-10-30T01:40:35.546Z",
+ "at": "2026-10-30T02:21:35.577Z",
  "allow": [],
  "viewports": [
   {
@@ -158,11 +158,11 @@
      "textColors": [
       {
        "color": "#263b46",
-       "share": 0.78
+       "share": 0.8
       },
       {
        "color": "#526872",
-       "share": 0.22
+       "share": 0.2
       }
      ],
      "button": {
@@ -418,7 +418,7 @@
     "chartHues": 0,
     "placeholders": [],
     "type": {
-     "under13": 0.1,
+     "under13": 0.09,
      "tiny": 0,
      "tinySamples": [],
      "sizes": [
@@ -591,11 +591,11 @@
      "textColors": [
       {
        "color": "#263b46",
-       "share": 0.77
+       "share": 0.8
       },
       {
        "color": "#526872",
-       "share": 0.23
+       "share": 0.2
       }
      ],
      "button": {
@@ -836,7 +836,7 @@
     "chartHues": 0,
     "placeholders": [],
     "type": {
-     "under13": 0.1,
+     "under13": 0.09,
      "tiny": 0,
      "tinySamples": [],
      "sizes": [
@@ -974,7 +974,7 @@
      "microLabelShare": 0,
      "microSamples": [],
      "upperShare": 0,
-     "centerShare": 0.03,
+     "centerShare": 0.02,
      "smallText": 19
     },
     "eyebrows": [],
@@ -1010,11 +1010,11 @@
      "textColors": [
       {
        "color": "#263b46",
-       "share": 0.78
+       "share": 0.8
       },
       {
        "color": "#526872",
-       "share": 0.22
+       "share": 0.2
       }
      ],
      "button": {

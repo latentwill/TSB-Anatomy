@@ -20,7 +20,7 @@ npm run dev
 The repository includes the generated models; viewing does not require Python or the raw CT-derived dataset. The initial load includes both detailed skeletons.
 
 - Switch between female, male and side-by-side comparison.
-- Drag to orbit, scroll to zoom, and use front/back/side/reset views.
+- Drag to orbit and scroll to zoom. The default/reset view looks slightly down onto an earth-toned ground surface with cast shadows. Front/back/side remain exact orthographic inspection views, with a ground-level outline visible edge-on.
 - Search/select a structure or click its geometry.
 - Hide a structure, isolate it, or restore all structures. Selection and visibility are shared across comparison views.
 - Focus the canvas and use arrow keys to orbit, `+`/`-` to zoom, and `Home` for the front view. Every structure is also selectable without the canvas.
@@ -36,7 +36,7 @@ The inventory covers the combined skull, mandible, vertebrae, ribs, sternum, sho
 
 Known topology findings in both means: `HandScaphoid_L`, `HandScaphoid_R`, `Head` and `Sacrum` are not watertight; `Femur_L` and `Femur_R` have inconsistent face winding. These are review targets, not silently repaired surfaces. Double-sided viewing does not fix the source topology. Sternum face **3731** (zero-based source face index) was removed only after verifying exactly zero area in all 51 contributing specimens of each sex.
 
-The viewer defaults to an **arms-at-sides standing display pose**, with 8° shoulder abduction and 5° elbow flexion. Bone shapes are not stretched or sculpted. This is an estimated rigid articulation of the completed means, not a validated neutral anatomical stance. The original source-derived flexed-arm means remain unchanged in `data/derived/*.npz`.
+The viewer defaults to a **grounded standing display pose**: relaxed shoulder girdles, arms at sides, and both feet supported at the heel and medial/lateral forefoot. Bones articulate rigidly; arches are not flattened. One final whole-body uniform scale restores the 1.70 m skeletal height after planting the feet. These are estimated pose adjustments, not a validated neutral or weight-bearing stance. The original source-derived means remain unchanged in `data/derived/*.npz`.
 
 ## How the averages are made
 
@@ -48,23 +48,27 @@ The viewer defaults to an **arms-at-sides standing display pose**, with 8° shou
 6. Take an equal-weight arithmetic mean of corresponding vertices within each sex group.
 7. Ground and uniformly scale each mean again to restore the exact requested extent: averaging can slightly shrink the extrema. No smoothing or decimation is applied.
 8. Remove an exactly zero-area triangle only after proving it has exactly zero area in every contributing source specimen; record its zero-based source face index. Reject new or near-degenerate collapses rather than silently repairing them.
-9. Preserve float64 reference arrays in NPZ in their original mean pose. Estimate shoulder, elbow and wrist pivots, and export named meshes under rigid arm-joint nodes in GLB. Record rest/posed matrices, landmark-estimation methods, cohort counts, topology findings, bounds and file hashes.
+9. Preserve float64 reference arrays in NPZ in their original mean pose. Estimate joint pivots; relax the shoulder girdles and articulate the arms; level each rigid foot onto a three-region support plane and solve connected hip/knee chains. Translate the whole skeleton onto Y=0 and uniformly rescale the entire posed skeleton to the requested height. Export named meshes under glTF transform nodes; record rest/posed matrices, contact vertices, landmark methods, topology, bounds and file hashes.
 
 Coordinates are meters, **X = anatomical left, Y = superior, Z = anterior**. Both means share the same conventions and baseline.
 
 ### Pose and rigging
 
-Each GLB has **182 rigid mesh objects** and six articulated transform nodes: `shoulder_L → elbow_L → wrist_L`, and the corresponding `_R` chain. The humerus follows its shoulder; radius and ulna follow the elbow; every hand structure follows the wrist. Mesh vertices are local to their joint's original pivot. Moving a parent moves its descendants without deforming the bones.
+Each GLB has **182 rigid mesh objects** and **15 transform nodes** for the standing pose: one `stance` normalization node, and two chains per side: `girdle_L → shoulder_L → elbow_L → wrist_L` and `hip_L → knee_L → ankle_L` (plus their `_R` counterparts). The girdle carries the clavicle/scapula and arm; the hip carries the femur/patella; the knee carries tibia/fibula; the ankle carries all foot structures. Mesh vertices are local to their original joint pivot. All articulated nodes use rigid transforms; only the common `stance` node applies uniform height normalization.
 
-These are ordinary glTF transform nodes, **not a skinned character or Blender armature**. There is no full-body rig, IK solver, biomechanical joint limit, independent finger articulation or animation clip. Wrist rotation is unchanged in this pose; forearm pronation and finger posture are inherited from the source. The torso, shoulder girdle, head, legs and feet are not repositioned.
+These are ordinary glTF nodes, **not a skinned character or Blender armature**. The export pipeline uses an offline two-link leg-position solve, but there is no interactive IK controller, biomechanical joint-limit system, independent finger/toe articulation, spine rig or animation clip. Wrist rotation and internal hand/foot shapes are inherited from the source. The head and torso retain their source posture relative to each other.
 
 Pivots are explicitly **estimated display landmarks**:
+
+- Shoulder girdle: estimated sternoclavicular pivot at the medial 10% clavicle vertex centroid; the lateral 10% centroid defines elevation. The source means measure about 31° outward elevation. Clavicle and scapula move together to a **10° display target**, which is not asserted to be a clinical normal value. Their mutual relationship is preserved, but scapulothoracic glide is not modeled.
 
 - Shoulder: sphere fit to the medial half of the proximal 18% of humeral vertices along its principal axis. Fit radii and residuals are reported.
 - Elbow: centroid of the distal 12% of the humeral surface along that axis. The estimated bending plane comes from the upper-arm and forearm directions, not independently identified epicondyles. A circular articular-surface assumption was rejected because it fit the available surface poorly.
 - Wrist: midpoint of the lunate/scaphoid vertex centroids. The complete hand moves with the forearm, preserving their existing relationship.
+- Hip: sphere fit to the medial 45% of the proximal 8% femoral cap, excluding the neck/trochanter. Knee: distal 12% femoral vertex centroid. Ankle: superior-quartile talus centroid. The patella follows the femur; physiological patellar tracking is not modeled.
+- Foot support: retain the complete foot as a rigid assembly and solve pitch/roll so the heel, medial forefoot and lateral forefoot support minima share a plane. Check every foot vertex against that plane. Current supports occur on the calcaneus, first-ray sesamoids and lateral metatarsals; exact structures/vertex indices are recorded. Soft-tissue soles and heel pads are absent.
 
-`reports/generation.json` records every joint's parent, attached structures, `sourcePivotM`, `localMatrix`, and `restLocalMatrix`, plus a SHA256 hash of the preserved NPZ reference. Matrices are row-major JSON arrays acting on column vectors. Applying `restLocalMatrix` to each joint restores the original crossed-arm mean; the default `localMatrix` gives the arms-at-sides pose. Shoulder centers and segment lengths are preserved, but surface congruence, cartilage spacing and collisions are **not certified**. Post-average articulation cannot undo distortions introduced by averaging subjects in different postures.
+`reports/generation.json` records every joint's parent, attached structures, `sourcePivotM`, `localMatrix`, and `restLocalMatrix`, plus support contacts, normalization and reference SHA256 hashes. Matrices are row-major JSON arrays acting on column vectors. Applying **all** rest matrices, including `stance`, restores the original mean. The pose retains segment lengths before one common whole-body scale; no bone is independently stretched. Foot placement stays at the source ankle X/Z locations; one leg reaches the 5° minimum knee-flexion target while source asymmetry leaves the other at approximately 12–13°. These are display-solver results, not physiological measurements. Surface congruence, cartilage spacing, scapula/rib collisions and weight-bearing mechanics remain **unvalidated**.
 
 To regenerate just the posed GLBs from the shipped references, without downloading the raw dataset:
 
@@ -111,10 +115,10 @@ gh run download RUN_ID --name skeletal-atlas --dir downloaded-atlas
 
 | Path | Purpose |
 | --- | --- |
-| `public/models/female.glb`, `male.glb` | Named rigid meshes with shoulder/elbow/wrist hierarchy, posed with arms at sides |
+| `public/models/female.glb`, `male.glb` | Named rigid meshes with grounded shoulder/arm/leg/foot hierarchy |
 | `public/models/manifest.json` | Model hashes, method, labels, licenses and limitations |
 | `data/derived/female.npz`, `male.npz` | Unchanged source-pose float64 means and triangle indices, keyed by source structure ID |
-| `reports/generation.json` | Per-subject transforms, per-model mesh audit, estimated pivots, rig/rest matrices and reference hashes; no personal histories |
+| `reports/generation.json` | Source transforms, mesh audit, estimated pivots, rest/posed matrices, support contacts, final uniform scale and reference hashes |
 | `reports/source-inventory.json` | Observed source storage, names and connectivity inventory |
 | `scripts/` | Fetching, inspection, generation and asset verification |
 | `src/` | Standalone Three.js inspection viewer |
@@ -130,7 +134,7 @@ npm run build
 npm run preview
 ```
 
-The seven regression tests cover rigid-transform/unit invariance, uniform proportions, laterality/reflection rejection, height boundaries, MATLAB index conversion, arms-at-sides placement without stretching, restoration of the source pose, and correct propagation of elbow motion. Asset verification opens the real GLBs, checks hashes, names, joint parents/matrices, reference-array agreement after pivot offsets, target extent and laterality/anterior orientation. Neither replaces expert anatomical review.
+The ten regression tests cover rigid-transform/unit invariance, uniform proportions, laterality/reflection rejection, height boundaries, MATLAB index conversion, shape preservation through articulation/whole-body scaling, source-pose restoration, elbow motion propagation, bilateral heel/forefoot contact, arch clearance, leg-chain lengths and sternoclavicular-pivot preservation. Asset verification checks real GLB hashes, names, parents/matrices, reference agreement, world-space extent, laterality and all six support-region gaps. Neither replaces expert anatomical review.
 
 ## Correct the anatomy
 
@@ -140,6 +144,6 @@ Preserve the reproducible source-derived baseline. A correction to an educationa
 
 ## Verified implementation
 
-The full source-to-mean pipeline passed in [generation run 40907748961](https://github.com/latentwill/TSB-Anatomy/actions/runs/40907748961). The preserved means were subsequently re-exported with the arms-at-sides rigid hierarchy. Local asset verification and all seven geometric regression tests passed. Production-browser inspection confirmed both standing poses from front and side, with close-up shoulder/elbow inspection. Earlier production checks covered picking in both comparison viewports, search, hide/isolate/restore, camera controls, mobile inspection and partial-load failure handling.
+The full source-to-mean pipeline passed in [generation run 40907748961](https://github.com/latentwill/TSB-Anatomy/actions/runs/40907748961), and the earlier arm-rig pipeline passed in [run 40987606969](https://github.com/latentwill/TSB-Anatomy/actions/runs/40987606969). The preserved means were subsequently re-exported in the grounded standing pose. Local asset verification and all ten geometric regression tests passed; exported heel/forefoot gaps are zero within float32 export precision. Production-browser inspection confirmed visible earth-ground contact, side-view foot/arch clearance and desktop/mobile presentation. Earlier checks covered picking, search, visibility controls and partial-load failure handling.
 
 The viewer follows the requested [Taste Skill](https://github.com/leonxlnx/taste-skill) app workflow. Its final production inspection reported **0 failures and 0 warnings** at 1440, 768 and 390 pixels; see [DESIGN.md](DESIGN.md) and `.taste-skill/inspect/`. The production build retains a Three.js bundle-size advisory. These checks establish software behavior, not clinical validity.

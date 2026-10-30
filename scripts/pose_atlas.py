@@ -1,4 +1,4 @@
-"""Export an arms-at-sides rigid hierarchy without modifying the source-pose means."""
+"""Export a reversible, grounded standing pose without modifying the reference means."""
 from __future__ import annotations
 
 import hashlib
@@ -6,25 +6,30 @@ import json
 from pathlib import Path
 
 import numpy as np
+from scipy.optimize import least_squares
 from scipy.spatial.transform import Rotation
 import trimesh
 
 ROOT = Path(__file__).resolve().parents[1]
 ABDUCTION_DEG = 8.0
 FLEXION_DEG = 5.0
+CLAVICLE_ELEVATION_DEG = 10.0
+MIN_KNEE_FLEXION_DEG = 5.0
+FOOT_PREFIXES = ('Foot', 'Cal_', 'Tal_', 'Cub_', 'Nav_', 'MedCun_', 'InterCun_', 'LatCun_')
 POSE = {
     'id': 'relaxed-standing',
-    'label': 'Arms at sides',
-    'description': 'Post-average rigid arm articulation: 8° shoulder abduction and 5° elbow flexion, with hands following the forearms. The source-pose float64 means are preserved unchanged. Joint centers are surface estimates, not validated anatomical landmarks.',
-    'rig': 'Rigid shoulder → elbow → wrist nodes on each side; no skinning, IK, joint limits or animation clips. Other structures retain their source-derived posture.',
+    'label': 'Grounded standing',
+    'groundY': 0.0,
+    'description': 'Post-average standing articulation: clavicle elevation set to 10°, arms at sides with 8° abduction and 5° elbow flexion, rigid feet leveled onto heel and medial/lateral forefoot supports. Hip/knee articulation closes both leg chains without stretching. One final whole-body uniform scale restores the reference skeletal height. Original float64 means remain unchanged; pivots and pose targets are display estimates, not validated anatomical landmarks or clinical norms.',
+    'rig': 'Rigid sternoclavicular → shoulder → elbow → wrist and hip → knee → ankle chains, under one height-normalization node. No skinning, biomechanical joint limits or animation clips. Spine, finger and internal foot shape are preserved; no cartilage or plantar soft tissue is modeled.',
 }
-POSE_LIMITATION = 'Cohort averaging uses whole-body orientation and uniform scale, not per-subject joint-pose normalization. Post-average arm articulation cannot undo pose-blurred means. Estimated pivots, joint congruence and intersections require anatomical review; the shoulder girdle and finger posture are unchanged.'
+POSE_LIMITATION = 'Cohort averaging uses whole-body orientation and uniform scale, not per-subject joint-pose normalization. Post-average standing articulation cannot undo pose-blurred means. Shoulder-girdle motion, joint centers, knee tracking and bone-ground supports are estimates requiring anatomical review. Rigid arches are preserved, not flattened; bone contact is not a modeled soft-tissue sole or a validated weight-bearing posture.'
 
 
 def unit(vector):
     length = np.linalg.norm(vector)
     if not np.isfinite(length) or length < 1e-10:
-        raise ValueError('Degenerate arm landmark direction')
+        raise ValueError('Degenerate anatomical landmark direction')
     return vector / length
 
 
@@ -79,6 +84,153 @@ def estimate_arm(bones, side):
     return shoulder, elbow, wrist, audit
 
 
+def rotation_between(source, target):
+    return Rotation.align_vectors(unit(target)[None, :], unit(source)[None, :])[0].as_matrix()
+
+
+def foot_regions(bones, side):
+    forefoot = [name for name in bones if name.startswith('Foot') and name.endswith('_' + side)]
+    return {'heel': [f'Cal_{side}'],
+            'medialForefoot': [name for name in forefoot if name[-3] in '12' or name.startswith('FootSesa')],
+            'lateralForefoot': [name for name in forefoot if name[-3] in '345']}
+
+
+def level_foot(bones, side, ankle):
+    """Find a supporting plane, not a flattening deformation of the foot/arch."""
+    sign = 1 if side == 'L' else -1
+    heel = bones[f'Cal_{side}'].mean(axis=0)
+    medial = bones[f'FootMeta1_{side}'].mean(axis=0)
+    lateral = bones[f'FootMeta5_{side}'].mean(axis=0)
+    x = unit(sign * (lateral - medial))
+    forward = (medial + lateral) / 2 - heel
+    z = unit(forward - x * np.dot(forward, x))
+    y = unit(np.cross(z, x))
+    target_z = unit(np.array([z[0], 0., z[2]]))
+    initial = np.column_stack((np.cross([0., 1., 0.], target_z), [0., 1., 0.], target_z)) @ np.column_stack((x, y, z)).T
+    regions = foot_regions(bones, side)
+    points = [np.concatenate([bones[name] for name in names]) for names in regions.values()]
+
+    def rotation(angles):
+        return Rotation.from_rotvec([angles[0], 0., angles[1]]).as_matrix() @ initial
+
+    def residual(angles):
+        up = rotation(angles)[1]
+        low = np.array([np.min(group @ up) for group in points])
+        return low[1:] - low[0]
+
+    result = least_squares(residual, [0., 0.], bounds=(-np.pi / 6, np.pi / 6),
+                           xtol=1e-13, ftol=1e-13, gtol=1e-13, max_nfev=200)
+    if not result.success or np.max(np.abs(residual(result.x))) > 1e-8:
+        raise ValueError(f'{side}: could not find a three-region foot support plane')
+    rotate = rotation(result.x)
+    up = rotate[1]
+    support_y = min(np.min(group @ up) for group in points)
+    names = [name for name in bones if name.startswith(FOOT_PREFIXES) and name.endswith('_' + side)]
+    if min(np.min(bones[name] @ up) for name in names) < support_y - 1e-8:
+        raise ValueError(f'{side}: a foot bone penetrates the proposed support plane')
+    contacts = {}
+    for region, members in regions.items():
+        name = min(members, key=lambda item: np.min(bones[item] @ up))
+        contacts[region] = {'structure': name, 'vertexIndex': int(np.argmin(bones[name] @ up))}
+    return rotate, float(np.dot(ankle, up) - support_y), contacts
+
+
+def estimate_leg(bones, side):
+    sign = 1 if side == 'L' else -1
+    femur = bones[f'Femur_{side}']
+    centered = femur - femur.mean(axis=0)
+    _, _, axes = np.linalg.svd(centered, full_matrices=False)
+    superior = axes[0] * (1 if axes[0, 1] > 0 else -1)
+    projection = centered @ superior
+    span = np.ptp(projection)
+    # The proximal cap excludes the femoral neck and greater trochanter.
+    cap = femur[projection > projection.max() - .08 * span]
+    cap = cap[sign * cap[:, 0] < np.quantile(sign * cap[:, 0], .45)]
+    hip, radius, rms = fit_round_surface(cap)
+    if not .02 * span < radius < .15 * span or rms > .15 * radius:
+        raise ValueError(f'{side}: femoral head estimate requires review')
+    knee = femur[projection < projection.min() + .12 * span].mean(axis=0)
+    talus = bones[f'Tal_{side}']
+    ankle = talus[talus[:, 1] >= np.quantile(talus[:, 1], .75)].mean(axis=0)
+    rotate, ankle_height, contacts = level_foot(bones, side, ankle)
+    return {'hip': hip, 'knee': knee, 'ankle': ankle, 'footRotation': rotate, 'ankleHeight': ankle_height,
+            'contacts': contacts, 'audit': {'method': 'Hip sphere fit to medial 45% of proximal 8% femoral cap; knee at distal 12% femoral vertex centroid; ankle at superior quartile talus centroid. Two-link leg solve preserves segment lengths; patella follows femur, not a modeled patellar tracking mechanism.',
+                                           'hipRadiusM': radius, 'hipFitRmsM': rms}}
+
+
+def standing_rig(bones):
+    legs = {side: estimate_leg(bones, side) for side in ('L', 'R')}
+    required_ground = []
+    for leg in legs.values():
+        hip, knee, ankle = (leg[key] for key in ('hip', 'knee', 'ankle'))
+        upper, lower = np.linalg.norm(knee - hip), np.linalg.norm(ankle - knee)
+        reach_squared = upper ** 2 + lower ** 2 + 2 * upper * lower * np.cos(np.deg2rad(MIN_KNEE_FLEXION_DEG))
+        horizontal_squared = np.sum((hip[[0, 2]] - ankle[[0, 2]]) ** 2)
+        if reach_squared <= horizontal_squared:
+            raise ValueError('The requested foot placement exceeds the leg reach')
+        required_ground.append(hip[1] - leg['ankleHeight'] - np.sqrt(reach_squared - horizontal_squared))
+    # One body translation, not independently floating/dislocated ankle offsets.
+    ground = max(required_ground)
+    source_low = min(vertices[:, 1].min() for name, vertices in bones.items() if name.startswith(FOOT_PREFIXES))
+    target_height = bones['Head'][:, 1].max() - source_low
+    scale = float(target_height / (bones['Head'][:, 1].max() - ground))
+    root = {'id': 'stance', 'parent': 'world', 'sourcePivotM': [0., 0., 0.], 'structures': [],
+            'restLocalMatrix': np.eye(4).tolist(), 'localMatrix': matrix(np.eye(3) * scale, [0., -ground * scale, 0.]).tolist()}
+    joints = [root]
+    for side, leg in legs.items():
+        hip, knee, ankle = (leg[key] for key in ('hip', 'knee', 'ankle'))
+        target_ankle = ankle.copy()
+        target_ankle[1] = ground + leg['ankleHeight']
+        upper, lower = np.linalg.norm(knee - hip), np.linalg.norm(ankle - knee)
+        distance = np.linalg.norm(target_ankle - hip)
+        if distance > upper + lower + 1e-10 or distance < abs(upper - lower) - 1e-10:
+            raise ValueError(f'{side}: ground target cannot be reached without changing segment lengths')
+        axis = unit(target_ankle - hip)
+        along = (upper ** 2 - lower ** 2 + distance ** 2) / (2 * distance)
+        bend = unit(np.array([0., 0., 1.]) - axis * axis[2])
+        target_knee = hip + axis * along + bend * np.sqrt(max(0., upper ** 2 - along ** 2))
+        hip_rotation = rotation_between(knee - hip, target_knee - hip)
+        shin_rotation = rotation_between(ankle - knee, target_ankle - target_knee)
+        flexion = np.rad2deg(np.arccos(np.clip(np.dot(unit(target_knee - hip), unit(target_ankle - target_knee)), -1., 1.)))
+        leg['audit']['posedKneeFlexionDeg'] = float(flexion)
+        leg['audit']['footRotationDeg'] = float(np.rad2deg(Rotation.from_matrix(leg['footRotation']).magnitude()))
+        joints.extend([
+            {'id': f'hip_{side}', 'parent': 'stance', 'sourcePivotM': hip.tolist(),
+             'restLocalMatrix': matrix(translation=hip).tolist(), 'localMatrix': matrix(hip_rotation, hip).tolist(),
+             'structures': [f'Femur_{side}', f'Patella_{side}']},
+            {'id': f'knee_{side}', 'parent': f'hip_{side}', 'sourcePivotM': knee.tolist(),
+             'restLocalMatrix': matrix(translation=knee - hip).tolist(),
+             'localMatrix': matrix(hip_rotation.T @ shin_rotation, knee - hip).tolist(),
+             'structures': [f'Tibia_{side}', f'Fibula_{side}']},
+            {'id': f'ankle_{side}', 'parent': f'knee_{side}', 'sourcePivotM': ankle.tolist(),
+             'restLocalMatrix': matrix(translation=ankle - knee).tolist(),
+             'localMatrix': matrix(shin_rotation.T @ leg['footRotation'], ankle - knee).tolist(),
+             'structures': sorted(name for name in bones if name.startswith(FOOT_PREFIXES) and name.endswith('_' + side))},
+        ])
+    return joints, legs, {'uniformScale': scale, 'bodyTranslationBeforeScaleM': -float(ground),
+                         'targetHeightM': float(target_height), 'groundY': 0.}
+
+
+def shoulder_girdle(bones, side):
+    sign = 1 if side == 'L' else -1
+    clavicle = bones[f'Clavicula_{side}']
+    across = sign * clavicle[:, 0]
+    pivot = clavicle[across < np.quantile(across, .1)].mean(axis=0)
+    lateral = clavicle[across > np.quantile(across, .9)].mean(axis=0)
+    direction = lateral - pivot
+    horizontal = unit(np.array([direction[0], 0., direction[2]]))
+    elevation = np.deg2rad(CLAVICLE_ELEVATION_DEG)
+    target = horizontal * np.cos(elevation) + np.array([0., np.sin(elevation), 0.])
+    rotate = rotation_between(direction, target)
+    joint = {'id': f'girdle_{side}', 'parent': 'stance', 'sourcePivotM': pivot.tolist(),
+             'restLocalMatrix': matrix(translation=pivot).tolist(), 'localMatrix': matrix(rotate, pivot).tolist(),
+             'structures': [f'Clavicula_{side}', f'Scapula_{side}']}
+    audit = {'sourceClavicleElevationDeg': float(np.rad2deg(np.arctan2(direction[1], np.linalg.norm(direction[[0, 2]])))),
+             'posedClavicleElevationDeg': CLAVICLE_ELEVATION_DEG,
+             'method': 'Estimated sternoclavicular pivot at medial 10% vertex centroid; lateral 10% centroid defines elevation. Clavicle and scapula move together to retain their existing relationship. 10° is a display pose target, not a clinical norm; scapulothoracic glide is not modeled.'}
+    return joint, rotate, audit
+
+
 def arm_rig(bones, side):
     shoulder, elbow, wrist, audit = estimate_arm(bones, side)
     down = unit(elbow - shoulder)
@@ -95,10 +247,14 @@ def arm_rig(bones, side):
     source_flexion = np.arctan2(np.dot(forearm, bend), np.dot(forearm, down))
     elbow_rotation = Rotation.from_rotvec(hinge * (np.deg2rad(FLEXION_DEG) - source_flexion)).as_matrix()
     audit['sourceFlexionDeg'] = float(np.rad2deg(source_flexion))
+    girdle, girdle_rotation, girdle_audit = shoulder_girdle(bones, side)
+    pivot = np.array(girdle['sourcePivotM'])
+    audit['shoulderGirdle'] = girdle_audit
     joints = [
-        {'id': f'shoulder_{side}', 'parent': 'world', 'sourcePivotM': shoulder.tolist(),
-         'restLocalMatrix': matrix(translation=shoulder).tolist(),
-         'localMatrix': matrix(shoulder_rotation, shoulder).tolist(), 'structures': [f'Humerus_{side}']},
+        girdle,
+        {'id': f'shoulder_{side}', 'parent': girdle['id'], 'sourcePivotM': shoulder.tolist(),
+         'restLocalMatrix': matrix(translation=shoulder - pivot).tolist(),
+         'localMatrix': matrix(girdle_rotation.T @ shoulder_rotation, shoulder - pivot).tolist(), 'structures': [f'Humerus_{side}']},
         {'id': f'elbow_{side}', 'parent': f'shoulder_{side}', 'sourcePivotM': elbow.tolist(),
          'restLocalMatrix': matrix(translation=elbow - shoulder).tolist(),
          'localMatrix': matrix(elbow_rotation, elbow - shoulder).tolist(), 'structures': [f'Radius_{side}', f'Ulna_{side}']},
@@ -113,17 +269,21 @@ def arm_rig(bones, side):
 def articulated_scene(bones, faces, metadata):
     scene = trimesh.Scene(metadata={**metadata, 'pose': POSE})
     material = trimesh.visual.material.PBRMaterial(name='bone', baseColorFactor=[228, 219, 201, 255], metallicFactor=0, roughnessFactor=.77)
+    joints, legs, normalization = standing_rig(bones)
     rig = {'pose': POSE['id'], 'shoulderAbductionDeg': ABDUCTION_DEG, 'elbowFlexionDeg': FLEXION_DEG,
-           'reviewStatus': 'Estimated display rig, not anatomically validated', 'joints': [], 'landmarkEstimates': {}}
+           'reviewStatus': 'Estimated display rig, not anatomically validated', 'joints': joints,
+           'normalization': normalization, 'landmarkEstimates': {}, 'groundContacts': {}}
     attachments = {}
     for side in ('L', 'R'):
-        joints, audit = arm_rig(bones, side)
-        rig['joints'].extend(joints)
-        rig['landmarkEstimates'][side] = audit
-        for joint in joints:
-            scene.graph.update(frame_to=joint['id'], frame_from=joint['parent'], matrix=np.array(joint['localMatrix']))
-            for name in joint['structures']:
-                attachments[name] = joint
+        arm_joints, audit = arm_rig(bones, side)
+        joints.extend(arm_joints)
+        rig['landmarkEstimates'][side] = {'arm': audit, 'leg': legs[side]['audit']}
+    attached = {name for joint in joints for name in joint['structures']}
+    joints[0]['structures'] = sorted(set(bones) - attached)
+    for joint in joints:
+        scene.graph.update(frame_to=joint['id'], frame_from=joint['parent'], matrix=np.array(joint['localMatrix']))
+        for name in joint['structures']:
+            attachments[name] = joint
     for name, vertices in bones.items():
         joint = attachments.get(name)
         local = vertices - joint['sourcePivotM'] if joint else vertices
@@ -131,6 +291,12 @@ def articulated_scene(bones, faces, metadata):
         mesh.visual = trimesh.visual.TextureVisuals(material=material)
         scene.add_geometry(mesh, node_name=name, geom_name=name, parent_node_name=joint['id'] if joint else 'world',
                            metadata={'sourceStructure': name, 'license': 'CC-BY-SA-4.0'})
+    for side, leg in legs.items():
+        rig['groundContacts'][side] = {}
+        for region, contact in leg['contacts'].items():
+            name, index = contact['structure'], contact['vertexIndex']
+            point = trimesh.transform_points(scene.geometry[name].vertices[[index]], scene.graph[name][0])[0]
+            rig['groundContacts'][side][region] = {**contact, 'positionM': point.tolist()}
     return scene, rig
 
 
@@ -159,8 +325,8 @@ def main():
         next(m for m in report['models'] if m['id'] == model['id']).update(result)
         print(f"{model['id']}: exported {len(bones)} rigid meshes in {POSE['label']} pose")
     manifest['pose'] = POSE
-    manifest['limitations'] = [note for note in manifest['limitations'] if note != POSE_LIMITATION]
-    manifest['limitations'].insert(3, POSE_LIMITATION)
+    limitation_index = next(i for i, note in enumerate(manifest['limitations']) if note.startswith('Cohort averaging uses whole-body orientation'))
+    manifest['limitations'][limitation_index] = POSE_LIMITATION
     manifest_path.write_text(json.dumps(manifest, indent=2) + '\n')
     report_path.write_text(json.dumps(report, indent=2) + '\n')
 

@@ -85,16 +85,45 @@ function createRenderer() {
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.1;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.domElement.tabIndex = 0;
   renderer.domElement.setAttribute('aria-label', 'Interactive skeleton. Arrow keys orbit; plus and minus zoom. Use the structure list to select bones without a pointer.');
   renderer.domElement.setAttribute('aria-describedby', 'camera-help viewer-status');
   ui.host.append(renderer.domElement);
   scene = new THREE.Scene();
+  // Presentation ground is not anatomy and never enters the bone picker/inventory.
+  const earth = new THREE.Mesh(
+    new THREE.PlaneGeometry(8, 8),
+    new THREE.MeshStandardMaterial({ color: '#aa9c84', roughness: 1, metalness: 0, side: THREE.DoubleSide }),
+  );
+  earth.name = 'earth-ground';
+  earth.rotation.x = -Math.PI / 2;
+  earth.position.y = state.manifest.pose.groundY;
+  earth.receiveShadow = true;
+  scene.add(earth);
+  // A ground-level outline remains legible in exact edge-on orthographic presets.
+  const groundEdge = new THREE.LineLoop(
+    new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(-4, earth.position.y, -4), new THREE.Vector3(4, earth.position.y, -4),
+      new THREE.Vector3(4, earth.position.y, 4), new THREE.Vector3(-4, earth.position.y, 4),
+    ]),
+    new THREE.LineBasicMaterial({ color: '#81745e' }),
+  );
+  scene.add(groundEdge);
   camera = new THREE.OrthographicCamera(-1, 1, 1, -1, .01, 100);
   camera.position.set(0, .85, 5);
   scene.add(new THREE.HemisphereLight('#ffffff', '#8799a6', 2.5));
   const key = new THREE.DirectionalLight('#fff6e6', 3.1);
-  key.position.set(-3, 5, 5);
+  key.position.set(-2, 7, 3);
+  key.target.position.set(0, .75, 0);
+  key.castShadow = true;
+  key.shadow.mapSize.set(2048, 2048);
+  Object.assign(key.shadow.camera, { left: -1.8, right: 1.8, top: 2, bottom: -1.8, near: .1, far: 12 });
+  key.shadow.bias = -.00005;
+  key.shadow.normalBias = .001;
+  key.shadow.camera.updateProjectionMatrix();
+  scene.add(key.target);
   scene.add(key);
   const fill = new THREE.DirectionalLight('#e3efff', 1.8);
   fill.position.set(3, 2, -4);
@@ -171,7 +200,7 @@ function resize() {
 function setView(view) {
   if (!framingBox) return;
   framingBox.getCenter(controls.target);
-  const offset = view === 'back' ? [0, 0, -5] : view === 'side' ? [5, 0, 0] : [0, 0, 5];
+  const offset = view === 'front' ? [0, 0, 5] : view === 'back' ? [0, 0, -5] : view === 'side' ? [5, 0, 0] : [0, 1, 5];
   camera.position.copy(controls.target).add(new THREE.Vector3(...offset));
   camera.up.set(0, 1, 0);
   camera.zoom = 1;
@@ -196,7 +225,7 @@ function setMode(mode) {
   }
   document.querySelectorAll('[data-mode]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.mode === mode)));
   resize();
-  setView('front');
+  setView('standing');
   updateSelection();
   const names = [...state.models.values()].filter((model) => model.root.visible).map((model) => model.meta.label).join(' and ');
   setStatus(`${names}. ${mode === 'compare' ? 'Shared camera and structure selection.' : 'Select a bone to inspect.'}${state.failures.length ? ` Unavailable: ${state.failures.join(', ')}. Reload to retry.` : ''}`, state.failures.length > 0);
@@ -335,6 +364,8 @@ async function loadModel(meta) {
     node.userData.structureId = id;
     (Array.isArray(node.material) ? node.material : [node.material]).forEach((material) => oldMaterials.add(material));
     node.material = boneMaterial;
+    node.castShadow = true;
+    node.receiveShadow = true;
   });
   if (!meshes.length) throw new Error(`${meta.label} contains no bone meshes.`);
   oldMaterials.forEach((material) => material.dispose());
@@ -463,6 +494,7 @@ Object.defineProperty(window, '__atlas', {
     ready: state.ready, mode: state.mode, selected: state.selected,
     loadedModels: [...state.models.keys()], hidden: [...state.hidden], isolated: state.isolated,
     structures: state.structures.size, failures: [...state.failures],
+    groundY: scene?.getObjectByName('earth-ground')?.position.y,
     meshes: Object.fromEntries([...state.models].map(([id, model]) => [id, model.meshes.length])),
     visibleMeshes: Object.fromEntries([...state.models].map(([id, model]) => [id, model.root.visible ? model.meshes.filter((mesh) => mesh.visible).length : 0])),
   }),
