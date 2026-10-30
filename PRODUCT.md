@@ -22,7 +22,7 @@ The confirmed job is practical anatomy inspection and reuse of open geometry. A 
 
 - Consume the generated manifest and real GLB geometry in public/models; do not invent anatomy or substitute illustrative assets.
 - Female, male, and side-by-side comparison share a camera and structure selection. Comparison is the initial view when both real models load; a single successful model remains usable if the other fails.
-- Models use meters, Y-up, ground at Y=0, and anterior +Z. The manifest, rather than interface copy, supplies population counts, review status, height, and methodological limitations.
+- Models use meters, Y-up, an invisible support reference at Y=0, and anterior +Z. No earth plane, floor outline or cast shadows are rendered. The manifest, rather than interface copy, supplies population counts, review status, height, and methodological limitations.
 - Matching skeletal height is not a measurement of living stature.
 - Tooling is MIT; derived model assets are CC BY-SA 4.0 with attribution to the upstream CC BY 4.0 OpenSkeleton source.
 - No paid services or paid generation; no modification to the separate thespiritualbody project.

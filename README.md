@@ -20,7 +20,7 @@ npm run dev
 The repository includes the generated models; viewing does not require Python or the raw CT-derived dataset. The initial load includes both detailed skeletons.
 
 - Switch between female, male and side-by-side comparison.
-- Drag to orbit and scroll to zoom. The default/reset view looks slightly down onto an earth-toned ground surface with cast shadows. Front/back/side remain exact orthographic inspection views, with a ground-level outline visible edge-on.
+- Drag to orbit and scroll to zoom. The default/reset view is slightly elevated; front/back/side are exact orthographic inspection views. Skeletons appear against the plain slate background, without a visible floor, ground outline or cast shadows.
 - Search/select a structure or click its geometry.
 - Hide a structure, isolate it, or restore all structures. Selection and visibility are shared across comparison views.
 - Focus the canvas and use arrow keys to orbit, `+`/`-` to zoom, and `Home` for the front view. Every structure is also selectable without the canvas.
@@ -36,7 +36,7 @@ The inventory covers the combined skull, mandible, vertebrae, ribs, sternum, sho
 
 Known topology findings in both means: `HandScaphoid_L`, `HandScaphoid_R`, `Head` and `Sacrum` are not watertight; `Femur_L` and `Femur_R` have inconsistent face winding. These are review targets, not silently repaired surfaces. Double-sided viewing does not fix the source topology. Sternum face **3731** (zero-based source face index) was removed only after verifying exactly zero area in all 51 contributing specimens of each sex.
 
-The viewer defaults to a **grounded standing display pose**: relaxed shoulder girdles, arms at sides, and both feet supported at the heel and medial/lateral forefoot. Bones articulate rigidly; arches are not flattened. One final whole-body uniform scale restores the 1.70 m skeletal height after planting the feet. These are estimated pose adjustments, not a validated neutral or weight-bearing stance. The original source-derived means remain unchanged in `data/derived/*.npz`.
+The viewer retains the **standing display pose**: relaxed shoulder girdles, arms at sides, and level heels/forefeet aligned to an invisible mathematical plane at Y=0. No earth or floor surface is rendered. Bones articulate rigidly; arches are not flattened. One whole-body uniform scale restores the 1.70 m skeletal height after foot placement. These are estimated pose adjustments, not a validated neutral or weight-bearing stance. The original source-derived means remain unchanged in `data/derived/*.npz`.
 
 ## How the averages are made
 
@@ -144,6 +144,6 @@ Preserve the reproducible source-derived baseline. A correction to an educationa
 
 ## Verified implementation
 
-The full source-to-mean pipeline passed in [generation run 40907748961](https://github.com/latentwill/TSB-Anatomy/actions/runs/40907748961), and the earlier arm-rig pipeline passed in [run 40987606969](https://github.com/latentwill/TSB-Anatomy/actions/runs/40987606969). The preserved means were subsequently re-exported in the grounded standing pose. Local asset verification and all ten geometric regression tests passed; exported heel/forefoot gaps are zero within float32 export precision. Production-browser inspection confirmed visible earth-ground contact, side-view foot/arch clearance and desktop/mobile presentation. Earlier checks covered picking, search, visibility controls and partial-load failure handling.
+The complete standing-pose generation pipeline passed in [run 40991422437](https://github.com/latentwill/TSB-Anatomy/actions/runs/40991422437). Asset verification and all ten geometric regression tests passed; heel/forefoot support gaps are zero within float32 export precision. Removing the displayed earth plane was a viewer-only change: models, joint transforms, height and references were unchanged. Production-browser checks confirmed the plain-background standing and side views, 182 structures per model, and isolate/restore behavior without runtime errors.
 
 The viewer follows the requested [Taste Skill](https://github.com/leonxlnx/taste-skill) app workflow. Its final production inspection reported **0 failures and 0 warnings** at 1440, 768 and 390 pixels; see [DESIGN.md](DESIGN.md) and `.taste-skill/inspect/`. The production build retains a Three.js bundle-size advisory. These checks establish software behavior, not clinical validity.
