@@ -303,10 +303,11 @@ def articulated_scene(bones, faces, metadata):
 def export_model(sex, bones, faces, source_url):
     scene, rig = articulated_scene(bones, faces, {'license': 'CC-BY-SA-4.0', 'source': source_url, 'reviewStatus': 'Unreviewed cohort mean'})
     path = ROOT / 'public/models' / f'{sex}.glb'
-    scene.export(path, file_type='glb')
     reference = ROOT / 'data/derived' / f'{sex}.npz'
     rig['reference'] = {'path': str(reference.relative_to(ROOT)), 'sha256': hashlib.sha256(reference.read_bytes()).hexdigest(),
                         'pose': 'Unchanged source-derived flexed-arm cohort mean; coordinates in meters'}
+    scene.metadata['rig'] = rig
+    scene.export(path, file_type='glb')
     return {'sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'boundsM': scene.bounds.tolist(),
             'glbBytes': path.stat().st_size, 'poseRig': rig}
 

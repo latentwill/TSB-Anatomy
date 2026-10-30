@@ -2,6 +2,7 @@ import './style.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { createRigView } from './rig-view.js';
 
 const $ = (id) => document.getElementById(id);
 const ui = {
@@ -10,10 +11,12 @@ const ui = {
   status: $('viewer-status'), search: $('structure-search'), list: $('structure-list'),
   count: $('structure-count'), hide: $('toggle-visibility'), isolate: $('isolate'),
   resetVisibility: $('reset-visibility'),
+  jointSelect: $('joint-select'), showJoints: $('show-joints'),
 };
 const state = {
   manifest: null, structures: new Map(), models: new Map(), mode: 'compare',
   selected: null, hidden: new Set(), isolated: null, failures: [], ready: false,
+  pose: 'standing', joint: 'shoulder_L', showJoints: false,
 };
 let renderer;
 let scene;
@@ -24,6 +27,10 @@ let framingBox;
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 const MODEL_IDS = ['female', 'male'];
+const JOINT_NAMES = {
+  girdle: 'sternoclavicular pivot', shoulder: 'shoulder center', elbow: 'elbow pivot',
+  wrist: 'wrist center', hip: 'hip center', knee: 'knee pivot', ankle: 'ankle pivot',
+};
 // Render both sides of source faces; this does not repair source winding defects.
 const boneMaterial = new THREE.MeshStandardMaterial({ color: '#e4dbc9', roughness: .77, metalness: 0, side: THREE.DoubleSide });
 const selectedMaterial = new THREE.MeshStandardMaterial({ color: '#5caaa0', roughness: .72, metalness: 0, side: THREE.DoubleSide });
@@ -194,14 +201,112 @@ function setMode(mode) {
   }
   framingBox = new THREE.Box3();
   for (const model of state.models.values()) {
-    if (model.root.visible) framingBox.union(new THREE.Box3().setFromObject(model.root));
+    if (model.root.visible) {
+      model.root.updateMatrixWorld(true);
+      framingBox.union(model.bounds.clone().applyMatrix4(model.root.matrixWorld));
+    }
   }
   document.querySelectorAll('[data-mode]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.mode === mode)));
   resize();
   setView('standing');
   updateSelection();
+  updateJointInspector();
   const names = [...state.models.values()].filter((model) => model.root.visible).map((model) => model.meta.label).join(' and ');
   setStatus(`${names}. ${mode === 'compare' ? 'Shared camera and structure selection.' : 'Select a bone to inspect.'}${state.failures.length ? ` Unavailable: ${state.failures.join(', ')}. Reload to retry.` : ''}`, state.failures.length > 0);
+}
+
+function jointName(id) {
+  if (id === 'stance') return 'Stance normalization';
+  if (id === 'world') return 'Model origin';
+  const [kind, side] = id.split('_');
+  return `${side === 'L' ? 'Left' : 'Right'} ${JOINT_NAMES[kind]}`;
+}
+
+function shownModels() {
+  return MODEL_IDS.filter((id) => state.models.has(id) && (state.mode === 'compare' || state.mode === id)).map((id) => state.models.get(id));
+}
+
+function setPose(pose) {
+  if (!state.ready || !['standing', 'original'].includes(pose)) return;
+  state.pose = pose;
+  for (const model of state.models.values()) model.rig.applyPose(pose);
+  document.querySelectorAll('[data-pose]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.pose === pose)));
+  $('pose-note').textContent = pose === 'original'
+    ? 'Original normalized cohort mean: crossed arms and source foot positions. Not an individual specimen.'
+    : 'Estimated standing pose: arms lowered, feet flat. Bone shapes preserved with uniform height normalization.';
+  updateJointInspector();
+  requestRender();
+}
+
+function setJoint(id, reveal = false) {
+  if (!state.ready || ![...state.models.values()].every((model) => model.rig.jointIds.includes(id))) return;
+  state.joint = id;
+  ui.jointSelect.value = id;
+  $('inspector-selection').textContent = jointName(id);
+  if (reveal) {
+    state.showJoints = true;
+    ui.showJoints.checked = true;
+    $('joint-inspector').open = true;
+    $('inspector').open = true;
+    if (compactInspector.matches) $('joint-inspector').scrollIntoView({ block: 'start' });
+  }
+  updateJointOverlays();
+  updateJointInspector();
+}
+
+function updateJointOverlays() {
+  for (const model of state.models.values()) model.rig.setOverlay(state.showJoints, state.joint);
+  requestRender();
+}
+
+function updateJointInspector() {
+  const models = shownModels();
+  if (!models.length) return;
+  const [kind, side] = state.joint.split('_');
+  const joint = models[0].rig.data.joints.find((item) => item.id === state.joint);
+  $('joint-detail').hidden = false;
+  $('joint-title').textContent = jointName(state.joint);
+  $('joint-id').textContent = state.joint;
+  $('joint-parent').textContent = jointName(joint.parent);
+  $('joint-status').textContent = `14 estimated pivots per model · read-only · ${state.pose === 'original' ? 'original mean' : 'standing pose'}. Not anatomically validated.`;
+  const rows = [];
+  const metrics = [];
+  const methods = [];
+  for (const model of models) {
+    const row = document.createElement('tr');
+    const label = document.createElement('th');
+    label.scope = 'row';
+    label.textContent = model.meta.label;
+    row.append(label);
+    for (const value of model.rig.getJoint(state.joint).position) {
+      const cell = document.createElement('td');
+      cell.textContent = (Math.abs(value) < .0005 ? 0 : value).toFixed(3);
+      row.append(cell);
+    }
+    rows.push(row);
+    const estimates = model.rig.data.landmarkEstimates[side];
+    const audit = ['hip', 'knee', 'ankle'].includes(kind) ? estimates.leg : kind === 'girdle' ? estimates.arm.shoulderGirdle : estimates.arm;
+    methods.push({ label: model.meta.label, text: audit.method });
+    if (kind === 'shoulder' || kind === 'hip') {
+      const radius = kind === 'hip' ? audit.hipRadiusM : audit.headRadiusM;
+      const residual = kind === 'hip' ? audit.hipFitRmsM : audit.headFitRmsM;
+      const metric = document.createElement('p');
+      metric.textContent = `${model.meta.label}: fitted head radius ${number.format(radius * 1000)} mm; fit residual (RMS) ${number.format(residual * 1000)} mm.`;
+      metrics.push(metric);
+    }
+  }
+  $('joint-coordinates').replaceChildren(...rows);
+  $('joint-method').textContent = methods.every((method) => method.text === methods[0].text)
+    ? methods[0].text : methods.map((method) => `${method.label}: ${method.text}`).join(' ');
+  const uncertainty = document.createElement('p');
+  uncertainty.textContent = metrics.length ? 'Fit residual is not a measure of anatomical accuracy.' : 'No landmark-error estimate is available for this pivot.';
+  $('joint-metrics').replaceChildren(...metrics, uncertainty);
+  const structures = new Set(models.flatMap((model) => model.rig.data.joints.find((item) => item.id === state.joint).structures));
+  $('joint-structures').replaceChildren(...[...structures].map((id) => {
+    const item = document.createElement('li');
+    item.textContent = state.structures.get(id)?.label || id;
+    return item;
+  }));
 }
 
 function structureId(object) {
@@ -223,7 +328,10 @@ function pickBone(event) {
   const meshes = [];
   for (const [id, model] of state.models) {
     if (state.mode === 'compare' && id !== MODEL_IDS[column]) continue;
-    if (model.root.visible) for (const mesh of model.meshes) if (mesh.visible) meshes.push(mesh);
+    if (!model.root.visible) continue;
+    const joint = model.rig.pick(raycaster);
+    if (joint) { setJoint(joint, true); return; }
+    for (const mesh of model.meshes) if (mesh.visible) meshes.push(mesh);
   }
   const hit = raycaster.intersectObjects(meshes, false)[0];
   if (hit) selectStructure(hit.object.userData.structureId, true);
@@ -340,7 +448,12 @@ async function loadModel(meta) {
   });
   if (!meshes.length) throw new Error(`${meta.label} contains no bone meshes.`);
   oldMaterials.forEach((material) => material.dispose());
-  const bounds = new THREE.Box3().setFromObject(root);
+  const rig = createRigView(root, meshes, root.userData.rig);
+  rig.applyPose('standing');
+  const bounds = rig.getBounds(new THREE.Box3());
+  rig.applyPose('original');
+  bounds.union(rig.getBounds(new THREE.Box3()));
+  rig.applyPose(state.pose);
   const center = bounds.getCenter(new THREE.Vector3());
   const label = document.createElement('span');
   label.className = 'model-label';
@@ -349,7 +462,7 @@ async function loadModel(meta) {
   ui.labels.append(label);
   root.visible = false;
   scene.add(root);
-  state.models.set(meta.id, { root, meshes, ids, meta, centerX: center.x, label });
+  state.models.set(meta.id, { root, meshes, ids, meta, rig, bounds, centerX: center.x, label });
 }
 
 async function initialize() {
@@ -405,9 +518,18 @@ async function initialize() {
     button.title = button.disabled ? 'This view requires model geometry that could not load. Reload models to retry.' : '';
   });
   document.querySelectorAll('[data-view]').forEach((button) => { button.disabled = false; });
+  document.querySelectorAll('[data-pose]').forEach((button) => { button.disabled = false; });
+  const jointIds = [...state.models.values()][0].rig.jointIds;
+  ui.jointSelect.replaceChildren(...jointIds.map((id) => new Option(jointName(id), id)));
+  ui.jointSelect.value = state.joint;
+  ui.jointSelect.disabled = false;
+  ui.showJoints.disabled = false;
+  $('view-joint').disabled = false;
+  updateJointOverlays();
   updateVisibility();
   $('retry-models').hidden = state.failures.length === 0;
   setMode(state.models.size === 2 ? 'compare' : state.models.has('female') ? 'female' : 'male');
+  setPose(state.pose);
 }
 
 ui.search.addEventListener('input', renderStructureList);
@@ -434,6 +556,16 @@ ui.resetVisibility.addEventListener('click', () => {
 });
 document.querySelectorAll('[data-mode]').forEach((button) => button.addEventListener('click', () => setMode(button.dataset.mode)));
 document.querySelectorAll('[data-view]').forEach((button) => button.addEventListener('click', () => setView(button.dataset.view)));
+document.querySelectorAll('[data-pose]').forEach((button) => button.addEventListener('click', () => setPose(button.dataset.pose)));
+ui.jointSelect.addEventListener('change', () => setJoint(ui.jointSelect.value, true));
+ui.showJoints.addEventListener('change', () => {
+  state.showJoints = ui.showJoints.checked;
+  if (state.showJoints) {
+    $('joint-inspector').open = true;
+    if (!compactInspector.matches) $('inspector').open = true;
+  }
+  updateJointOverlays();
+});
 $('retry-load').addEventListener('click', () => window.location.reload());
 $('retry-models').addEventListener('click', () => window.location.reload());
 $('clear-search').addEventListener('click', () => {
@@ -445,7 +577,7 @@ const compactInspector = window.matchMedia('(max-width: 900px)');
 const syncInspector = () => { $('inspector').open = !compactInspector.matches; };
 syncInspector();
 compactInspector.addEventListener('change', syncInspector);
-$('view-selection').addEventListener('click', () => {
+for (const id of ['view-selection', 'view-joint']) $(id).addEventListener('click', () => {
   if (!state.ready) return;
   if (compactInspector.matches) $('inspector').open = false;
   renderer.domElement.focus({ preventScroll: true });
@@ -463,6 +595,12 @@ document.querySelectorAll('a[href="#about"]').forEach((link) => link.addEventLis
 Object.defineProperty(window, '__atlas', {
   get: () => ({
     ready: state.ready, mode: state.mode, selected: state.selected,
+    pose: state.pose, selectedJoint: state.joint, showJoints: state.showJoints,
+    view: { position: camera?.position.toArray(), target: controls?.target.toArray(), zoom: camera?.zoom },
+    rigs: Object.fromEntries([...state.models].map(([id, model]) => [id, model.rig.jointIds.map((jointId) => ({
+      ...model.rig.getJoint(jointId),
+      sourcePivotM: model.rig.data.joints.find((joint) => joint.id === jointId).sourcePivotM.slice(),
+    }))])),
     loadedModels: [...state.models.keys()], hidden: [...state.hidden], isolated: state.isolated,
     structures: state.structures.size, failures: [...state.failures],
     meshes: Object.fromEntries([...state.models].map(([id, model]) => [id, model.meshes.length])),

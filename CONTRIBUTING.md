@@ -14,6 +14,8 @@ Open an [anatomical correction issue](https://github.com/latentwill/TSB-Anatomy/
 
 Do not reshape a cohort mean to match an individual reference without discussing the methodological implications. Report misleading height claims separately from mesh size errors: displayed skeletal height is not measured living stature.
 
+For landmark or pose reports, use **Standing / Original mean** and **Joint centers** to capture comparable views. Include the selected joint ID (for example `shoulder_L`), active pose, model, displayed coordinates and estimation method. The inspector's coordinate positions exclude display-centering; its XYZ triad is the node's local basis, not validated biomechanical axes. Head-fit residuals describe the fitting calculation, not landmark accuracy. The same rig evidence travels in each GLB's scene extras under `rig`; the inspector does not edit or certify it.
+
 ## Implement a correction
 
 - Fork the repository and use a focused branch; link the issue in the pull request.

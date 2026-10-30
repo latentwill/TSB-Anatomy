@@ -25,10 +25,13 @@ def main():
         if set(scene.geometry) != expected:
             raise ValueError(f'{path}: missing or renamed GLB structures')
         rig = next(m['poseRig'] for m in generation['models'] if m['id'] == model['id'])
+        if scene.metadata.get('rig') != rig:
+            raise ValueError(f'{path}: embedded rig differs from the generation report')
         reference = ROOT / rig['reference']['path']
         if hashlib.sha256(reference.read_bytes()).hexdigest() != rig['reference']['sha256']:
             raise ValueError(f'{reference}: source-pose reference changed')
         worlds = {'world': np.eye(4)}
+        rest_worlds = {'world': np.eye(4)}
         attachments = {}
         parents = {child: parent for parent, child, _ in scene.graph.to_edgelist()}
         for joint in rig['joints']:
@@ -38,11 +41,14 @@ def main():
             np.testing.assert_allclose(rotation.T @ rotation, np.eye(3), atol=1e-12)
             np.testing.assert_allclose(np.linalg.det(rotation), 1, atol=1e-12)
             worlds[joint['id']] = worlds[joint['parent']] @ local
+            rest_worlds[joint['id']] = rest_worlds[joint['parent']] @ np.array(joint['restLocalMatrix'])
+            np.testing.assert_allclose(rest_worlds[joint['id']][:3, 3], joint['sourcePivotM'], atol=1e-12)
             if parents[joint['id']] != joint['parent']:
                 raise ValueError(f"{joint['id']}: incorrect joint parent")
             np.testing.assert_allclose(scene.graph[joint['id']][0], worlds[joint['id']], atol=1e-12)
             for name in joint['structures']:
                 attachments[name] = joint
+        original_pose_error = 0.
         with np.load(ROOT / 'data/derived' / (model['id'] + '.npz')) as master:
             for name, mesh in scene.geometry.items():
                 if not np.isfinite(mesh.vertices).all():
@@ -53,6 +59,11 @@ def main():
                     raise ValueError(f'{name}: incorrect rigid attachment')
                 np.testing.assert_allclose(mesh.vertices + pivot, master[name + '_vertices'], atol=1e-7, rtol=0)
                 np.testing.assert_array_equal(mesh.faces, master[name + '_faces'])
+                parent = joint['id'] if joint else 'world'
+                bone_local = scene.graph.get(frame_to=name, frame_from=parent)[0]
+                restored = trimesh.transform_points(mesh.vertices, rest_worlds[parent] @ bone_local)
+                np.testing.assert_allclose(restored, master[name + '_vertices'], atol=1e-7, rtol=0)
+                original_pose_error = max(original_pose_error, float(np.abs(restored - master[name + '_vertices']).max()))
         bones = {name: trimesh.transform_points(mesh.vertices, scene.graph[name][0]) for name, mesh in scene.geometry.items()}
         np.testing.assert_allclose(bones['Head'][:, 1].max(), manifest['normalization']['targetHeightM'], atol=1e-6)
         if min(points[:, 1].min() for points in bones.values()) < -1e-6:
@@ -76,7 +87,8 @@ def main():
                        'vertices': sum(len(mesh.vertices) for mesh in scene.geometry.values()),
                        'triangles': sum(len(mesh.faces) for mesh in scene.geometry.values()), 'supportGapsMm': contacts,
                        'boundsM': scene.bounds.tolist(), 'sha256': model['sha256'], 'rigJoints': len(rig['joints']),
-                       'pose': manifest['pose']['label'], 'referenceSha256': rig['reference']['sha256']})
+                       'pose': manifest['pose']['label'], 'referenceSha256': rig['reference']['sha256'],
+                       'originalPoseMaxErrorM': original_pose_error, 'embeddedRig': True})
     print(json.dumps({'verified': report}, indent=2))
 
 

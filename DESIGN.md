@@ -38,9 +38,9 @@ Public Sans Variable remains bundled locally from its npm font package (`--keep 
 
 ```text
 Identity / Skeleton atlas                       Sources & limitations
-Structure search | Female / Male / Compare          Skeletal extent
+Joint landmarks  | Female / Male / Compare          Skeletal extent
+Structure search | Standing / Original mean · Joint centers
 Named bone list  | Manifest subject counts / source evidence
-                 |                                              
 Selected bone    |       Two real skeletons, one camera           
 Visibility       |                                              
 Source caveat    | Front / Back / Side / Reset      Input guidance
@@ -48,13 +48,15 @@ Source caveat    | Front / Back / Side / Reset      Input guidance
 Limitations summary                 Expandable method and provenance
 ```
 
-Desktop grid arithmetic: 264px palette + flexible sheet + 8px outer inset = window width; at 1440px the sheet is 1168px wide. The header is 48px and shares the frame ground without a dividing rule. Sheet internals use a 24px alignment gutter. The camera controls sit outside the viewport rather than occluding feet. At 900px and below the inspector becomes an inline native disclosure above the full-width viewer; it starts closed and its summary names the selected bone. Search, selection and visibility remain available without a modal. An explicit “View selected bone” action returns focus to the canvas and closes the mobile inspector.
+Desktop grid arithmetic: 264px palette + flexible sheet + 8px outer inset = window width; at 1440px the sheet is 1168px wide. The header is 48px and shares the frame ground without a dividing rule. Sheet internals use a 24px alignment gutter. The camera controls sit outside the viewport rather than occluding feet. The desktop sidebar scrolls independently; opening long joint evidence does not resize the canvas. At 900px and below the inspector becomes an inline native disclosure above the full-width viewer and starts closed. Explicit “View selected bone” and “View selected joint” actions return focus to the canvas and close the mobile inspector. Enabling joint centers alone leaves that mobile disclosure closed.
 
 ## Interaction
 
 Selecting a name or mesh colors the corresponding structure in every loaded example. Comparison uses two independent scissored viewports with one orthographic camera: rotation and zoom are shared, but neither skeleton can occlude the other in side views. Labels remain over their own viewport, and picking is mapped into the clicked viewport. Front faces anterior +Z; back looks from −Z; side looks from +X. Changing displayed examples reframes them; hiding and isolating bones preserve the camera. Show all structures restores visibility without discarding selection.
 
 The default/reset camera remains slightly elevated. The user requested standing skeletons on nothing: the slate background is uninterrupted, with no earth plane, ground outline or cast shadows. Exact front/back/side views remain orthographic. The generated models still align heels and forefeet to the invisible Y=0 support reference; removing presentation geometry does not change anatomy or pose.
+
+Standing / Original mean switches all 15 saved node matrices, including the stance root. Bone-only bounds are cached across both poses so the switch preserves framing, camera and visibility. Joint centers start off; when enabled, 14 depth-independent markers remain visible inside bones, and a single local XYZ triad follows the selected node in both examples. The native joint selector is the keyboard alternative to marker picking. The read-only disclosure shows current model coordinates, parent, estimation method, applicable head-fit residuals and direct attachments. Model coordinates exclude display-centering, and neither local axes nor fit residuals are presented as validated biomechanics or accuracy.
 
 Pointer drag orbits; scroll or pinch zooms; OrbitControls supports pan. With canvas focus, arrow keys orbit, plus/minus zoom, and Home restores the front view. The searchable native selector is the equivalent non-pointer path to selecting geometry. Rendering is requested only for changes, loads, resize, or input; there is no continuous idle animation.
 
@@ -66,7 +68,7 @@ Bone materials render both sides of source faces so known upstream winding defec
 
 ## Ownership and inspection
 
-Implementation lives in index.html, src/main.js, and src/style.css. Data generation, licensing prose, and scientific assessment are separate concerns. Production-build browser checks covered the actual generated assets; the scope is interface behavior and geometry-file integrity, not anatomical or clinical validation.
+Implementation lives in index.html, src/main.js, src/rig-view.js, and src/style.css. Data generation, licensing prose, and scientific assessment are separate concerns. Production-build browser checks covered the actual generated assets; the scope is interface behavior and geometry-file integrity, not anatomical or clinical validation.
 
 ## Taste workflow provenance
 
@@ -86,7 +88,7 @@ The sheet is recorded in `.taste-skill/direction.json`. The builder pattern supp
 
 Production inspection: `node .scratch/taste-skill/skills/taste-skill/scripts/inspect.mjs --app http://127.0.0.1:5183/`. Final measured result: **0 failures, 0 warnings** at 1440px, 768px and 390px. Reports and screenshot sheets are retained in `.taste-skill/inspect/`. The earlier dev-server warning was resolved by inspecting the built preview. Vite still reports its standard >500 kB chunk advisory for the Three.js bundle; it was not suppressed.
 
-An additional static Impeccable detector reported a flat-type warning using 16px for every role. The actual browser measurements are 20px product title and 14px body; this warning is not representative of the loaded CSS. The app deliberately avoids a marketing-scale heading.
+An additional static Impeccable detector reported a flat-type warning using 16px for every role. Computed browser styles show a 20px product title and 16px body base; controls and supporting metadata use the existing 14px and 12px roles. The warning does not represent the loaded hierarchy. The app deliberately avoids a marketing-scale heading.
 
 Browser smoke: both models load with 182 meshes and no runtime errors; both viewport picking paths select the skull; search, empty search/clear, shared selection, hide (181 visible), isolate (1 visible), restore (182 visible), female/male modes, front/back/side/reset, keyboard orbit/zoom, and mobile inspector return were exercised. A deliberately failed male GLB request leaves the female model usable, disables male/comparison modes and exposes reload. At 390px there is no horizontal document overflow.
 
@@ -112,4 +114,4 @@ Top three observed problems and resolutions:
 
 Remaining tradeoff: both detailed GLBs load initially (about 42 MB total); physical low-end mobile performance is not claimed. Shadow-map rendering was removed with the earth plane. The estimated standing pose, shoulder-girdle/lower-limb articulation and source-pose references are unchanged; known mesh defects and unvalidated biomechanics remain explicit limitations.
 
-Production-browser inspection confirmed the floor-free default and side views, preserved foot alignment, 182 meshes per model, and isolate/restore behavior without runtime errors. The source detector found no issues. These checks establish presentation and interaction, not clinical correctness.
+The joint-inspector production smoke confirmed source/standing restoration, shared marker/selector selection, single/compare coordinate rows, preserved camera and hidden bones, mobile return-to-view, and single-model recovery. Opening the desktop inspector leaves the canvas at the same measured height; no floor or cast shadows return. A static heading-order finding caused by moving joint inspection above the bone index was corrected by making the selected-joint heading level two. These checks establish presentation and interaction, not clinical correctness.

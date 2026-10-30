@@ -1,6 +1,6 @@
 {
  "url": "http://127.0.0.1:5183/",
- "at": "2026-10-30T02:42:53.167Z",
+ "at": "2026-10-30T03:36:33.416Z",
  "allow": [],
  "viewports": [
   {
@@ -9,8 +9,8 @@
    "load": "load",
    "screens": 2,
    "filled": [
-    0.78,
-    0.83
+    0.93,
+    0.93
    ],
    "motion": {
     "elements": 0,
@@ -26,9 +26,9 @@
      "h": 900
     },
     "page": {
-     "height": 969,
+     "height": 1012,
      "screens": 1.1,
-     "words": 807,
+     "words": 845,
      "img": 0,
      "video": 0,
      "canvas": 1,
@@ -88,9 +88,14 @@
        "family": "Public Sans Variable",
        "share": 1,
        "mono": false
+      },
+      {
+       "family": "monospace",
+       "share": 0,
+       "mono": false
       }
      ],
-     "familyCount": 1,
+     "familyCount": 2,
      "sizes": [
       12,
       14,
@@ -116,14 +121,16 @@
      },
      "monoShare": 0,
      "monoProseShare": 0,
-     "monoFamilies": [],
+     "monoFamilies": [
+      "monospace"
+     ],
      "monoSamples": [],
      "microLabels": 0,
      "microLabelShare": 0,
      "microSamples": [],
      "upperShare": 0,
      "centerShare": 0.02,
-     "smallText": 18
+     "smallText": 35
     },
     "eyebrows": [],
     "numbered": [],
@@ -147,7 +154,7 @@
       },
       {
        "color": "#e5ebef",
-       "top": 144,
+       "top": 196,
        "hsl": {
         "h": 204,
         "s": 0.24,
@@ -158,11 +165,23 @@
      "textColors": [
       {
        "color": "#263b46",
-       "share": 0.8
+       "share": 0.74
       },
       {
        "color": "#526872",
-       "share": 0.2
+       "share": 0.26
+      },
+      {
+       "color": "#a33f3f",
+       "share": 0
+      },
+      {
+       "color": "#367447",
+       "share": 0
+      },
+      {
+       "color": "#3268a8",
+       "share": 0
       }
      ],
      "button": {
@@ -172,13 +191,13 @@
        "s": 0.18,
        "l": 0.97
       },
-      "fg": "#526872"
+      "fg": "#263b46"
      },
      "lowContrast": []
     },
     "buttons": {
-     "count": 5,
-     "inHero": 5,
+     "count": 7,
+     "inHero": 7,
      "radius": 6,
      "height": 36,
      "withShadow": 0,
@@ -187,10 +206,10 @@
      "upper": 0,
      "heroLabels": [
       "Skip to structure search",
+      "Standing",
+      "Original mean",
       "Reset view",
-      "Hide bone",
-      "Isolate bone",
-      "Show all structures"
+      "Hide bone"
      ]
     },
     "surfaces": {
@@ -220,7 +239,7 @@
     "heroMedia": [
      {
       "type": "canvas",
-      "ratio": 0.54
+      "ratio": 0.52
      }
     ],
     "nav": {
@@ -239,7 +258,7 @@
      "w": 1440,
      "h": 900
     },
-    "pageH": 969,
+    "pageH": 1012,
     "margins": {
      "left": 20,
      "right": 28
@@ -249,12 +268,12 @@
       "sel": "main.atlas",
       "tag": "main",
       "top": 48,
-      "height": 801,
-      "words": 142,
+      "height": 844,
+      "words": 316,
       "media": 1,
       "middle": 21,
       "heading": {
-       "text": "Structures",
+       "text": "Left shoulder center",
        "size": 16,
        "tag": "h2"
       },
@@ -271,7 +290,7 @@
      {
       "sel": "section#about.about",
       "tag": "section",
-      "top": 849,
+      "top": 892,
       "height": 120,
       "words": 49,
       "media": 0,
@@ -304,29 +323,29 @@
     "edgeText": [],
     "edges": [
      {
-      "x": 669,
-      "n": 5
+      "x": 20,
+      "n": 6
      },
      {
-      "x": 20,
-      "n": 4
+      "x": 669,
+      "n": 5
      },
      {
       "x": 60,
       "n": 1
      }
     ],
-    "leftBlocks": 10,
+    "leftBlocks": 12,
     "bodySize": 14,
     "stage": false,
     "explains": false,
     "slivers": [],
-    "voidShare": 0.02,
+    "voidShare": 0.03,
     "voidBox": {
-     "x": 960,
-     "y": 840,
-     "w": 480,
-     "h": 60
+     "x": 780,
+     "y": 780,
+     "w": 360,
+     "h": 120
     }
    },
    "app": {
@@ -339,7 +358,7 @@
     "sidebar": {
      "w": 264,
      "tag": "aside",
-     "links": 6,
+     "links": 7,
      "share": 0.18
     },
     "topbar": {
@@ -412,13 +431,13 @@
      "kpiMax": null
     },
     "rows": {
-     "count": 2,
-     "median": 39
+     "count": 4,
+     "median": 53
     },
     "chartHues": 0,
     "placeholders": [],
     "type": {
-     "under13": 0.09,
+     "under13": 0.19,
      "tiny": 0,
      "tinySamples": [],
      "sizes": [
@@ -441,9 +460,10 @@
    "width": 768,
    "height": 1024,
    "load": "load",
-   "screens": 1,
+   "screens": 2,
    "filled": [
-    0.9
+    0.88,
+    0.86
    ],
    "motion": {
     "elements": 0,
@@ -459,9 +479,9 @@
      "h": 1024
     },
     "page": {
-     "height": 1024,
+     "height": 1068,
      "screens": 1,
-     "words": 120,
+     "words": 157,
      "img": 0,
      "video": 0,
      "canvas": 1,
@@ -521,9 +541,14 @@
        "family": "Public Sans Variable",
        "share": 1,
        "mono": false
+      },
+      {
+       "family": "monospace",
+       "share": 0,
+       "mono": false
       }
      ],
-     "familyCount": 1,
+     "familyCount": 2,
      "sizes": [
       12,
       14,
@@ -549,14 +574,16 @@
      },
      "monoShare": 0,
      "monoProseShare": 0,
-     "monoFamilies": [],
+     "monoFamilies": [
+      "monospace"
+     ],
      "monoSamples": [],
      "microLabels": 0,
      "microLabelShare": 0,
      "microSamples": [],
      "upperShare": 0,
      "centerShare": 0.02,
-     "smallText": 18
+     "smallText": 36
     },
     "eyebrows": [],
     "numbered": [],
@@ -580,7 +607,7 @@
       },
       {
        "color": "#e5ebef",
-       "top": 210,
+       "top": 310,
        "hsl": {
         "h": 204,
         "s": 0.24,
@@ -591,11 +618,23 @@
      "textColors": [
       {
        "color": "#263b46",
-       "share": 0.8
+       "share": 0.74
       },
       {
        "color": "#526872",
-       "share": 0.2
+       "share": 0.26
+      },
+      {
+       "color": "#a33f3f",
+       "share": 0
+      },
+      {
+       "color": "#367447",
+       "share": 0
+      },
+      {
+       "color": "#3268a8",
+       "share": 0
       }
      ],
      "button": {
@@ -605,13 +644,13 @@
        "s": 0.18,
        "l": 0.97
       },
-      "fg": "#526872"
+      "fg": "#263b46"
      },
      "lowContrast": []
     },
     "buttons": {
-     "count": 6,
-     "inHero": 6,
+     "count": 9,
+     "inHero": 9,
      "radius": 6,
      "height": 44,
      "withShadow": 0,
@@ -620,6 +659,8 @@
      "upper": 0,
      "heroLabels": [
       "Skip to structure search",
+      "Standing",
+      "Original mean",
       "Reset view"
      ]
     },
@@ -631,9 +672,10 @@
      "scrims": 0,
      "gradientSamples": [],
      "gradientText": 0,
-     "hairlines": 2,
+     "hairlines": 3,
      "hairlineSamples": [
       "div.status-strip 750px",
+      "details#joint-inspector.joint-inspector 720px",
       "section#about.about 768px"
      ],
      "outlinedBoxes": 1,
@@ -669,29 +711,29 @@
      "w": 768,
      "h": 1024
     },
-    "pageH": 1024,
+    "pageH": 1068,
     "margins": {
      "left": 24,
-     "right": 25
+     "right": 24
     },
     "sections": [
      {
       "sel": "main.atlas",
       "tag": "main",
       "top": 48,
-      "height": 758,
-      "words": 150,
+      "height": 858,
+      "words": 365,
       "media": 1,
       "middle": 0,
       "heading": {
-       "text": "Inspect a structure",
+       "text": "Left shoulder center",
        "size": 16,
        "tag": "h2"
       },
       "left": 24,
       "right": 24,
       "textLeft": 24,
-      "textRight": 33,
+      "textRight": 24,
       "fullBleed": true,
       "footer": false,
       "hero": true,
@@ -701,7 +743,7 @@
      {
       "sel": "section#about.about",
       "tag": "section",
-      "top": 806,
+      "top": 906,
       "height": 162,
       "words": 49,
       "media": 0,
@@ -739,7 +781,7 @@
      },
      {
       "x": 24,
-      "n": 2
+      "n": 4
      },
      {
       "x": 60,
@@ -750,7 +792,7 @@
       "n": 1
      }
     ],
-    "leftBlocks": 9,
+    "leftBlocks": 11,
     "bodySize": 14,
     "stage": false,
     "explains": false,
@@ -770,7 +812,7 @@
      "h": 48
     },
     "canvas": {
-     "left": 20,
+     "left": 24,
      "right": 24
     },
     "hero": {
@@ -830,13 +872,13 @@
      "kpiMax": null
     },
     "rows": {
-     "count": 2,
-     "median": 75
+     "count": 4,
+     "median": 57
     },
     "chartHues": 0,
     "placeholders": [],
     "type": {
-     "under13": 0.09,
+     "under13": 0.2,
      "tiny": 0,
      "tinySamples": [],
      "sizes": [
@@ -861,7 +903,7 @@
    "load": "load",
    "screens": 2,
    "filled": [
-    0.94,
+    0.95,
     0.79
    ],
    "motion": {
@@ -878,9 +920,9 @@
      "h": 844
     },
     "page": {
-     "height": 1140,
-     "screens": 1.4,
-     "words": 118,
+     "height": 1292,
+     "screens": 1.5,
+     "words": 155,
      "img": 0,
      "video": 0,
      "canvas": 1,
@@ -940,9 +982,14 @@
        "family": "Public Sans Variable",
        "share": 1,
        "mono": false
+      },
+      {
+       "family": "monospace",
+       "share": 0,
+       "mono": false
       }
      ],
-     "familyCount": 1,
+     "familyCount": 2,
      "sizes": [
       12,
       14,
@@ -968,14 +1015,16 @@
      },
      "monoShare": 0,
      "monoProseShare": 0,
-     "monoFamilies": [],
+     "monoFamilies": [
+      "monospace"
+     ],
      "monoSamples": [],
      "microLabels": 0,
      "microLabelShare": 0,
      "microSamples": [],
      "upperShare": 0,
      "centerShare": 0.02,
-     "smallText": 19
+     "smallText": 37
     },
     "eyebrows": [],
     "numbered": [],
@@ -999,7 +1048,7 @@
       },
       {
        "color": "#e5ebef",
-       "top": 272,
+       "top": 424,
        "hsl": {
         "h": 204,
         "s": 0.24,
@@ -1010,39 +1059,49 @@
      "textColors": [
       {
        "color": "#263b46",
-       "share": 0.8
+       "share": 0.74
       },
       {
        "color": "#526872",
-       "share": 0.2
+       "share": 0.26
+      },
+      {
+       "color": "#a33f3f",
+       "share": 0
+      },
+      {
+       "color": "#367447",
+       "share": 0
+      },
+      {
+       "color": "#3268a8",
+       "share": 0
       }
      ],
      "button": {
-      "bg": "#f5f7f8",
+      "bg": "#ffffff",
       "hsl": {
-       "h": 200,
-       "s": 0.18,
-       "l": 0.97
+       "h": 0,
+       "s": 0,
+       "l": 1
       },
       "fg": "#263b46"
      },
      "lowContrast": []
     },
     "buttons": {
-     "count": 9,
-     "inHero": 9,
+     "count": 12,
+     "inHero": 8,
      "radius": 6,
-     "height": 50,
+     "height": 44,
      "withShadow": 0,
      "withGradient": 0,
      "mono": 0,
      "upper": 0,
      "heroLabels": [
       "Skip to structure search",
-      "Front",
-      "Back",
-      "Side",
-      "Reset view"
+      "Standing",
+      "Original mean"
      ]
     },
     "surfaces": {
@@ -1053,13 +1112,13 @@
      "scrims": 0,
      "gradientSamples": [],
      "gradientText": 0,
-     "hairlines": 5,
+     "hairlines": 6,
      "hairlineSamples": [
       "section.workspace 390px",
       "div.segmented 358px",
       "div.status-strip 390px",
-      "section.selection 358px",
-      "section#about.about 390px"
+      "details#joint-inspector.joint-inspector 358px",
+      "section.selection 358px"
      ],
      "outlinedBoxes": 0,
      "dashed": 0,
@@ -1075,7 +1134,7 @@
     "heroMedia": [
      {
       "type": "canvas",
-      "ratio": 0.56
+      "ratio": 0.5
      }
     ],
     "nav": {
@@ -1094,7 +1153,7 @@
      "w": 390,
      "h": 844
     },
-    "pageH": 1140,
+    "pageH": 1292,
     "margins": {
      "left": 16,
      "right": 16
@@ -1104,12 +1163,12 @@
       "sel": "main.atlas",
       "tag": "main",
       "top": 52,
-      "height": 871,
-      "words": 150,
+      "height": 1023,
+      "words": 365,
       "media": 1,
       "middle": 0,
       "heading": {
-       "text": "Inspect a structure",
+       "text": "Left shoulder center",
        "size": 16,
        "tag": "h2"
       },
@@ -1126,7 +1185,7 @@
      {
       "sel": "section#about.about",
       "tag": "section",
-      "top": 923,
+      "top": 1075,
       "height": 217,
       "words": 33,
       "media": 0,
@@ -1160,14 +1219,14 @@
     "edges": [
      {
       "x": 16,
-      "n": 8
+      "n": 10
      },
      {
       "x": 48,
       "n": 1
      }
     ],
-    "leftBlocks": 9,
+    "leftBlocks": 11,
     "bodySize": 14,
     "stage": false,
     "explains": false,
@@ -1238,13 +1297,13 @@
      "kpiMax": null
     },
     "rows": {
-     "count": 2,
+     "count": 4,
      "median": 75
     },
     "chartHues": 0,
     "placeholders": [],
     "type": {
-     "under13": 0.1,
+     "under13": 0.2,
      "tiny": 0,
      "tinySamples": [],
      "sizes": [
