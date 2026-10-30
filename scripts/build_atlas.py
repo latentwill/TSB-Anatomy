@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter
-import hashlib
 import json
 from pathlib import Path
 import re
@@ -14,6 +13,7 @@ from scipy.io import loadmat
 import trimesh
 
 from fetch_source import digest, RECORD
+from pose_atlas import export_model, POSE, POSE_LIMITATION
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / 'data/raw' / RECORD
@@ -178,14 +178,12 @@ def build(height=1.7):
               'sourceTrianglesPerSkeleton': sum(len(f) for f in faces.values()),
               'transforms': transforms, 'models': []}
     models = []
-    material = trimesh.visual.material.PBRMaterial(name='bone', baseColorFactor=[228, 219, 201, 255], metallicFactor=0, roughnessFactor=.77)
     for sex in ('female', 'male'):
         mean = {name: total / counts[sex] for name, total in accumulators[sex].items()}
         # Averaging can shrink the extrema. One final whole-body scale restores the display height.
         low = min(v[:, 1].min() for k, v in mean.items() if k.startswith(FOOT_PREFIXES))
         span = mean['Head'][:, 1].max() - low
         final_scale = height / span
-        scene = trimesh.Scene()
         mesh_audit = []
         master = {}
         for name, vertices in mean.items():
@@ -211,31 +209,25 @@ def build(height=1.7):
                             raise ValueError(f'{sex}/{name}: averaging introduced a collapsed face; review required')
                 mesh = trimesh.Trimesh(vertices=vertices, faces=np.delete(faces[name], bad, axis=0), process=False)
                 print(f'{sex}/{name}: removed inherited zero-area faces {bad.tolist()}', flush=True)
-            mesh.visual = trimesh.visual.TextureVisuals(material=material)
-            scene.add_geometry(mesh, node_name=name, geom_name=name, metadata={'sourceStructure': name, 'license': 'CC-BY-SA-4.0'})
             master[name + '_vertices'] = vertices
             master[name + '_faces'] = mesh.faces.astype(np.int32)
             mesh_audit.append({'id': name, 'vertices': len(vertices), 'triangles': len(mesh.faces),
                                'removedInheritedZeroAreaFaces': bad.tolist(), 'sourceSubjectsCheckedForRemoval': counts[sex] if len(bad) else 0,
                                'watertight': bool(mesh.is_watertight), 'windingConsistent': bool(mesh.is_winding_consistent)})
-        scene.metadata = {'license': 'CC-BY-SA-4.0', 'source': record['doi_url'], 'reviewStatus': 'Unreviewed cohort mean'}
-        path = OUTPUT / f'{sex}.glb'
-        scene.export(path, file_type='glb')
         # Float64 reference means retain vertices; any zero-area face removal is audited.
         master_dir = ROOT / 'data/derived'
         master_dir.mkdir(parents=True, exist_ok=True)
         np.savez_compressed(master_dir / f'{sex}.npz', **master)
-        bounds = scene.bounds
+        exported = export_model(sex, mean, {name: master[name + '_faces'] for name in names}, record['doi_url'])
         models.append({'id': sex, 'label': sex.capitalize() + ' cohort mean', 'url': f'models/{sex}.glb',
                        'subjects': counts[sex], 'structures': len(names), 'heightM': height,
-                       'reviewStatus': 'Unreviewed cohort mean', 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()})
-        report['models'].append({'id': sex, 'finalScale': float(final_scale), 'boundsM': bounds.tolist(),
-                                 'glbBytes': path.stat().st_size, 'meshAudit': mesh_audit})
+                       'reviewStatus': 'Unreviewed cohort mean', 'sha256': exported.pop('sha256')})
+        report['models'].append({'id': sex, 'finalScale': float(final_scale), 'meshAudit': mesh_audit, **exported})
     limitations = [
         'Unreviewed cohort means, not clinically validated or population-representative reference anatomy.',
         'Source-recorded sex groups; not an inference of gender identity.',
         'A common skull-to-foot skeletal extent is not measured living stature. No soft-tissue height is modeled.',
-        'Whole-body rigid orientation and uniform scaling only. Joint posture differences remain and can blur or distort cohort means.',
+        POSE_LIMITATION,
         'Vertex counts and connectivity are checked; anatomical correspondence is supplied by OpenSkeleton, not independently validated here.',
         'Skull is a combined source structure. No separately selectable skull bones, teeth, auditory ossicles, hyoid or coccyx are identified in the inventory.',
         'Exactly zero-area faces are removed only if zero in every contributing source mesh; their source indices are recorded. Other defects, inter-bone intersections and joint congruence require review.',
@@ -247,7 +239,7 @@ def build(height=1.7):
                 'method': 'Equal-weight arithmetic mean of corresponding vertices from 51 subjects per source-recorded sex. Each skeleton is rigidly oriented and uniformly height-normalized before averaging; a final uniform scale restores the common extent. No smoothing or decimation.',
                 'normalization': {'targetHeightM': height, 'kind': 'Skull-to-foot skeletal extent',
                                   'note': f'Both means have {height:.2f} m skull-to-foot skeletal extent. This is a display normalization, not living stature.'},
-                'coordinates': {'units': 'meters', 'x': 'anatomical left', 'y': 'superior', 'z': 'anterior'},
+                'coordinates': {'units': 'meters', 'x': 'anatomical left', 'y': 'superior', 'z': 'anterior'}, 'pose': POSE,
                 'models': models, 'structures': structures, 'limitations': limitations}
     (OUTPUT / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
     (ROOT / 'reports').mkdir(exist_ok=True)

@@ -27,7 +27,7 @@
       "structures": 182,
       "heightM": 1.7,
       "reviewStatus": "Unreviewed cohort mean",
-      "sha256": "44162303b8f5cde737104ed16e65f99e3e9e68f61c14ecf983d703bf1748f77f"
+      "sha256": "25dc8469abfe71f252d10126ed5678d8e3189603e304d86932b2775ee04a3f13"
     },
     {
       "id": "male",
@@ -37,7 +37,7 @@
       "structures": 182,
       "heightM": 1.7,
       "reviewStatus": "Unreviewed cohort mean",
-      "sha256": "f2d6e590c88c156536037b98e6f8fe3e700e9eec8412ceb674af5b7c924e9e7e"
+      "sha256": "67bae76a4b5ccd2d4be5baddc75bcdfcea8caa36c602bb157593d0176e2126da"
     }
   ],
   "structures": [
@@ -956,7 +956,7 @@
     "Unreviewed cohort means, not clinically validated or population-representative reference anatomy.",
     "Source-recorded sex groups; not an inference of gender identity.",
     "A common skull-to-foot skeletal extent is not measured living stature. No soft-tissue height is modeled.",
-    "Whole-body rigid orientation and uniform scaling only. Joint posture differences remain and can blur or distort cohort means.",
+    "Cohort averaging uses whole-body orientation and uniform scale, not per-subject joint-pose normalization. Post-average arm articulation cannot undo pose-blurred means. Estimated pivots, joint congruence and intersections require anatomical review; the shoulder girdle and finger posture are unchanged.",
     "Vertex counts and connectivity are checked; anatomical correspondence is supplied by OpenSkeleton, not independently validated here.",
     "Skull is a combined source structure. No separately selectable skull bones, teeth, auditory ossicles, hyoid or coccyx are identified in the inventory.",
     "Exactly zero-area faces are removed only if zero in every contributing source mesh; their source indices are recorded. Other defects, inter-bone intersections and joint congruence require review.",
@@ -965,5 +965,11 @@
     "Female mesh audit: inconsistent face winding \u2014 Femur_L, Femur_R. Double-sided viewing does not repair these defects.",
     "Male mesh audit: not watertight \u2014 HandScaphoid_L, HandScaphoid_R, Head, Sacrum.",
     "Male mesh audit: inconsistent face winding \u2014 Femur_L, Femur_R. Double-sided viewing does not repair these defects."
-  ]
+  ],
+  "pose": {
+    "id": "relaxed-standing",
+    "label": "Arms at sides",
+    "description": "Post-average rigid arm articulation: 8\u00b0 shoulder abduction and 5\u00b0 elbow flexion, with hands following the forearms. The source-pose float64 means are preserved unchanged. Joint centers are surface estimates, not validated anatomical landmarks.",
+    "rig": "Rigid shoulder \u2192 elbow \u2192 wrist nodes on each side; no skinning, IK, joint limits or animation clips. Other structures retain their source-derived posture."
+  }
 }

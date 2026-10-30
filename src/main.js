@@ -300,7 +300,7 @@ function populateProvenance(manifest) {
   source.rel = 'noreferrer';
   $('source-note').replaceChildren('Source: ', source, `. Upstream license: ${manifest.source.license}.`);
   $('model-license').textContent = manifest.license;
-  $('method-note').textContent = `Method: ${manifest.method}`;
+  $('method-note').textContent = `Method: ${manifest.method} Pose: ${manifest.pose.description} ${manifest.pose.rig}`;
   $('normalization-note').textContent = manifest.normalization.note;
   $('height-note').textContent = `${number.format(manifest.normalization.targetHeightM)} m target skeletal height · not living stature`;
   $('cohort-note').textContent = `${manifest.models.map((model) => `${model.label}: ${number.format(model.subjects)} subjects`).join('; ')}. Source: ${manifest.source.title}.`;

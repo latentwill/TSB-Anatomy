@@ -2973,17 +2973,17 @@
       "finalScale": 1.003919858134504,
       "boundsM": [
         [
-          -0.18698415909113394,
+          -0.2238224257681395,
           0.0,
           -0.12938275854268252
         ],
         [
-          0.1794883093173949,
+          0.2340604634316152,
           1.7,
-          0.18111709045640834
+          0.08399303340289324
         ]
       ],
-      "glbBytes": 20963064,
+      "glbBytes": 20965664,
       "meshAudit": [
         {
           "id": "C1",
@@ -4625,24 +4625,489 @@
           "watertight": true,
           "windingConsistent": true
         }
-      ]
+      ],
+      "poseRig": {
+        "pose": "relaxed-standing",
+        "shoulderAbductionDeg": 8.0,
+        "elbowFlexionDeg": 5.0,
+        "reviewStatus": "Estimated display rig, not anatomically validated",
+        "joints": [
+          {
+            "id": "shoulder_L",
+            "parent": "world",
+            "sourcePivotM": [
+              0.1493001733248387,
+              1.4498306914201453,
+              -0.02154869498034876
+            ],
+            "restLocalMatrix": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.1493001733248387
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                1.4498306914201453
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                -0.02154869498034876
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "localMatrix": [
+              [
+                0.2067660678136354,
+                0.4485433367934404,
+                0.8695151914826409,
+                0.1493001733248387
+              ],
+              [
+                -0.03858877946495813,
+                0.8917672508356788,
+                -0.4508459564378728,
+                1.4498306914201453
+              ],
+              [
+                -0.9776291215488069,
+                0.05966611563678205,
+                0.2016959477642677,
+                -0.02154869498034876
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "structures": [
+              "Humerus_L"
+            ]
+          },
+          {
+            "id": "elbow_L",
+            "parent": "shoulder_L",
+            "sourcePivotM": [
+              0.16599283356145447,
+              1.2453351485281208,
+              0.11985566038216462
+            ],
+            "restLocalMatrix": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.01669266023661578
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                -0.20449554289202454
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.1414043553625134
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "localMatrix": [
+              [
+                -0.020487864000216793,
+                -0.6763194188248346,
+                0.7363234962631213,
+                0.01669266023661578
+              ],
+              [
+                0.9171505456406214,
+                0.28047642207261025,
+                0.28313928249619025,
+                -0.20449554289202454
+              ],
+              [
+                -0.3980139747041794,
+                0.6811204154786326,
+                0.6145403612118538,
+                0.1414043553625134
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "structures": [
+              "Radius_L",
+              "Ulna_L"
+            ]
+          },
+          {
+            "id": "wrist_L",
+            "parent": "elbow_L",
+            "sourcePivotM": [
+              -0.05823560714589969,
+              1.287044097879109,
+              0.14616721045280606
+            ],
+            "restLocalMatrix": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                -0.22422844070735415
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.04170894935098812
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.02631155007064144
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "localMatrix": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                -0.22422844070735415
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.04170894935098812
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.02631155007064144
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "structures": [
+              "HandCapitatum_L",
+              "HandDistP1_L",
+              "HandDistP2_L",
+              "HandDistP3_L",
+              "HandDistP4_L",
+              "HandDistP5_L",
+              "HandHamata_L",
+              "HandLuna_L",
+              "HandMeta1_L",
+              "HandMeta2_L",
+              "HandMeta3_L",
+              "HandMeta4_L",
+              "HandMeta5_L",
+              "HandMidP2_L",
+              "HandMidP3_L",
+              "HandMidP4_L",
+              "HandMidP5_L",
+              "HandPisiform_L",
+              "HandProxP1_L",
+              "HandProxP2_L",
+              "HandProxP3_L",
+              "HandProxP4_L",
+              "HandProxP5_L",
+              "HandScaphoid_L",
+              "HandTrapezium_L",
+              "HandTrapezoideum_L",
+              "HandTriquetrum_L"
+            ]
+          },
+          {
+            "id": "shoulder_R",
+            "parent": "world",
+            "sourcePivotM": [
+              -0.13969543776043292,
+              1.4489360118228272,
+              -0.024050950016276114
+            ],
+            "restLocalMatrix": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                -0.13969543776043292
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                1.4489360118228272
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                -0.024050950016276114
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "localMatrix": [
+              [
+                0.23332381048005527,
+                -0.4233935812376674,
+                -0.8753844154597512,
+                -0.13969543776043292
+              ],
+              [
+                0.1065430331870288,
+                0.9059428124557746,
+                -0.40977579557488397,
+                1.4489360118228272
+              ],
+              [
+                0.9665446609145254,
+                0.002344339238292022,
+                0.2564876654561791,
+                -0.024050950016276114
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "structures": [
+              "Humerus_R"
+            ]
+          },
+          {
+            "id": "elbow_R",
+            "parent": "shoulder_R",
+            "sourcePivotM": [
+              -0.17429371920300177,
+              1.238756096511487,
+              0.10824982619198889
+            ],
+            "restLocalMatrix": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                -0.03459828144256885
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                -0.21017991531134017
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.132300776208265
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "localMatrix": [
+              [
+                0.056078171811227984,
+                0.6930305204674189,
+                -0.7187238248082284,
+                -0.03459828144256885
+              ],
+              [
+                -0.9265629162394783,
+                0.30428601802998423,
+                0.22111350361578982,
+                -0.21017991531134017
+              ],
+              [
+                0.3719360172074011,
+                0.6535432020395551,
+                0.6592001836860949,
+                0.132300776208265
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "structures": [
+              "Radius_R",
+              "Ulna_R"
+            ]
+          },
+          {
+            "id": "wrist_R",
+            "parent": "elbow_R",
+            "sourcePivotM": [
+              0.04746800076395456,
+              1.2540556499959794,
+              0.1571570045650975
+            ],
+            "restLocalMatrix": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.22176171996695632
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.015299553484492412
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.04890717837310862
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "localMatrix": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.22176171996695632
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.015299553484492412
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.04890717837310862
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "structures": [
+              "HandCapitatum_R",
+              "HandDistP1_R",
+              "HandDistP2_R",
+              "HandDistP3_R",
+              "HandDistP4_R",
+              "HandDistP5_R",
+              "HandHamata_R",
+              "HandLuna_R",
+              "HandMeta1_R",
+              "HandMeta2_R",
+              "HandMeta3_R",
+              "HandMeta4_R",
+              "HandMeta5_R",
+              "HandMidP2_R",
+              "HandMidP3_R",
+              "HandMidP4_R",
+              "HandMidP5_R",
+              "HandPisiform_R",
+              "HandProxP1_R",
+              "HandProxP2_R",
+              "HandProxP3_R",
+              "HandProxP4_R",
+              "HandProxP5_R",
+              "HandScaphoid_R",
+              "HandTrapezium_R",
+              "HandTrapezoideum_R",
+              "HandTriquetrum_R"
+            ]
+          }
+        ],
+        "landmarkEstimates": {
+          "L": {
+            "method": "Humeral head sphere fit to medial half of proximal 18% along PCA axis; approximate elbow pivot at distal 12% vertex centroid; wrist midpoint of lunate/scaphoid vertex centroids. Elbow axis is estimated from upper-arm and forearm directions, not epicondylar landmarks.",
+            "headRadiusM": 0.024262983147192416,
+            "headFitRmsM": 0.002157830894464426,
+            "sourceFlexionDeg": 98.59684370274107
+          },
+          "R": {
+            "method": "Humeral head sphere fit to medial half of proximal 18% along PCA axis; approximate elbow pivot at distal 12% vertex centroid; wrist midpoint of lunate/scaphoid vertex centroids. Elbow axis is estimated from upper-arm and forearm directions, not epicondylar landmarks.",
+            "headRadiusM": 0.02383746411215176,
+            "headFitRmsM": 0.002139498772154348,
+            "sourceFlexionDeg": 94.43951304484872
+          }
+        },
+        "reference": {
+          "path": "data/derived/female.npz",
+          "sha256": "5f41dcc6147a731092bddadafbfeb7b3f9c16fabbc3ec7a9e74d93c57199891a",
+          "pose": "Unchanged source-derived flexed-arm cohort mean; coordinates in meters"
+        }
+      }
     },
     {
       "id": "male",
       "finalScale": 1.0062800883407763,
       "boundsM": [
         [
-          -0.2044764673488621,
+          -0.23253779603457903,
           0.0,
           -0.1247672048317797
         ],
         [
-          0.19386007878868405,
+          0.2403244604653686,
           1.7,
-          0.2044724677124671
+          0.10829357738182437
         ]
       ],
-      "glbBytes": 20963072,
+      "glbBytes": 20965672,
       "meshAudit": [
         {
           "id": "C1",
@@ -6284,7 +6749,472 @@
           "watertight": true,
           "windingConsistent": true
         }
-      ]
+      ],
+      "poseRig": {
+        "pose": "relaxed-standing",
+        "shoulderAbductionDeg": 8.0,
+        "elbowFlexionDeg": 5.0,
+        "reviewStatus": "Estimated display rig, not anatomically validated",
+        "joints": [
+          {
+            "id": "shoulder_L",
+            "parent": "world",
+            "sourcePivotM": [
+              0.15417421171663137,
+              1.4503044439388704,
+              -0.010110815683964946
+            ],
+            "restLocalMatrix": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.15417421171663137
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                1.4503044439388704
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                -0.010110815683964946
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "localMatrix": [
+              [
+                0.22842641785443824,
+                0.395122557946927,
+                0.8897749916847894,
+                0.15417421171663137
+              ],
+              [
+                -0.06643383206498121,
+                0.9181342937651544,
+                -0.3906609329962789,
+                1.4503044439388704
+              ],
+              [
+                -0.971291880735833,
+                0.030126115146805323,
+                0.23597563349382064,
+                -0.010110815683964946
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "structures": [
+              "Humerus_L"
+            ]
+          },
+          {
+            "id": "elbow_L",
+            "parent": "shoulder_L",
+            "sourcePivotM": [
+              0.17930152992027434,
+              1.2303373718273152,
+              0.12139731097867669
+            ],
+            "restLocalMatrix": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.025127318203642973
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                -0.2199670721115552
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.13150812666264164
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "localMatrix": [
+              [
+                0.021061633545025438,
+                -0.7107513176116452,
+                0.7031279912688195,
+                0.025127318203642973
+              ],
+              [
+                0.9421252250232771,
+                0.24947978859880482,
+                0.22396404947119286,
+                -0.2199670721115552
+              ],
+              [
+                -0.33459896587893745,
+                0.6577175682570793,
+                0.6748711969248204,
+                0.13150812666264164
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "structures": [
+              "Radius_L",
+              "Ulna_L"
+            ]
+          },
+          {
+            "id": "wrist_L",
+            "parent": "elbow_L",
+            "sourcePivotM": [
+              -0.05375631274764002,
+              1.260798582969068,
+              0.16343265820305497
+            ],
+            "restLocalMatrix": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                -0.23305784266791435
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.03046121114175282
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.04203534722437828
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "localMatrix": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                -0.23305784266791435
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.03046121114175282
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.04203534722437828
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "structures": [
+              "HandCapitatum_L",
+              "HandDistP1_L",
+              "HandDistP2_L",
+              "HandDistP3_L",
+              "HandDistP4_L",
+              "HandDistP5_L",
+              "HandHamata_L",
+              "HandLuna_L",
+              "HandMeta1_L",
+              "HandMeta2_L",
+              "HandMeta3_L",
+              "HandMeta4_L",
+              "HandMeta5_L",
+              "HandMidP2_L",
+              "HandMidP3_L",
+              "HandMidP4_L",
+              "HandMidP5_L",
+              "HandPisiform_L",
+              "HandProxP1_L",
+              "HandProxP2_L",
+              "HandProxP3_L",
+              "HandProxP4_L",
+              "HandProxP5_L",
+              "HandScaphoid_L",
+              "HandTrapezium_L",
+              "HandTrapezoideum_L",
+              "HandTriquetrum_L"
+            ]
+          },
+          {
+            "id": "shoulder_R",
+            "parent": "world",
+            "sourcePivotM": [
+              -0.14391223444763365,
+              1.453033651267408,
+              -0.014178805300197628
+            ],
+            "restLocalMatrix": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                -0.14391223444763365
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                1.453033651267408
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                -0.014178805300197628
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "localMatrix": [
+              [
+                0.3475214773818214,
+                -0.3506627779182139,
+                -0.8696346583140749,
+                -0.14391223444763365
+              ],
+              [
+                0.13008703293520166,
+                0.936501796405549,
+                -0.32564052142093086,
+                1.453033651267408
+              ],
+              [
+                0.928604429571856,
+                3.8882661892601625e-05,
+                0.37107116819778196,
+                -0.014178805300197628
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "structures": [
+              "Humerus_R"
+            ]
+          },
+          {
+            "id": "elbow_R",
+            "parent": "shoulder_R",
+            "sourcePivotM": [
+              -0.18978474406319953,
+              1.2255735532017789,
+              0.10064083990589374
+            ],
+            "restLocalMatrix": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                -0.04587250961556588
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                -0.22746009806562917
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.11481964520609138
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "localMatrix": [
+              [
+                0.048930133997768854,
+                0.6484633965852226,
+                -0.7596716825551133,
+                -0.04587250961556588
+              ],
+              [
+                -0.9798733814935757,
+                0.17853777323393177,
+                0.08928840780871039,
+                -0.22746009806562917
+              ],
+              [
+                0.19353035479558706,
+                0.7400131666516654,
+                0.6441478983547712,
+                0.11481964520609138
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "structures": [
+              "Radius_R",
+              "Ulna_R"
+            ]
+          },
+          {
+            "id": "wrist_R",
+            "parent": "elbow_R",
+            "sourcePivotM": [
+              0.03855444926835647,
+              1.2576325328438702,
+              0.1731241759047899
+            ],
+            "restLocalMatrix": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.228339193331556
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.03205897964209137
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.07248333599889616
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "localMatrix": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.228339193331556
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.03205897964209137
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.07248333599889616
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "structures": [
+              "HandCapitatum_R",
+              "HandDistP1_R",
+              "HandDistP2_R",
+              "HandDistP3_R",
+              "HandDistP4_R",
+              "HandDistP5_R",
+              "HandHamata_R",
+              "HandLuna_R",
+              "HandMeta1_R",
+              "HandMeta2_R",
+              "HandMeta3_R",
+              "HandMeta4_R",
+              "HandMeta5_R",
+              "HandMidP2_R",
+              "HandMidP3_R",
+              "HandMidP4_R",
+              "HandMidP5_R",
+              "HandPisiform_R",
+              "HandProxP1_R",
+              "HandProxP2_R",
+              "HandProxP3_R",
+              "HandProxP4_R",
+              "HandProxP5_R",
+              "HandScaphoid_R",
+              "HandTrapezium_R",
+              "HandTrapezoideum_R",
+              "HandTriquetrum_R"
+            ]
+          }
+        ],
+        "landmarkEstimates": {
+          "L": {
+            "method": "Humeral head sphere fit to medial half of proximal 18% along PCA axis; approximate elbow pivot at distal 12% vertex centroid; wrist midpoint of lunate/scaphoid vertex centroids. Elbow axis is estimated from upper-arm and forearm directions, not epicondylar landmarks.",
+            "headRadiusM": 0.025478210662641686,
+            "headFitRmsM": 0.0019772213082350043,
+            "sourceFlexionDeg": 96.56400749542236
+          },
+          "R": {
+            "method": "Humeral head sphere fit to medial half of proximal 18% along PCA axis; approximate elbow pivot at distal 12% vertex centroid; wrist midpoint of lunate/scaphoid vertex centroids. Elbow axis is estimated from upper-arm and forearm directions, not epicondylar landmarks.",
+            "headRadiusM": 0.025501381837056847,
+            "headFitRmsM": 0.0018687947512617282,
+            "sourceFlexionDeg": 98.68046684284276
+          }
+        },
+        "reference": {
+          "path": "data/derived/male.npz",
+          "sha256": "fcd9a0b589562b93eb2df1667bf1d398543830d3c47eb7db30ec738493fd122d",
+          "pose": "Unchanged source-derived flexed-arm cohort mean; coordinates in meters"
+        }
+      }
     }
   ]
 }

@@ -108,4 +108,6 @@ Top three observed problems and resolutions:
 2. Model labels crowded each other at tablet width. Separate viewport-centered labels now remain distinct in the final tablet screenshot.
 3. Hiding the mobile caption's line break joined adjacent words. Explicit whitespace now preserves the sentence boundary.
 
-Remaining tradeoff: both detailed GLBs load initially (about 42 MB total); no claim of performance on physical low-end mobile hardware is made. The source's flexed-arm pose and known mesh defects remain visible scientific limitations, not styling defects to conceal.
+Remaining tradeoff: both detailed GLBs load initially (about 42 MB total); no claim of performance on physical low-end mobile hardware is made. The default models now have an estimated rigid arms-at-sides pose. Original flexed-arm means are retained as references, and known mesh defects and unvalidated joint pivots remain explicit scientific limitations.
+ 
+The production screenshots were refreshed after rigid arm articulation. Inspection still reports 0 FAIL / 0 WARN at 1440, 768 and 390 pixels. Front, side and back poses, close-up shoulder/elbow views, picking an articulated humerus, shared hide/isolate/restore, and the displayed pose provenance were checked in the browser without runtime errors. This verifies presentation and interaction, not anatomical joint congruence.

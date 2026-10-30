@@ -1,6 +1,6 @@
 {
  "url": "http://127.0.0.1:5183/",
- "at": "2026-10-29T16:19:15.640Z",
+ "at": "2026-10-30T01:40:35.546Z",
  "allow": [],
  "viewports": [
   {
@@ -158,11 +158,11 @@
      "textColors": [
       {
        "color": "#263b46",
-       "share": 0.74
+       "share": 0.78
       },
       {
        "color": "#526872",
-       "share": 0.26
+       "share": 0.22
       }
      ],
      "button": {
@@ -242,7 +242,7 @@
     "pageH": 969,
     "margins": {
      "left": 20,
-     "right": 32
+     "right": 28
     },
     "sections": [
      {
@@ -418,7 +418,7 @@
     "chartHues": 0,
     "placeholders": [],
     "type": {
-     "under13": 0.11,
+     "under13": 0.1,
      "tiny": 0,
      "tinySamples": [],
      "sizes": [
@@ -555,7 +555,7 @@
      "microLabelShare": 0,
      "microSamples": [],
      "upperShare": 0,
-     "centerShare": 0.03,
+     "centerShare": 0.02,
      "smallText": 18
     },
     "eyebrows": [],
@@ -591,11 +591,11 @@
      "textColors": [
       {
        "color": "#263b46",
-       "share": 0.73
+       "share": 0.77
       },
       {
        "color": "#526872",
-       "share": 0.27
+       "share": 0.23
       }
      ],
      "button": {
@@ -836,7 +836,7 @@
     "chartHues": 0,
     "placeholders": [],
     "type": {
-     "under13": 0.11,
+     "under13": 0.1,
      "tiny": 0,
      "tinySamples": [],
      "sizes": [
@@ -1010,11 +1010,11 @@
      "textColors": [
       {
        "color": "#263b46",
-       "share": 0.74
+       "share": 0.78
       },
       {
        "color": "#526872",
-       "share": 0.26
+       "share": 0.22
       }
      ],
      "button": {
@@ -1244,7 +1244,7 @@
     "chartHues": 0,
     "placeholders": [],
     "type": {
-     "under13": 0.11,
+     "under13": 0.1,
      "tiny": 0,
      "tinySamples": [],
      "sizes": [
